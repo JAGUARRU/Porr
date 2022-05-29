@@ -50,9 +50,9 @@ function data() {
     // Modal
     isModalOpen: false,
     trapCleanup: null,
-    openModal() {
+    openModal(name = 'model') {
       this.isModalOpen = true
-      this.trapCleanup = focusTrap(document.querySelector('#modal'))
+      this.trapCleanup = focusTrap(document.querySelector('#' + name))
     },
     closeModal() {
       this.isModalOpen = false

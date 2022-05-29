@@ -23,7 +23,6 @@
     <script src="{{asset('js/charts-lines.js')}}" defer></script>
     <script src="{{asset('js/charts-pie.js')}}" defer></script>
     <script src="{{asset('js/charts-bars.js')}}" defer></script>
-
     @livewireStyles
     <script>
         import Turbolinks from 'turbolinks';
@@ -52,5 +51,9 @@
         @livewireScripts
     </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- CUSTOM JS -->
+<script src="{{asset('js/products.js')}}" defer></script>
 
 </html>

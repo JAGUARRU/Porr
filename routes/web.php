@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RetailController;
+use App\Http\Controllers\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +35,29 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::view('modals', 'modals')->name('modals');
     Route::view('tables', 'tables')->name('tables');
     Route::view('calendar', 'calendar')->name('calendar');
+
+    Route::get('employees', [EmployeeController::class, 'index'])->name('employees');
+    Route::get('add-employee', [EmployeeController::class, 'create']);
+    Route::post('add-employee', [EmployeeController::class, 'store']);
+    Route::get('edit-employee/{emp_id}', [EmployeeController::class, 'edit']);
+    Route::put('update-employee/{emp_id}', [EmployeeController::class, 'update']);
+    Route::delete('/delete-employee/{emp_id}', [EmployeeController::class, 'destroy'])->name('delete-employee.destroy');
+
+
+    Route::get('products', [ProductController::class, 'index'])->name('products');
+    Route::get('add-product', [ProductController::class, 'create']);
+    Route::post('add-product', [ProductController::class, 'store']);
+    Route::get('edit-product/{prod_id}', [ProductController::class, 'edit']);
+    Route::put('update-product/{prod_id}', [ProductController::class, 'update']);
+    //Route::delete('delete-product/{prod_id}', [ProducttController::class, 'destroy']);
+    Route::delete('/delete-product/{prod_id}', [ProductController::class, 'destroy'])->name('delete-product.destroy');
+
+    Route::resource('categories', ProductCategoryController::class);
+
+    Route::get('retail', [RetailController::class, 'index'])->name('retail');
+    Route::get('add-retail', [RetailController::class, 'create']);
+    Route::post('add-retail', [RetailController::class, 'store']);
+    Route::get('edit-retail/{retail_id}', [RetailController::class, 'edit']);
+    Route::put('update-retail/{retail_id}', [RetailController::class, 'update']);
+    Route::delete('/delete-retail/{retail_id}', [RetailController::class, 'destroy'])->name('delete-retail.destroy');
 });
