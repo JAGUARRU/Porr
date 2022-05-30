@@ -12,10 +12,10 @@ class Truck extends Model
     public $incrementing = false;
     protected $primaryKey = 'truck_id';
 
-    protected $table = 'truck';
+    protected $table = 'trucks';
     protected $fillable = [
         'truck_id',
-        'employee_emp_id',
+        'employee_id',
         'plateNumber'
     ];
 

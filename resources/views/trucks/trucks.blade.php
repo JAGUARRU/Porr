@@ -38,7 +38,7 @@
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสรถ</th>
                                 <th class="px-4 py-3">พนักงานขับรถ</th>
-                                <th class="px-4 py-3">ร้านค้า</th>
+                                <th class="px-4 py-3">ส่งล่าสุด</th>
                                 <th class="px-4 py-3">เส้นทางรถ</th>
                                 <th class="px-4 py-3">วันที่ส่ง</th>
                                 <th class="px-4 py-3">สถานะรถ</th>
