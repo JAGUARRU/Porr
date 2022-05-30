@@ -20,10 +20,7 @@ class UserSeeder extends Seeder
     public function run()
     {
   
-       //  User::factory()->count(20)->create();
-        
         $users = User::factory()->count(5)->create([
-            'password' => Hash::make('2112125574'),
             'current_team_id' => Team::factory()->create()->id
         ]);
 
