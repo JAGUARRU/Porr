@@ -1,7 +1,7 @@
-<x-app-layout title="รถ">
+<x-app-layout title="">
     <div class="container grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            จัดการข้อมูล
+            ข้อมูล
         </h2>
 
             @if (session('status'))
@@ -11,7 +11,7 @@
             @endif
             
             <div class="flex place-content-end">
-                <a href="{{'add-truck'}}">
+                <a href="{{''}}">
                 <button class="flex items-center justify-between px-6 py-3 text-sm font-medium leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
                     <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
                         <path stroke="none" d="M0 0h24v24H0z"/>  
@@ -19,7 +19,7 @@
                             <line x1="9" y1="12" x2="15" y2="12" />  
                             <line x1="12" y1="9" x2="12" y2="15" />
                     </svg>
-                    <span class="text-base">ข้อมูลรถ</span>
+                    <span class="text-base"></span>
                 </button>
                 </a>
             </div>
@@ -36,35 +36,34 @@
                         <thead>
                             <tr
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                <th class="px-4 py-3">รหัสรถ</th>
-                                <th class="px-4 py-3">พนักงานขับรถ</th>
-                                <th class="px-4 py-3">ร้านค้า</th>
-                                <th class="px-4 py-3">เส้นทางรถ</th>
-                                <th class="px-4 py-3">วันที่ส่ง</th>
-                                <th class="px-4 py-3">สถานะรถ</th>
+                                <th class="px-4 py-3">รหัสออเดอร์</th>
+                                <th class="px-4 py-3">ชื่อ-สกุลผู้รับ</th>
+                                <th class="px-4 py-3">ที่อยู่ลูกค้า</th>
+                                <th class="px-4 py-3">เบอร์</th>
+                                <th class="px-4 py-3">รายละเอียดออเดอร์</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                           
-                            @foreach ($trucks as $truck)
+                            @foreach ($orders as $order)
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">
-                                   {{ $truck->truck_id}}
+                                    {{ $order-> }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $truck->employee ? $truck->employee->emp_firstname : 'None' }}
+                                    {{ $order-> }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    
+                                    {{ $order-> }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    
+                                    {{ $order-> }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    
+                                    {{ $order-> }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    
+                                    {{ $order-> }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
@@ -77,10 +76,10 @@
                                                     d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                                                 </path>
                                             </svg>
-                                            <a href="{{ url('edit-truck/'.$truck->truck_id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="{{ url('edit-order/'.$order->order_id) }}" class="btn btn-primary btn-sm">Edit</a>
                                         </button>
 
-                                        <form action="{{ route('delete-truck.destroy', $truck->truck_id) }}" method="POST">
+                                        <form action="{{ route('delete-order.destroy', $order->order_id) }}" method="POST">
                                             @csrf
                                             @method("DELETE")
                                             
@@ -110,7 +109,7 @@
                 <div
                     class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                     <span class="flex items-center col-span-3">
-                        Showing {{ $trucks->firstItem() }}-{{ $trucks->lastItem() }} of {{ $trucks->total() }}
+                        Showing {{ $orders->firstItem() }}-{{ $orders->lastItem() }} of {{ $orders->total() }}
                     </span>
                     <span class="col-span-2"></span>
                     <!-- Pagination -->
@@ -119,7 +118,7 @@
                             <ul class="inline-flex items-center">
                                 
                                 <li>
-                                    <a href="{{ $trucks->url( $trucks->currentPage() - 1 ) }}">
+                                    <a href="{{ $orders->url( $orders->currentPage() - 1 ) }}">
                                         <button
                                             class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                                             aria-label="Previous">
@@ -135,8 +134,8 @@
 
                                 @php
 
-                                $curPage = $trucks->currentPage();
-                                $totalPage = $trucks->lastPage();
+                                $curPage = $orders->currentPage();
+                                $totalPage = $orders->lastPage();
 
                                 $startPage = ($curPage < 5)? 1 : $curPage - 4;
                                 $endPage = 8 + $startPage;
@@ -146,11 +145,11 @@
 
                                 @endphp
 
-                                @if($trucks->total())
+                                @if($orders->total())
                                     
                                     @for ($i=$startPage; $i<=$endPage; $i++)
                                         <li>
-                                            <a href="{{ $trucks->url($i) }}">
+                                            <a href="{{ $orders->url($i) }}">
                                                 <button @class([
                                                     'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage != $i,
                                                     'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage == $i
@@ -164,7 +163,7 @@
                                 @endif
 
                                 <li>
-                                    <a href="{{ $trucks->nextPageUrl() }}">
+                                    <a href="{{ $orders->nextPageUrl() }}">
                                     <button
                                         class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
                                         aria-label="Next">

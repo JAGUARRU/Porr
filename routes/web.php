@@ -73,4 +73,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::delete('/delete-truck/{truck_id}', [TruckController::class, 'destroy'])->name('delete-truck.destroy');
 
     Route::view('truck_route', 'trucks.truck_route')->name('truck_route');
+    Route::view('orders', 'orders.create')->name('orders');
+    
 });
