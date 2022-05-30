@@ -21,6 +21,6 @@ class Truck extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'truck_emp_id_foreign', 'employee_emp_id');
+        return $this->belongsTo(Employee::class);
     }
 }

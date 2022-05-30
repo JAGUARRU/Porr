@@ -93,7 +93,7 @@
                 <div class="col-span-1">
                     <div class="">
                         <label for="text-gray-700 dark:text-gray-400">รายละเอียดสินค้า
-                            <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" value="{{ $product->detail }}" name="detail" rows="3" placeholder="รายละเอียดสินค้า"></textarea>
+                            <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" value="{{ $product->prod_detail }}" name="prod_detail" rows="3" placeholder="รายละเอียดสินค้า"></textarea>
                         </label>
                     </div>
 

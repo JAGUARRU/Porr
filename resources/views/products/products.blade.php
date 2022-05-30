@@ -40,6 +40,8 @@
                                 <th class="px-4 py-3">ชื่อสินค้า</th>
                                 <th class="px-4 py-3">ราคาสินค้า</th>
                                 <th class="px-4 py-3">ประเภทสินค้า</th>
+                                <th class="px-4 py-3">รายละเอียดสินค้า</th>
+                                <th class="px-4 py-3">สต๊อก</th>
                                 <th class="px-4 py-3">Actions</th>
                             </tr>
                         </thead>
@@ -53,11 +55,17 @@
                                 <td class="px-4 py-3 text-sm">
                                     {{ $product->prod_name}}
                                 </td>
-                                <td class="px-4 py-3 text-xs">
+                                <td class="px-4 py-3 text-sm">
                                     {{ $product->prod_price}}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ $product->prod_type_name}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->prod_detail}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->stock}}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">

@@ -52,9 +52,9 @@
                                    {{ $truck->truck_id}}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    
+                                    {{ $truck->employee ? $truck->employee->emp_firstname : 'None' }}
                                 </td>
-                                <td class="px-4 py-3 text-xs">
+                                <td class="px-4 py-3 text-sm">
                                     
                                 </td>
                                 <td class="px-4 py-3 text-sm">

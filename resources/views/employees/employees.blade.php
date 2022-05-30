@@ -55,7 +55,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     {{$employee->username}}
                                 </td>
-                                <td class="px-4 py-3 text-xs">
+                                <td class="px-4 py-3 text-sm">
                                     {{$employee->emp_firstname}}
                                 </td>
                                 <td class="px-4 py-3 text-sm">

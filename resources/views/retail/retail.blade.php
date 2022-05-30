@@ -54,7 +54,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     {{ $shop->retail_name}}
                                 </td>
-                                <td class="px-4 py-3 text-xs">
+                                <td class="px-4 py-3 text-sm">
                                     {{ $shop->retail_address}}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
