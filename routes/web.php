@@ -7,6 +7,7 @@ use App\Http\Controllers\TruckController;
 use App\Http\Controllers\TruckRouteController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\GeneratorController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 
 /*
@@ -38,6 +39,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::view('modals', 'modals')->name('modals');
     Route::view('tables', 'tables')->name('tables');
     Route::view('calendar', 'calendar')->name('calendar');
+
+    Route::get('/datepicker', [HomeController::class,'homePage']);
 
     //Route::post('save' , [GeneratorController::class, 'save'])->name('generate.save');
 
