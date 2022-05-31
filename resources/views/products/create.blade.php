@@ -14,7 +14,7 @@
             </h4>
         </div>
 
-        <form action="{{ url('add-product') }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+        <form action="{{ route('products.store') }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
             @csrf
 
             @if($errors->any())
@@ -39,12 +39,12 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div class="col-span-1">
-                    <div class="">
+                    <div>
                         <label for="text-gray-700 dark:text-gray-400">รหัสสินค้า </label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="prod_id" placeholder="ระบุรหัสสินค้า" />
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $id }}" name="id" placeholder="ระบุรหัสสินค้า" />
                     </div>
 
-                    <form action="{{ route('generate.save') }}">
+                    <div>
                         <div class="mt-4">
                             <label for="text-gray-700 dark:text-gray-400">ชื่อสินค้า</label>
                             <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="prod_name" placeholder="ระบุชื่อสินค้า" />
@@ -152,11 +152,11 @@
             <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                 เพิ่มประเภทสินค้า
             </p>
-            <!-- Modal description -->
+            <!-- Modal description 
             <div class="mt-4">
                 <label for="text-gray-700 dark:text-gray-400">รหัสประเภทสินค้า </label>
                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="id" placeholder="ระบุรหัสประเภทสินค้า" />
-            </div>
+            </div> -->
             <div class="mt-4">
                 <label for="text-gray-700 dark:text-gray-400">ชื่อประเภทสินค้า </label>
                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="name" placeholder="ระบุชื่อประเภทสินค้า" />

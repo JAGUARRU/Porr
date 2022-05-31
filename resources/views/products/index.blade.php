@@ -11,7 +11,7 @@
             @endif
             
             <div class="flex place-content-end">
-                <a href="{{'add-product'}}">
+                <a href="{{ route('products.create') }}">
                 <button class="flex items-center justify-between px-6 py-3 text-sm font-medium leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
                     <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
                         <path stroke="none" d="M0 0h24v24H0z"/>  
@@ -50,7 +50,7 @@
                             @foreach ($products as $product)
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">
-                                   {{ $product->prod_id}}
+                                   {{ $product->id}}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ $product->prod_name}}
@@ -69,6 +69,8 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
+                                        
+                                        <a href="{{ url('products/'.$product->id) }}" class="btn btn-primary btn-sm">
                                         <button
                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="Edit">
@@ -78,10 +80,11 @@
                                                     d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                                                 </path>
                                             </svg>
-                                            <a href="{{ url('edit-product/'.$product->prod_id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                            Edit
                                         </button>
+                                        </a>    
 
-                                        <form action="{{ route('delete-product.destroy', $product->prod_id) }}" method="POST">
+                                        <form action="{{ url('products/'.$product->id) }}" method="POST">
                                             @csrf
                                             @method("DELETE")
                                             
@@ -152,12 +155,10 @@
                                     @for ($i=$startPage; $i<=$endPage; $i++)
                                         <li>
                                             <a href="{{ $products->url($i) }}">
-                                                <button @class([
-                                                    'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage != $i,
-                                                    'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage == $i
-                                                ])>
-                                                    {{$i}}
-                                                </button>
+                                                @php
+                                                    if ($curPage != $i) echo '<button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                    else echo '<button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                @endphp
                                             </a>
                                         </li> 
                                     @endfor

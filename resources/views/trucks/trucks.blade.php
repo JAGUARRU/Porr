@@ -38,7 +38,7 @@
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสรถ</th>
                                 <th class="px-4 py-3">พนักงานขับรถ</th>
-                                <th class="px-4 py-3">ร้านค้า</th>
+                                <th class="px-4 py-3">ส่งล่าสุด</th>
                                 <th class="px-4 py-3">เส้นทางรถ</th>
                                 <th class="px-4 py-3">วันที่ส่ง</th>
                                 <th class="px-4 py-3">สถานะรถ</th>
@@ -151,12 +151,10 @@
                                     @for ($i=$startPage; $i<=$endPage; $i++)
                                         <li>
                                             <a href="{{ $trucks->url($i) }}">
-                                                <button @class([
-                                                    'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage != $i,
-                                                    'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage == $i
-                                                ])>
-                                                    {{$i}}
-                                                </button>
+                                                @php
+                                                    if ($curPage != $i) echo '<button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                    else echo '<button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                @endphp
                                             </a>
                                         </li> 
                                     @endfor
