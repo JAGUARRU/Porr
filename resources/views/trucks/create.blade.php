@@ -28,14 +28,42 @@
                     <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ระบุเลขทะเบียนรถ" />
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-4">
                     <label for="text-gray-700 dark:text-gray-400">คนขับ</label><!--ดึงชื่อ-สกุลจากตารางพนง.-->
                     <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ระบุชื่อพนักงาน" />
+                </div>
+
+                <div class="mt-4">
+                    <label for="text-gray-700 dark:text-gray-400">ชื่อร้านค้า</label>
+                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="" />
+                </div>
+
+                <div class="mt-4">
+                    <label for="text-gray-700 dark:text-gray-400">ที่อยู่ร้านค้า
+                        <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" rows="3" name="retail_address" placeholder="รายละเอียดที่อยู่"></textarea>
+                    </label>
                 </div>
             </div>
 
             <div class="col-span-1"> 
                 <div class="">
+                    <label for="text-gray-700 dark:text-gray-400">อำเภอ
+                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                            <option value="">- เลือก -</option>
+                            <option>อำเภอเมือง</option> <!---->
+                            <option>อำเภอวังทอง</option> 
+                            <option>อำเภอพรหมพิราม</option> <!--เหนือ, ตะวันตก-->
+                            <option>อำเภอบางระกำ</option> <!--ตะวันตก, ใต้-->
+                            <option>อำเภอบางกระทุ่ม</option> <!--ใต้-->
+                            <option>อำเภอนครไทย</option> <!--ตะวันออก-->
+                            <option>อำเภอวัดโบสถ์</option> <!--เหนือ-->
+                            <option>อำเภอชาติตระการ</option> <!--ตะวันออก, เหนือ-->
+                            <option>อำเภอเนินมะปราง</option> <!--ตะวันออก, ใต้-->
+                        </select>
+                    </label>
+                </div>
+
+                <div class="mt-4">
                     <label class="text-gray-700 dark:text-gray-400 col-span-2" name="truck_status">
                         สถานะรถ
                     </label>
