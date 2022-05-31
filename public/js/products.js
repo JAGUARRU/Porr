@@ -19,7 +19,7 @@ $(document).ready(function(){
             success:function(response)
             {
                 $(productCategory).append($('<option>', { 
-                    value: response.id,
+                    value: response.name,
                     text : response.name 
                 }));
 
