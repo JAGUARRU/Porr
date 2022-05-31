@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('prod_name');
             $table->integer('prod_price');
             $table->string('prod_type_name');
-            $table->text('prod_detail');
+            $table->text('prod_detail')->nullable();
             $table->integer('stock');
             $table->timestamps();
         });
