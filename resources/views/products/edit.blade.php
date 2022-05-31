@@ -14,7 +14,7 @@
             </h4>
         </div>
 
-        <form action="{{ url('update-product/'.$product->prod_id) }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+        <form action="{{ url('products/'.$product->id) }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
             @csrf
             @method('PUT')
 
@@ -43,7 +43,7 @@
                 <div class="col-span-1">
                     <div class="">
                         <label for="text-gray-700 dark:text-gray-400">รหัสสินค้า </label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $product->prod_id }}" name="prod_id" placeholder="ระบุรหัสสินค้า" />
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $product->id }}" name="id" placeholder="ระบุรหัสสินค้า" />
                     </div>
 
                     <div class="mt-4">
@@ -93,7 +93,7 @@
                 <div class="col-span-1">
                     <div class="">
                         <label for="text-gray-700 dark:text-gray-400">รายละเอียดสินค้า
-                            <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" value="{{ $product->prod_detail }}" name="prod_detail" rows="3" placeholder="รายละเอียดสินค้า"></textarea>
+                            <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="prod_detail" rows="3" placeholder="รายละเอียดสินค้า">{{ $product->prod_detail }}</textarea>
                         </label>
                     </div>
 

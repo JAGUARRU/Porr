@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductCategoryRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Response;
 
 class ProductCategoryController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreProductCategoryRequest $request)
     {
-        $data = $request->validate([
-            'id' => 'required',
-            'name' => 'required'
-        ]);
-
-        $productCategory = ProductCategory::create($data);
+        $productCategory = ProductCategory::create($request->validated());
 
         return Response::json($productCategory);
     }

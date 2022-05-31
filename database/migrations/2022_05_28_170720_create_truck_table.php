@@ -13,12 +13,11 @@ class CreateTruckTable extends Migration
      */
     public function up()
     {
-        Schema::create('truck', function (Blueprint $table) {
-            $table->string('truck_id')->primary();
-            $table->string('employee_emp_id', 32)->nullable();
-            $table->timestamps();
+        Schema::create('trucks', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('plate');
 
-            $table->foreign('employee_emp_id')->references('emp_id')->on('employee')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateTruckTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('truck');
+        Schema::dropIfExists('trucks');
     }
 }

@@ -9,6 +9,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Truck;
 
 class User extends Authenticatable
 {
@@ -57,4 +59,34 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::created(function (User $user) {
+            if (!$user->roles()->get()->contains(2)) {
+                $user->roles()->attach(2);
+            }
+        });
+    }
+
+    public function setPasswordAttribute($password)
+    {   
+        $this->attributes['password'] = Hash::make($password);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function positions()
+    {
+        return $this->belongsToMany(Position::class);
+    }
+
+    public function truck()
+    {
+        return $this->hasOne(Truck::class);
+    }
 }

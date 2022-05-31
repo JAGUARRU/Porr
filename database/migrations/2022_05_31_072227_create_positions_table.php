@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGenerateTable extends Migration
+class CreatePositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateGenerateTable extends Migration
      */
     public function up()
     {
-        Schema::create('generate', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +28,6 @@ class CreateGenerateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generate');
+        Schema::dropIfExists('positions');
     }
 }
