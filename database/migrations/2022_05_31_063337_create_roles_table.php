@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTruckTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTruckTable extends Migration
      */
     public function up()
     {
-        Schema::create('trucks', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('plate');
-
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateTruckTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trucks');
+        Schema::dropIfExists('roles');
     }
 }

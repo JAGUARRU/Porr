@@ -5,49 +5,54 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Redirect;
 
-class ProductController extends Controller
+class ProductsController extends Controller
 {
     public function index()
     {
         $products = Product::paginate(5);
-        return view('products.products', ["products"=>$products]);
+        return view('products.index', ["products"=>$products]);
     }
 
     public function create()
     {
+        $config = [
+            'table' => 'products',
+            'length' => 10,
+            'prefix' => 'PROD-'
+        ];
+        
+        $id = IdGenerator::generate($config);
         $categories = ProductCategory::orderBy('id','desc')->get();
-        return view('products.create')->with(compact('categories'));
+
+        return view('products.create')->with(compact('categories', 'id'));
     }
 
     public function store(Request $request)
     {
         $product = new Product;
-        $product->prod_id = $request->input('prod_id');
+        $product->id = $request->input('id');
         $product->prod_name = $request->input('prod_name');
         $product->prod_price = $request->input('prod_price');
         $product->prod_type_name = $request->input('prod_type_name');
         $product->prod_detail = $request->input('prod_detail');
         $product->stock = $request->input('stock');
         $product->save();
-
-        // return redirect()->back()->with('status','Product Added Successfully');
-
-        return Redirect::route('products')->with('status','Product Added Successfully');
+        return Redirect::route('products.index')->with('status','Product Added Successfully');
     }
 
-    public function edit($prod_id)
+    public function show($id)
     {
-        $product = Product::find($prod_id);
+        $product = Product::find($id);
         $categories = ProductCategory::orderBy('id','desc')->get();
-
         return view('products.edit', compact(['product', 'categories']));
     }
 
-    public function update(Request $request, $prod_id)
+    public function update(Request $request, $id)
     {
-        $product = Product::find($prod_id);
+        $product = Product::find($id);
         $product->prod_name = $request->input('prod_name');
         $product->prod_price = $request->input('prod_price');
         $product->prod_type_name = $request->input('prod_type_name');
@@ -55,19 +60,13 @@ class ProductController extends Controller
         $product->stock = $request->input('stock');
         $product->update();
         //return redirect()->back()->with('status','... Updated Successfully');
-        return Redirect::route('products')->with('status','... Updated Successfully');
+        return Redirect::route('products.index')->with('status','... Updated Successfully');
     }
 
-    //public function destroy($prod_id)
-    //{
-    //    $product = Product::find($prod_id);
-    //    $product->delete();
-    //    return redirect()->back()->with('status','... Deleted Successfully');
-    //}
-
-    public function destroy(Product $prod_id)
+    public function destroy($id)
     {
-        $prod_id->delete();
+        $product = Product::find($id);
+        $product->delete();
 
         return redirect()->back()->with('status','... Deleted Successfully');
     }

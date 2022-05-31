@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ProductCategory extends Model
 {
@@ -12,7 +13,14 @@ class ProductCategory extends Model
     public $incrementing = false;
     protected $table = 'product_categories';
     protected $fillable = [
-        'id',
         'name'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->id = IdGenerator::generate(['table' => 'product_categories', 'length' => 6, 'prefix' =>'C']);
+        });
+    }
 }

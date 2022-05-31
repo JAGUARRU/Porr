@@ -13,10 +13,11 @@ class CreateRetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('retail', function (Blueprint $table) {
-            $table->string('retail_id', 32)->primary();
+        Schema::create('retails', function (Blueprint $table) {
+            $table->string('id', 32)->primary();
             $table->string('retail_name');
             $table->string('retail_address');
+            $table->string('retail_province');
             $table->string('retail_district');
             $table->string('retail_sub_district');
             $table->string('retail_postcode');
@@ -33,6 +34,6 @@ class CreateRetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('retail');
+        Schema::dropIfExists('retails');
     }
 }

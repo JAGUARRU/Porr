@@ -150,12 +150,10 @@
                                     @for ($i=$startPage; $i<=$endPage; $i++)
                                         <li>
                                             <a href="{{ $orders->url($i) }}">
-                                                <button @class([
-                                                    'px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage != $i,
-                                                    'px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple' => $curPage == $i
-                                                ])>
-                                                    {{$i}}
-                                                </button>
+                                                @php
+                                                    if ($curPage != $i) echo '<button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                    else echo '<button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                @endphp
                                             </a>
                                         </li> 
                                     @endfor

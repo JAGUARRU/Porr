@@ -12,9 +12,11 @@ class TeamFactory extends Factory
 
     public function definition()
     {
+        $currentTeamId = User::count() + 1;
+
         return [
-            'user_id' => User::factory(),
-            'name' => $this->faker->name,
+            'user_id' => $currentTeamId,
+            'name' => $this->faker->name . '\'s team',
             'personal_team' => true,
         ];
     }
