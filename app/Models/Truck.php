@@ -20,7 +20,7 @@ class Truck extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->id = IdGenerator::generate(['table' => $this->table, 'length' => 6, 'prefix' =>'T']);
+            $model->id = IdGenerator::generate(['table' => 'trucks', 'length' => 6, 'prefix' =>'T']);
         });
     }
 

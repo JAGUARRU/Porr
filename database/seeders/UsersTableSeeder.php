@@ -20,17 +20,40 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
   
+        $num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
+        $num += 1;
+
+        $len = strlen($num);
+        for($i=$len; $i< 4; ++$i) {
+            $num = '0'.$num;
+        }
+        
+        $empId = 'EMP-' . $num;
+
         DB::table('users')->insert([
             'name' => 'Ak-kawit Tahae',
             'email' => 'akkawit.tah@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456')
+            'password' => Hash::make('123456'),
+            'empId' => $empId
         ]);
         
+        
+        $num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
+        $num += 1;
+
+        $len = strlen($num);
+        for($i=$len; $i< 4; ++$i) {
+            $num = '0'.$num;
+        }
+        
+        $empId = 'EMP-' . $num;
+
         DB::table('users')->insert([
             'name' => 'AvisiaGrace',
             'email' => 'garagrace@gmail.com',
-            'password' => Hash::make('123456')
+            'password' => Hash::make('123456'),
+            'empId' => $empId
         ]);
         
         /*

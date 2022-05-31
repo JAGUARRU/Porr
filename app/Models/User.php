@@ -11,6 +11,8 @@ use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Truck;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -27,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password'
     ];
 
     /**
@@ -67,6 +69,23 @@ class User extends Authenticatable
             if (!$user->roles()->get()->contains(2)) {
                 $user->roles()->attach(2);
             }
+        });
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+
+            $num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
+            $num += 1;
+
+            $len = strlen($num);
+            for($i=$len; $i< 4; ++$i) {
+                $num = '0'.$num;
+            }
+            
+            $model->empId = 'EMP-' . $num;
         });
     }
 

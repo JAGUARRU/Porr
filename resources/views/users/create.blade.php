@@ -11,6 +11,16 @@
                 <form method="post" action="{{ route('users.store') }}">
                     @csrf
                     <div class="shadow overflow-hidden sm:rounded-md">
+
+                        <div class="px-4 py-5 bg-white sm:p-6">
+                            <label for="empId" class="block font-medium text-sm text-gray-700">EMPLOYEE ID</label>
+                            <input type="text" name="empId" id="empId" class="form-input rounded-md shadow-sm mt-1 block w-full"
+                                   value="{{ old('empId', $empId) }}" />
+                            @error('empId')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        
                         <div class="px-4 py-5 bg-white sm:p-6">
                             <label for="name" class="block font-medium text-sm text-gray-700">Name</label>
                             <input type="text" name="name" id="name" class="form-input rounded-md shadow-sm mt-1 block w-full"
