@@ -76,13 +76,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::delete('/delete-truck/{truck_id}', [TruckController::class, 'destroy'])->name('delete-truck.destroy');
 
     Route::view('truck_route', 'trucks.truck_route')->name('truck_route');
-
-    Route::get('/tambon', function () {
-        $provinces = Tambon::select('province')->distinct()->get();
-        $amphoes = Tambon::select('amphoe')->distinct()->get();
-        $tambons = Tambon::select('tambon')->distinct()->get();
-        return view("tambon/index", compact('provinces','amphoes','tambons'));
-    });
 });
 
 Route::group(['middleware' => 'auth'], function () {
