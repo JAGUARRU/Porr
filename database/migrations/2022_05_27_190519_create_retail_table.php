@@ -14,7 +14,7 @@ class CreateRetailTable extends Migration
     public function up()
     {
         Schema::create('retails', function (Blueprint $table) {
-            $table->string('id', 32)->primary();
+            $table->string('id')->primary();
             $table->string('retail_name');
             $table->string('retail_address');
             $table->string('retail_province');

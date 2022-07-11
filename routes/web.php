@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TruckController;
 use App\Http\Controllers\TruckRouteController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\GeneratorController;
@@ -68,14 +67,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::put('update-retail/{id}', [RetailController::class, 'update']);
     Route::delete('/delete-retail/{id}', [RetailController::class, 'destroy'])->name('delete-retail.destroy');*/
 
-    Route::get('truck', [TruckController::class, 'index'])->name('truck');
+    /*Route::get('truck', [TruckController::class, 'index'])->name('truck');
     Route::get('add-truck', [TruckController::class, 'create']);
     Route::post('add-truck', [TruckController::class, 'store']);
     Route::get('edit-truck/{truck_id}', [TruckController::class, 'edit']);
     Route::put('update-truck/{truck_id}', [TruckController::class, 'update']);
-    Route::delete('/delete-truck/{truck_id}', [TruckController::class, 'destroy'])->name('delete-truck.destroy');
-
-    Route::view('truck_route', 'trucks.truck_route')->name('truck_route');
+    Route::delete('/delete-truck/{truck_id}', [TruckController::class, 'destroy'])->name('delete-truck.destroy');*/
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -83,4 +80,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('retails', \App\Http\Controllers\RetailsController::class);
     Route::resource('products', \App\Http\Controllers\ProductsController::class);
+    Route::resource('trucks', \App\Http\Controllers\TrucksController::class);
+
+    Route::resource('orders', \App\Http\Controllers\OrdersController::class);
+
+    Route::get('/orders/{search}','OrdersController@search');
 });

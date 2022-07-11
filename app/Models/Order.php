@@ -1,32 +1,26 @@
 <?php
 
 namespace App\Models;
-use App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
-class Truck extends Model
+class Order extends Model
 {
     use HasFactory;
+
     public $incrementing = false;
-    protected $table = 'trucks';
+    protected $table = 'orders';
     protected $fillable = [
-        'plateNumber',
-        'status'
+
     ];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->id = IdGenerator::generate(['table' => 'trucks', 'length' => 6, 'prefix' =>'T-']);
+            $model->id = IdGenerator::generate(['table' => 'orders', 'length' => 10, 'prefix' =>'ORDER-']);
         });
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

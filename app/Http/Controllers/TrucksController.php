@@ -1,21 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\Truck;
 use Illuminate\Http\Request;
 use Redirect;
 
-class TruckController extends Controller
+class TrucksController extends Controller
 {
     public function index()
     {
-        $trucks = Truck::with('employee')->paginate(5);
-        return view('trucks.trucks', ["trucks"=>$trucks]);
+        $trucks = Truck::with('user')->paginate(5);
+        return view('trucks.index', ["trucks"=>$trucks]);
     }
 
     public function create()
     {
-        return view('trucks.create');
+        $config = [
+            'table' => 'trucks',
+            'length' => 6,
+            'prefix' => 'T-'
+        ];
+        
+        $id = IdGenerator::generate($config);
+
+        return view('trucks.create', compact('id'));
     }
 
     public function store(Request $request)
@@ -27,11 +36,10 @@ class TruckController extends Controller
         return Redirect::route('trucks')->with('status','Truck Added Successfully');
     }
 
-    public function edit($truck_id)
+    public function show($truck_id)
     {
         $truck = Truck::find($truck_id);
-
-        return view('trucks.edit', compact('truck'));
+        return view('trucks.edit', compact('truck', 'id'));
     }
 
     public function update(Request $request, $truck_id)

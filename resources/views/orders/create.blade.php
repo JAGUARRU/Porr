@@ -42,7 +42,7 @@
                 <div class="col-span-1">
                     <div class="">
                         <label for="text-gray-700 dark:text-gray-400">รหัสออเดอร์</label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="" placeholder="ระบุรหัสออเดอร์" />
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $id }}" name="" placeholder="ระบุรหัสออเดอร์" />
                     </div>
 
                     <div class="mt-4">
@@ -71,67 +71,215 @@
                     </div>
                 </div>
             </div>  
+
+
+            <div class="mt-4">
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr
+                            class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3">รหัสสินค้า</th>
+                            <th class="px-4 py-3">ชื่อสินค้า</th>
+                            <th class="px-4 py-3">จำนวน</th>
+                            <th class="px-4 py-3"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                      
+
+                        @if (count($data) == 0)
+                        <tr class="text-gray-700 dark:text-gray-400">
+                            <td colspan="4" class="px-4 py-3">
+                                ยังไม่มีข้อมูลรายการสินค้า...
+                            </td>
+                        </tr>
+                        @endif
+                        
+                        @foreach ($data as $product)
+                        <tr class="text-gray-700 dark:text-gray-400">
+                            <td class="px-4 py-3">
+                               {{ $product["id"] }}
+                            </td>
+                            <td class="px-4 py-3">
+                               {{ $product["name"] }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ $product["amount"] }}
+                             </td>
+                             <td class="px-4 py-3">
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <a href="{{ url('orders/create?action_method=del&prod_id='.$product["id"]) }}" class="btn btn-primary btn-sm">
+                                    <button
+                                        type="button"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        aria-label="Edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                          </svg>
+                                    </button>
+                                    </a>    
+                                </div>
+                             </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
         </form>  
         
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
-            <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 mt-4">  
-                <div class="col-span-1">
-                    <label for="text-gray-700 dark:text-gray-400">รหัสสินค้า</label>
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ระบุรหัสสินค้า" />
+
+            <form id="searchForm" method="GET" action="{{ route('orders.create') }}">
+                @csrf
+                <div class="grid grid-cols-4 grid-rows-1 gap-4">  
+                    <div class="col-span-3">
+                    </div>
+                    <div class="col-span-1">
+                        <div class="grid grid-rows-1 grid-cols-3 gap-2">
+                            <input id="name" name="name" placeholder="ชื่อสินค้า" class="col-span-2 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $searchInput }}"/>                 
+                            <button type="submit" class="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
+                                ค้นหา
+                            </button>
+                        </div>           
+                    </div>                
                 </div>
+            </form>
 
-                <div class="col-span-1">
-                    <label for="text-gray-700 dark:text-gray-400">ชื่อสินค้า</label><!--ล็อคไว้ อิงตามรหัส-->
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ระบุชื่อสินค้า"/>
-                </div> 
-
-                <div class="col-span-1">
-                    <label for="text-gray-700 dark:text-gray-400">ประเภทสินค้า
-                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                            <option value="">- เลือก -</option>
-                            <option>แท่ง</option>
-                            <option>ถ้วย</option>
-                        </select>
-                    </label>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                            <tr
+                                class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3">รหัสสินค้า</th>
+                                <th class="px-4 py-3">ชื่อสินค้า</th>
+                                <th class="px-4 py-3">ราคาสินค้า</th>
+                                <th class="px-4 py-3">ประเภทสินค้า</th>
+                                <th class="px-4 py-3">รายละเอียดสินค้า</th>
+                                <th class="px-4 py-3">สต๊อก</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                          
+                            @foreach ($products as $product)
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3">
+                                   {{ $product->id}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->prod_name}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->prod_price}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->prod_type_name}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->prod_detail}}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $product->stock}}
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <a href="{{ url('orders/create?prod_id='.$product->id.'&prod_name='.$product->prod_name) }}" class="btn btn-primary btn-sm">
+                                        <button
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                                              </svg>
+                                            เพิ่ม
+                                        </button>
+                                        </a>    
+                                    </div>
+                                </td>
+                            </tr>
+                          
+                            @endforeach
+    
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="col-span-1">
-                    <label for="text-gray-700 dark:text-gray-400">ราคา/ชิ้น</label><!--ล็อคไว้ อิงตามประเภท-->
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
-                </div> 
-
-                <div class="col-span-1">
-                    <label for="text-gray-700 dark:text-gray-400">จำนวน</label>
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
+                <div
+                    class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                    <span class="flex items-center col-span-3">
+                        Showing {{ $products->firstItem() }}-{{ $products->lastItem() }} of {{ $products->total() }}
+                    </span>
+                    <span class="col-span-2"></span>
+                    <!-- Pagination -->
+                    <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+                        <nav aria-label="Table navigation">
+                            <ul class="inline-flex items-center">
+                                
+                                <li>
+                                    <a href="{{ $products->url( $products->currentPage() - 1 ) }}">
+                                        <button
+                                            class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                                            aria-label="Previous">
+                                            <svg class="w-4 h-4 fill-current" aria-hidden="true"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                    clip-rule="evenodd" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </li>
+    
+                                @php
+    
+                                $curPage = $products->currentPage();
+                                $totalPage = $products->lastPage();
+    
+                                $startPage = ($curPage < 5)? 1 : $curPage - 4;
+                                $endPage = 8 + $startPage;
+                                $endPage = ($totalPage < $endPage) ? $totalPage : $endPage;
+                                $diff = $startPage - $endPage + 8;
+                                $startPage -= ($startPage - $diff > 0) ? $diff : 0;
+    
+                                @endphp
+    
+                                @if($products->total())
+                                    
+                                    @for ($i=$startPage; $i<=$endPage; $i++)
+                                        <li>
+                                            <a href="{{ $products->url($i) }}">
+                                                @php
+                                                    if ($curPage != $i) echo '<button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                    else echo '<button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                                @endphp
+                                            </a>
+                                        </li> 
+                                    @endfor
+                            
+                                @endif
+    
+                                <li>
+                                    <a href="{{ $products->nextPageUrl() }}">
+                                    <button
+                                        class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                                        aria-label="Next">
+                                        <svg class="w-4 h-4 fill-current" aria-hidden="true"
+                                            viewBox="0 0 20 20">
+                                            <path
+                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                    </a>
+                                </li>
+    
+                            </ul>
+                        </nav>
+                    </span>
                 </div>
-
-                <div class="col-span-1">                        
-                    <label for="text-gray-700 dark:text-gray-400">ราคารวม</label>
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>
-                </div>              
             </div>
 
-            <div class="grid grid-flow-row-dense grid-cols-3 grid-rows-1 gap-4">   
-                <div class="col-span-1"></div>                
-                <div class="mt-8 text-right">
-                    <label for="text-gray-700 dark:text-gray-400">ราคาสุทธิ</label>
-                </div>
-                    <input class="mt-6 block w-full text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>             
             </div>
-
-            <div class="flex mt-12 place-content-end pb-4">
-                <div class="pr-6">
-                    <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        บันทึก
-                    </button>
-                </div>
-                <div class="pr-4">
-                    <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        ยกเลิก
-                    </button>
-                </div>
-            </div>
-
         </div>
 
     </div>

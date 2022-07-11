@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tambons`
 --
+DROP TABLE IF EXISTS `tambons`;
 
 CREATE TABLE `tambons` (
   `id` int(11) NOT NULL,

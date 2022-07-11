@@ -15,9 +15,9 @@ class CreateTruckTable extends Migration
     {
         Schema::create('trucks', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('plate');
-
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->string('plateNumber');
+            $table->string('status');
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

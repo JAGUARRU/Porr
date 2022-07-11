@@ -26,8 +26,12 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             PositionUserTableSeeder::class,
-            ProductCategorySeeder::class
+            ProductCategorySeeder::class,
+
+            RetailsTableSeeder::class,
+            TrucksTableSeeder::class
         ]);
+        
         $this->command->info('main table seeded!');
 
         $path = 'app/developer_docs/tambons.sql';

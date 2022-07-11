@@ -1,7 +1,7 @@
 <x-app-layout title="">
     <div class="container grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            ข้อมูล
+            ข้อมูลการสั่งซื้อ
         </h2>
 
             @if (session('status'))
@@ -11,7 +11,7 @@
             @endif
             
             <div class="flex place-content-end">
-                <a href="{{''}}">
+                <a href="{{route('orders.create')}}">
                 <button class="flex items-center justify-between px-6 py-3 text-sm font-medium leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
                     <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
                         <path stroke="none" d="M0 0h24v24H0z"/>  
@@ -19,7 +19,7 @@
                             <line x1="9" y1="12" x2="15" y2="12" />  
                             <line x1="12" y1="9" x2="12" y2="15" />
                     </svg>
-                    <span class="text-base"></span>
+                    <span class="text-base">รายการใหม่</span>
                 </button>
                 </a>
             </div>
@@ -37,10 +37,7 @@
                             <tr
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
-                                <th class="px-4 py-3">ชื่อ-สกุลผู้รับ</th>
-                                <th class="px-4 py-3">ที่อยู่ลูกค้า</th>
-                                <th class="px-4 py-3">เบอร์</th>
-                                <th class="px-4 py-3">รายละเอียดออเดอร์</th>
+                                <th class="px-4 py-3"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -48,22 +45,7 @@
                             @foreach ($orders as $order)
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">
-                                    {{ $order-> }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $order-> }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $order-> }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $order-> }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $order-> }}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $order-> }}
+                                    {{ $order->id }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
@@ -76,10 +58,10 @@
                                                     d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                                                 </path>
                                             </svg>
-                                            <a href="{{ url('edit-order/'.$order->order_id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="{{ url('orders/'.$order->id) }}" class="btn btn-primary btn-sm">Edit</a>
                                         </button>
 
-                                        <form action="{{ route('delete-order.destroy', $order->order_id) }}" method="POST">
+                                        <form action="{{ route('orders/', $order->id) }}" method="POST">
                                             @csrf
                                             @method("DELETE")
                                             
