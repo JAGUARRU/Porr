@@ -69,6 +69,19 @@
                         <label for="text-gray-700 dark:text-gray-400">ช่องทางติดต่ออื่น</label>
                         <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="" placeholder="เช่น Line หรือ Facebook"/>
                     </div>
+
+                    <div class="flex mt-12 place-content-end pb-4">
+                        <div class="pr-6">
+                            <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                บันทึก
+                            </button>
+                        </div>
+                        <div class="pr-4">
+                            <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                ยกเลิก
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>  
 
@@ -115,9 +128,20 @@
                                         aria-label="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
+                                        </svg>
                                     </button>
                                     </a>    
+
+                                    <a href="" class="">
+                                    <button
+                                        type="button"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        aria-label="Edit">
+                                        <svg class="h-6 w-6 text-purple-600"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </button>
+                                    </a>
                                 </div>
                              </td>
                         </tr>
