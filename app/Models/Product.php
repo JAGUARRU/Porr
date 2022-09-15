@@ -16,8 +16,7 @@ class Product extends Model
         'prod_name',
         'prod_price',
         'prod_type_name',
-        'prod_detail',
-        'stock'
+        'prod_detail'
     ];
 
     public static function boot()

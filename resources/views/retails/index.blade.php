@@ -36,8 +36,8 @@
                             <tr
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสร้านค้า</th>
-                                <th class="px-4 py-3">ชื่อร้านค้า</th>
-                                <th class="px-4 py-3">ที่อยู่ร้านค้า</th>
+                                <th class="px-4 py-3">ชื่อ</th>
+                                <th class="px-4 py-3">ที่อยู่</th>
                                 <th class="px-4 py-3">จังหวัด</th>
                                 <th class="px-4 py-3">อำเภอ</th>
                                 <th class="px-4 py-3">ตำบล</th>

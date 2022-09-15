@@ -19,6 +19,7 @@
     <script src="{{asset('js/init-alpine.js')}}" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
     <script src="{{asset('js/charts-lines.js')}}" defer></script>
     <script src="{{asset('js/charts-pie.js')}}" defer></script>
@@ -29,6 +30,10 @@
         Turbolinks.start()
     </script>
 
+    <script type="text/javascript">
+        var siteUrl = "{{url('/')}}";
+    </script>
+    
     <!-- Scripts -->
     {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.6.0/dist/alpine.js" defer></script> --}}
 </head>
@@ -53,7 +58,7 @@
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- CUSTOM JS -->
 <script src="{{asset('js/products.js')}}" defer></script>
-
 </html>

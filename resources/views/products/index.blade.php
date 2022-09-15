@@ -41,7 +41,6 @@
                                 <th class="px-4 py-3">ราคาสินค้า</th>
                                 <th class="px-4 py-3">ประเภทสินค้า</th>
                                 <th class="px-4 py-3">รายละเอียดสินค้า</th>
-                                <th class="px-4 py-3">สต๊อก</th>
                                 <th class="px-4 py-3">Actions</th>
                             </tr>
                         </thead>
@@ -63,9 +62,6 @@
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ $product->prod_detail}}
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $product->stock}}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">

@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <label for="text-gray-700 dark:text-gray-400">ชื่อร้านค้า</label>
+                            <label for="text-gray-700 dark:text-gray-400">ชื่อร้านค้า / เจ้าของกิจการ</label>
                             <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $retail->retail_name }}" name="retail_name" placeholder="ระบุชื่อลูกค้า" />
                         </div>
                         

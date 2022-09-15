@@ -10,10 +10,27 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
+    
     public $incrementing = false;
     protected $table = 'orders';
     protected $fillable = [
+        'retail_id',
+        'retail_name',
+        'retail_province',
+        'retail_district',
+        'retail_sub_district',
+        'retail_postcode',
+        
+        'truck_id',
+        'truck_driver',
+        'truck_plate',
 
+        'order_status',
+        'order_cancelled',
+        'order_cancelDateTime',
+        'order_total'
     ];
 
     public static function boot()

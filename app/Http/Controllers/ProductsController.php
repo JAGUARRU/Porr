@@ -38,7 +38,7 @@ class ProductsController extends Controller
         $product->prod_price = $request->input('prod_price');
         $product->prod_type_name = $request->input('prod_type_name');
         $product->prod_detail = $request->input('prod_detail');
-        $product->stock = $request->input('stock');
+        //$product->stock = $request->input('stock');
         $product->save();
         return Redirect::route('products.index')->with('status','Product Added Successfully');
     }
@@ -57,7 +57,7 @@ class ProductsController extends Controller
         $product->prod_price = $request->input('prod_price');
         $product->prod_type_name = $request->input('prod_type_name');
         $product->prod_detail = $request->input('prod_detail');
-        $product->stock = $request->input('stock');
+        //$product->stock = $request->input('stock');
         $product->update();
         //return redirect()->back()->with('status','... Updated Successfully');
         return Redirect::route('products.index')->with('status','... Updated Successfully');

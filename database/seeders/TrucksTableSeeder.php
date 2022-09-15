@@ -49,7 +49,7 @@ class TrucksTableSeeder extends Seeder
             'id' => $id,
             'plateNumber' => 'กจ 123',
             'status' => 'พร้อมใช้งาน',
-            'user_id' => null
+            'user_id' => 1
         ]);
     }
     

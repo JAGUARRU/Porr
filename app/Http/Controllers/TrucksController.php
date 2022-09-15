@@ -39,6 +39,15 @@ class TrucksController extends Controller
     public function show($truck_id)
     {
         $truck = Truck::find($truck_id);
+
+        $config = [
+            'table' => 'trucks',
+            'length' => 6,
+            'prefix' => 'T-'
+        ];
+        
+        $id = IdGenerator::generate($config);
+        
         return view('trucks.edit', compact('truck', 'id'));
     }
 

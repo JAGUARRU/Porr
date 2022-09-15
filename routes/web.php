@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\RetailsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,4 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);
 
     Route::get('/orders/{search}','OrdersController@search');
+
+    Route::get('/orders/{term}','OrdersController@term');
+
 });
