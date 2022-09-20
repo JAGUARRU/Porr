@@ -80,6 +80,7 @@
                                         </button>
                                         </a>    
 
+                                        <!--
                                         <form action="{{ url('products/'.$product->id) }}" method="POST">
                                             @csrf
                                             @method("DELETE")
@@ -97,7 +98,7 @@
                                                 <span class="btn btn-primary btn-sm">Delete</span>
                                             </button>
 
-                                        </form>
+                                        </form>-->
                                     </div>
                                 </td>
                             </tr>

@@ -272,6 +272,7 @@ $(document).ready(function() {
         
     );
 
+
     $('.cancel-order-button').on('click', function () {
         $('#cancel-order-form').attr('action', $(this).data('target'));
         $('#order-id').html($(this).data('id'));

@@ -18,6 +18,8 @@ class CreateTruckTable extends Migration
             $table->string('plateNumber');
             $table->string('status');
             $table->foreignId('user_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
+
+            $table->timestamps();
         });
     }
 

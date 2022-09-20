@@ -76,6 +76,14 @@ class User extends Authenticatable
     {
         parent::boot();
         self::creating(function ($model) {
+            $model->empId = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'EMP-']);
+        });
+    }
+
+    /*public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
 
             $num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
             $num += 1;
@@ -87,7 +95,7 @@ class User extends Authenticatable
             
             $model->empId = 'EMP-' . $num;
         });
-    }
+    }*/
 
     public function setPasswordAttribute($password)
     {   

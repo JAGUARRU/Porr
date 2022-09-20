@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TambonController;
+use App\Http\Controllers\API\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,3 +24,5 @@ Route::get('/provinces', [ TambonController::class , 'getProvinces' ]);
 Route::get('/amphoes', [TambonController::class , 'getAmphoes' ]);
 Route::get('/tambons', [ TambonController::class , 'getTambons' ]);
 Route::get('/zipcodes', [TambonController::class, 'getZipcodes'] );
+
+Route::get('/drivers', [ EmployeeController::class , 'getDrivers' ]);

@@ -30,33 +30,36 @@ class TrucksController extends Controller
     public function store(Request $request)
     {
         $truck = new Truck;
-        $truck->truck_id = $request->input('truck_id');
+        $truck->fill($request->all());
         $truck->save();
 
-        return Redirect::route('trucks')->with('status','Truck Added Successfully');
+        return Redirect::route('trucks.index')->with('status','Truck Added Successfully');
     }
 
-    public function show($truck_id)
+    public function show(Truck $truck)
     {
-        $truck = Truck::find($truck_id);
+        $trucks = Truck::query();
 
-        $config = [
-            'table' => 'trucks',
-            'length' => 6,
-            'prefix' => 'T-'
-        ];
-        
-        $id = IdGenerator::generate($config);
-        
-        return view('trucks.edit', compact('truck', 'id'));
+        $truck->user = $trucks
+            ->select('users.*','users.id as user_id')
+            ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
+            ->where("trucks.id","=",$truck->id)
+            ->first()->toArray();
+
+        return view('trucks.edit', compact('truck'));
     }
 
-    public function update(Request $request, $truck_id)
+    public function update(Request $request, Truck $truck)
     {
-        $truck = Truck::find($truck_id);
+
+
+        $truck->fill($request->all());
         $truck->update();
         
-        return Redirect::route('trucks')->with('status','... Updated Successfully');
+        //return Redirect::route('trucks')->with('status','... Updated Successfully');
+        //return view('trucks.index', ["trucks"=>$trucks]);
+
+        return Redirect::route('trucks.index')->with('status', $truck->id . ' ได้รับการปรับปรุงเรียบร้อยแล้ว');
     }
 
     public function destroy(Truck $truck_id)
@@ -64,5 +67,10 @@ class TrucksController extends Controller
         $truck_id->delete();
 
         return redirect()->back()->with('status','... Deleted Successfully');
+    }
+
+    public function drivers(Request $request)
+    {
+        dd($request);
     }
 }

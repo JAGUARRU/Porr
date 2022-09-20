@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use DB;
 
 class UsersController extends Controller
@@ -27,7 +28,7 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
+        /*$num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
         $num += 1;
 
         $len = strlen($num);
@@ -35,8 +36,16 @@ class UsersController extends Controller
             $num = '0'.$num;
         }
         
-        $empId = 'EMP-' . $num;
+        $empId = 'EMP-' . $num;*/
 
+        $config = [
+            'table' => 'users',
+            'length' => 8,
+            'prefix' => 'EMP-'
+        ];
+        
+        $empId = IdGenerator::generate($config);
+        
         $roles = Role::pluck('title', 'id');
         $positions = Position::pluck('title', 'id');
 

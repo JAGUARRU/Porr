@@ -18,50 +18,38 @@
             <h6 class="alert alert-success">{{ session('status') }}</h6>
             @endif
 
-        <form action="{{ url('add-truck') }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+        <form action="{{ route('trucks.store') }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
             @csrf
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
             <div class="col-span-1">
                 <div class="">
                     <label for="text-gray-700 dark:text-gray-400">รหัสรถ</label>
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $id }}" placeholder="ระบุเลขทะเบียนรถ" />
+                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="id" value="{{ $id }}" />
                 </div>
 
                 <div class="mt-4">
-                    <label for="text-gray-700 dark:text-gray-400">คนขับ</label><!--ดึงชื่อ-สกุลจากตารางพนง.-->
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ระบุชื่อพนักงาน" />
+                    <label for="text-gray-700 dark:text-gray-400">ป้ายทะเบียน</label>
+                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="plateNumber" value="{{ old('plateNumber') }}" />
                 </div>
 
                 <div class="mt-4">
-                    <label for="text-gray-700 dark:text-gray-400">ชื่อร้านค้า</label>
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="" />
-                </div>
-
-                <div class="mt-4">
-                    <label for="text-gray-700 dark:text-gray-400">ที่อยู่ร้านค้า
-                        <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" rows="3" name="retail_address" placeholder="รายละเอียดที่อยู่"></textarea>
-                    </label>
+                    <label for="text-gray-700 dark:text-gray-400">คนขับ</label>
+                    <input type="hidden" class="hidden" name="user_id" id="user_id" placeholder="ชื่อหรือรหัสพนักงาน" value="{{ old('user_id') }}" />
+                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="emp_id" id="emp_id" value="{{ old('emp_id') }}" disabled />
+     
+                    <div class="relative text-gray-600 focus-within:text-gray-400">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                            <div id="validDriver" class="p-1 focus:outline-none focus:shadow-outline">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </div>
+                        </span>
+                        <input type="search" id="auto-drivers" class="py-2 pl-10 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ป้อนรหัสพนักงานหรือชื่อพนักงาน" autocomplete="off" id="auto-drivers">
+                    </div>
                 </div>
             </div>
 
             <div class="col-span-1"> 
-                <div class="">
-                    <label for="text-gray-700 dark:text-gray-400">อำเภอ
-                        <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
-                            <option value="">- เลือก -</option>
-                            <option>อำเภอเมือง</option> <!---->
-                            <option>อำเภอวังทอง</option> 
-                            <option>อำเภอพรหมพิราม</option> <!--เหนือ, ตะวันตก-->
-                            <option>อำเภอบางระกำ</option> <!--ตะวันตก, ใต้-->
-                            <option>อำเภอบางกระทุ่ม</option> <!--ใต้-->
-                            <option>อำเภอนครไทย</option> <!--ตะวันออก-->
-                            <option>อำเภอวัดโบสถ์</option> <!--เหนือ-->
-                            <option>อำเภอชาติตระการ</option> <!--ตะวันออก, เหนือ-->
-                            <option>อำเภอเนินมะปราง</option> <!--ตะวันออก, ใต้-->
-                        </select>
-                    </label>
-                </div>
 
                 <div class="mt-4">
                     <label class="text-gray-700 dark:text-gray-400 col-span-2" name="truck_status">
@@ -70,7 +58,7 @@
                 </div>
                 <div class="mt-4">
                     <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                        <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="truck_status" value="พร้อมใช้งาน" />
+                        <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="truck_status" value="พร้อมใช้งาน" checked />
                         <span class="ml-2">พร้อมใช้งาน</span>
                     </label>
                     <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
@@ -95,4 +83,7 @@
         </form>    
     </div>
     </div>
+
+    <script src="{{asset('js/trucks.js')}}" defer></script>
+
 </x-app-layout>

@@ -13,10 +13,14 @@ class Truck extends Model
     public $incrementing = false;
     protected $table = 'trucks';
     protected $fillable = [
+        'id',
         'plateNumber',
-        'status'
+        'status',
+        'user_id'
     ];
 
+    public $timestamps = false;
+    
     public static function boot()
     {
         parent::boot();
