@@ -85,7 +85,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="">
+                            <div class="mt-4">
                                 <label for="text-gray-700 dark:text-gray-400">รหัสไปรษณีย์</label>
                                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="input_zipcode" name="retail_postcode" value="{{ $order->retail_postcode }}"/>
                             </div> 
@@ -103,12 +103,12 @@
                         <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_plate" value="{{ $order->truck_plate }}" id="auto-trucks" placeholder="ป้อนชื่อคนขับหรือป้ายทะเบียนเพื่อค้นหา"/>
                     </div>
 
-                    <div class="">
+                    <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">คนขับรถ</label>
                         <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_driver" value="{{ $order->truck_driver }}" placeholder=""/>
                     </div>
 
-                    <div class="">
+                    <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
                         <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status" value="{{ $order->order_status }}">
                             <option value="กำลังดำเนินการ" selected>กำลังดำเนินการ</option>
@@ -140,6 +140,7 @@
                             <th class="px-4 py-3">ชื่อสินค้า</th>
                             <th class="px-4 py-3">ราคา</th>
                             <th class="px-4 py-3">จำนวน</th>
+                            <th class="px-4 py-3">ราคาสุทธิ</th>
                             <th class="px-4 py-3"></th>
                         </tr>
                     </thead>
@@ -167,6 +168,9 @@
                              </td>
                             <td class="px-4 py-3">
                                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="number" name="editItem" data-orderId="{{ $order->id }}" id="{{ $product["product_id"] }}" value="{{ $product['qty'] }}"/>
+                             </td>
+                             <td class="px-4 py-3">
+                                {{ $product["price"] * $product['qty'] }} //สร้างตัวแปรเก็บผล
                              </td>
                              <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">

@@ -1,5 +1,5 @@
 <x-app-layout title="เพิ่มสินค้า">
-    <div class="container grid px-6 mx-auto ">
+    <div class="container grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             จัดการข้อมูล
         </h2>
@@ -49,7 +49,7 @@
                             <label for="text-gray-700 dark:text-gray-400">ชื่อสินค้า</label>
                             <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="prod_name" placeholder="ระบุชื่อสินค้า" />
                         </div>
-                    </form>
+                    </div>
 
                     <!--<div class="mt-4">
                         <label class="text-gray-700 dark:text-gray-400 col-span-2">
@@ -90,17 +90,16 @@
                             </select>
                         </label>
                     </div>
-
-                    <div class="mt-4">
-                        <label for="text-gray-700 dark:text-gray-400">ราคา</label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="prod_price"/>
-                    </div>
-
                 </div>
 
 
                 <div class="col-span-1">
                     <div class="">
+                        <label for="text-gray-700 dark:text-gray-400">ราคา</label>
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="prod_price"/>
+                    </div>
+
+                    <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">รายละเอียดสินค้า
                             <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="prod_detail" rows="3" placeholder="รายละเอียดสินค้า"></textarea>
                         </label>

@@ -41,7 +41,8 @@ class UsersController extends Controller
         $config = [
             'table' => 'users',
             'length' => 8,
-            'prefix' => 'EMP-'
+            'prefix' => 'EMP-',
+            'field' => 'empId'
         ];
         
         $empId = IdGenerator::generate($config);

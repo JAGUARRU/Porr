@@ -36,11 +36,11 @@ class CreateOrderListsTable extends Migration
      */
     public function down()
     {
-        Schema::table('order_lists', function (Blueprint $table) {
+        /*Schema::table('order_lists', function (Blueprint $table) {
             $table->dropForeign('order_lists_order_id_foreign');
             $table->dropIndex('order_lists_order_id_index');
             $table->dropColumn('order_id');
-        });
+        });*/
 
         Schema::dropIfExists('order_lists');
     }

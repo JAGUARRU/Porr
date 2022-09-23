@@ -39,8 +39,9 @@
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสพนักงาน</th>
                                 <th class="px-4 py-3">ชื่อ-สกุลพนักงาน</th>
-                                <th calss="px-4 py-3">อีเมล์</th>
+                                <th calss="px-4 py-3">อีเมล</th>
                                 <th class="px-4 py-3">ตำแหน่ง</th>
+                                <th class="px-4 py-3">บทบาท</th>
                                 <th class="px-4 py-3">สถานะ</th>
                             </tr>
                         </thead>
@@ -48,39 +49,41 @@
 
                             @foreach ($users as $user)
 
-                            <tr class="text-gray-700 dark:text-gray-400">
+                            <tr class="text-gray-700 dark:text-gray-400 ">
                                 <td class="px-4 py-3 text-sm">
                                     {{ $user->empId }}
                                 </td>
-
                                 <td class="px-4 py-3 text-sm">
                                     {{ $user->name }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ $user->email }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
                                     @foreach ($user->positions as $positions)
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             {{ $positions->title }}
                                         </span>
                                     @endforeach
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
                                     @foreach ($user->roles as $role)
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             {{ $role->title }}
                                         </span>
                                     @endforeach
                                 </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ $user->status }}
+                                </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <a href="{{ route('users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
+                                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">
+                                    <a href="{{ route('users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">แสดง</a>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">แก้ไข</a>
                                     <form class="inline-block" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Delete">
+                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="ลบ">
                                     </form>
                                 </td>
                             </tr>

@@ -47,7 +47,7 @@
 
                     <div class="mt-4">
                         <form autocomplete="off">
-                            <div class="relative inline-block block w-full">
+                            <div class="relative inline-block w-full">
                                 <label for="text-gray-700 dark:text-gray-400">ร้านค้า</label>
                                 <input class="block w-full mt-1 text-sm dark:border-gray-200 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="retail_name" id="auto-retails" placeholder="พิมพ์เพื่อค้นหาร้านค้าในระบบ" value="{{ old('retail_name') }}" />
                                 <input type="hidden" class="hidden" name="retail_id" id="retail_id" />
@@ -85,7 +85,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="">
+                            <div class="mt-4">
                                 <label for="text-gray-700 dark:text-gray-400">รหัสไปรษณีย์</label>
                                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="input_zipcode" name="retail_postcode"/>
                             </div> 
@@ -107,7 +107,7 @@
                         @endif
                     </div>
 
-                    <div class="">
+                    <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">คนขับรถ</label>
                         <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_driver" value="{{ old('truck_driver') }}"/>
                         @if ($errors->has('truck_driver'))
@@ -115,7 +115,7 @@
                         @endif
                     </div>
 
-                    <div class="">
+                    <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
                         <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status">
                             <option value="กำลังดำเนินการ" selected>กำลังดำเนินการ</option>

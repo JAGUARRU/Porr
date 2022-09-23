@@ -182,5 +182,6 @@
                     </span>
                 </div>
             </div>
-        </div>
+            <span class="text-base text-red-500 py-6">**หมายเหตุ: ราคาดังกล่าวเป็นราคาต่อหน่วย</span>
+        </div>      
 </x-app-layout>

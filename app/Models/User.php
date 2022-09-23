@@ -76,7 +76,7 @@ class User extends Authenticatable
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->empId = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'EMP-']);
+            $model->empId = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'EMP-', 'field' => 'empId']);
         });
     }
 

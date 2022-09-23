@@ -39,6 +39,7 @@
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
                                 <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3">สร้างเมื่อ</th>
+                                <th class="px-4 py-3">ยอดชำระ</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
                         </thead>
@@ -61,6 +62,9 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     {{ $order->created_at }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    //ราคาสุทธิ
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
