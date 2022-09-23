@@ -84,12 +84,16 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
+        $user->fill($request->all());
+        $user->update();
+
         $user->update($request->validated());
         $user->roles()->sync($request->input('roles', []));
         $user->positions()->sync($request->input('positions', []));
 
         return redirect()->route('users.index');
     }
+
 
     public function destroy(User $user)
     {

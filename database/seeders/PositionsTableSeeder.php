@@ -12,11 +12,11 @@ class PositionsTableSeeder extends Seeder
         $positions = [
             [
                 'id'    => 1,
-                'title' => 'Manager',
+                'title' => 'พนักงาน',
             ],
             [
                 'id'    => 2,
-                'title' => 'Driver',
+                'title' => 'คนขับรถ',
             ],
         ];
 

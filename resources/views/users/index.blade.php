@@ -74,17 +74,20 @@
                                     @endforeach
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $user->status }}
+                                    @if ($user->inactive)
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-gray-100">
+                                            ถูกยกเลิก
+                                        </span>
+                                    @else
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            ปกติ
+                                        </span>
+                                    @endif
                                 </td>
 
                                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">
                                     <a href="{{ route('users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">แสดง</a>
                                     <a href="{{ route('users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">แก้ไข</a>
-                                    <form class="inline-block" action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="ลบ">
-                                    </form>
                                 </td>
                             </tr>
                         @endforeach

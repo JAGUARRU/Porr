@@ -81,11 +81,11 @@
                         </div>
                         <div class="mt-4">
                             <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                                <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="emp_status" value="พร้อมใช้งาน" checked />
+                                <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="inactive" value="0" {{ !$user->inactive ? ('checked') : ('') }} />
                                 <span class="ml-2">พร้อมใช้งาน</span>
                             </label>
                             <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                                <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="emp_status" value="ไม่พร้อมใช้งาน" />
+                                <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="inactive" value="1" {{ $user->inactive ? ('checked') : ('') }} />
                                 <span class="ml-2">ไม่พร้อมใช้งาน</span>
                             </label>
                         </div>
@@ -94,11 +94,6 @@
                             <div class="pr-6">
                                 <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     แก้ไข
-                                </button>
-                            </div>
-                            <div class="pr-4">
-                                <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    ยกเลิก
                                 </button>
                             </div>
                         </div>

@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'inactive'
     ];
 
     /**
@@ -68,6 +68,10 @@ class User extends Authenticatable
         self::created(function (User $user) {
             if (!$user->roles()->get()->contains(2)) {
                 $user->roles()->attach(2);
+            }
+
+            if (!$user->positions()->get()->contains(1)) {
+                $user->positions()->attach(1);
             }
         });
     }
