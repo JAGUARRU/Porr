@@ -28,6 +28,9 @@ class StoreUserRequest extends FormRequest
                 'required',
                 'array',
             ],
+            'inactive' => [
+                'integer'
+            ]
         ];
     }
 

@@ -28,16 +28,6 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        /*$num = DB::table('users')->orderBy('id', 'desc')->first()->id ?? 0;
-        $num += 1;
-
-        $len = strlen($num);
-        for($i=$len; $i< 4; ++$i) {
-            $num = '0'.$num;
-        }
-        
-        $empId = 'EMP-' . $num;*/
-
         $config = [
             'table' => 'users',
             'length' => 8,
