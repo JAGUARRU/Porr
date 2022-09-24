@@ -56,8 +56,17 @@
                                     {{ $truck->plateNumber }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $truck->status }}
+                                    @if ($truck->status == "พร้อมใช้งาน" )
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            พร้อมใช้งาน
+                                        </span>
+                                    @else
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-gray-100">
+                                            ไม่พร้อมใช้งาน
+                                        </span>
+                                    @endif
                                 </td>
+
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
                                         <a href="{{ url('trucks/'.$truck->id) }}" class="btn btn-primary btn-sm">
@@ -70,7 +79,7 @@
                                                         d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
                                                     </path>
                                                 </svg>
-                                                Edit
+                                                แก้ไข
                                             </button>
                                         </a>
 

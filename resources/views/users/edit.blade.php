@@ -82,11 +82,11 @@
                         <div class="mt-4">
                             <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
                                 <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="inactive" value="0" {{ !$user->inactive ? ('checked') : ('') }} />
-                                <span class="ml-2">พร้อมใช้งาน</span>
+                                <span class="ml-2">ปกติ</span>
                             </label>
                             <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
                                 <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="inactive" value="1" {{ $user->inactive ? ('checked') : ('') }} />
-                                <span class="ml-2">ไม่พร้อมใช้งาน</span>
+                                <span class="ml-2">ถูกยกเลิก</span>
                             </label>
                         </div>
 
