@@ -38,8 +38,24 @@ $(document).ready(function() {
             processData: false,
             success:function(res)
             {
+                console.log(res);
+                
                 if (res.statusCode == 200)
                 {
+
+                    $('table#productOrder > tbody > tr').each(function(index, tr) 
+                    { 
+                        if (res.data.product_id == tr.id)
+                        {
+                            $('td', this).each(function(index, td) {
+                                if (index == 4) // คอลัมผลรวม
+                                {
+                                    $(this).html(event.target.value * res.data.price);
+                                }
+                            });       
+                        }
+                    });
+
 
                     $("#orderItems").removeClass("opacity-0");
                     //$("#orderItems").addClass("opacity-100");
@@ -86,11 +102,19 @@ $(document).ready(function() {
                         $("#orderItems").addClass("opacity-0");
                     }, 800);
 
+                    $('tr#no-data').remove();
     
                     $('table#productOrder > tbody > tr').each(function(index, tr) 
                     { 
                         if (res.data.id == tr.id)
                         {
+                            $('td', this).each(function(index, td) {
+                                if (index == 4) // คอลัมผลรวม
+                                {
+                                    $(this).html(res.data.price * res.data.qty);
+                                }
+                            }); 
+
                             $(this).find("input").each(function() 
                             {
                                 this.value = res.data.qty;
@@ -119,6 +143,7 @@ $(document).ready(function() {
                     newRow += '<td class="px-4 py-3">' + res.data.name + '</td>';
                     newRow += '<td class="px-4 py-3">' + res.data.price + '</td>';
                     newRow += '<td class="px-4 py-3">' + newInput.get(0).outerHTML + '</td>';
+                    newRow += '<td class="px-4 py-3">' + res.data.price * res.data.qty + '</td>';
 
                     let newDeleteBtn = '<div class="flex items-center space-x-4 text-sm"><button id="removeFromOrder" data-id="' + orderId +'" data-productId="'+ res.data.id +'" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></button></div>';
 
@@ -244,6 +269,11 @@ $(document).ready(function() {
 
                     var resp = $.map(data,function(obj)
                     {
+                        if (obj.order_status == "กำลังดำเนินการ" && obj.retail_district != amphoe)
+                        {
+                            return;
+                        }
+                        
                         if (obj.retail_district && obj.retail_district == amphoe && $("input[name=order_id]").val() != obj.order_id)
                         {
                             return { label: (obj.name ? obj.name : ("ไม่พบคนขับ")) + " (" + obj.plateNumber + ")" + " - รถคันนี้มีสินค้าที่กำลังจัดส่งอยู่ในอำเภอเดียวกัน", value: obj };

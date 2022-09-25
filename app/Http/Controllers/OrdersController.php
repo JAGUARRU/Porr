@@ -52,11 +52,14 @@ class OrdersController extends Controller
                 $res = $trucks
                     ->select('users.*','users.id as user_id', 'orders.*','orders.id as order_id', 'trucks.*','trucks.id as truck_id')
                     ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
-                    ->leftJoin('orders', 'orders.truck_id', '=', 'trucks.id')
+                    ->leftJoin(DB::raw('(SELECT * FROM `orders` ORDER BY `id` DESC LIMIT 1) orders'), function($join)
+                    {
+                        $join->on('orders.truck_id', '=', 'trucks.id');
+                    })
                     ->where(fn($query) => $query->where("plateNumber","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
                     ->where(fn($query) => $query->where("orders.order_cancelled","=","0")->orWhereNull("orders.order_cancelled"))
-                    ->where(fn($query) => $query->where("orders.order_status","LIKE","กำลังดำเนินการ")->orWhereNull("orders.order_status"))
                     ->where("trucks.status","LIKE","พร้อมใช้งาน")
+                    ->groupBy('orders.id')
                     ->groupBy('trucks.id')
                     ->orderBy('orders.id', 'desc')
                     ->take(10)
@@ -265,17 +268,24 @@ class OrdersController extends Controller
         {
             if ($request->action_method == "onchange")
             {
-                $update = OrderList::where("order_id", "=", $order->id)->where('product_id', "=", $request->prod_id)
+                $query = OrderList::where("order_id", "=", $order->id)->where('product_id', "=", $request->prod_id);
+
+                $order = $query->get()->first();
+                
+                $update = $query
                 ->update(
                     [
-                        'qty' => $request->v
+                        'qty' => $request->v,
+                        'total' => $order->price * $request->v
                     ]
                 );
 
                 if ($update) 
                 {
                     return response()->json([
-                        'statusCode' => 200
+                        'statusCode' => 200,
+                        'prev' => $order,
+                        'data' => $query->get()->first()
                     ]);
                 }
             }
@@ -297,8 +307,17 @@ class OrdersController extends Controller
 
                 $newQty = $product ? $product->qty + 1 : 1;
 
+                $total = $newQty * $request->prod_price;
+
                 $addList = OrderList::upsert([
-                    ['order_id' => $order->id, 'product_id' => $request->prod_id, 'product_name' => $request->prod_name, 'qty' => $newQty, 'price' => $request->prod_price, 'total' => $newQty * $request->prod_price]
+                    [
+                        'order_id' => $order->id, 
+                        'product_id' => $request->prod_id, 
+                        'product_name' => $request->prod_name, 
+                        'qty' => $newQty, 
+                        'price' => $request->prod_price, 
+                        'total' => $total
+                    ]
                 ], ['order_id', 'product_id'], ['qty', 'price', 'total']);
 
                 return response()->json([
@@ -307,7 +326,8 @@ class OrdersController extends Controller
                         'id' => $request->prod_id,
                         'name' => $request->prod_name,
                         'price' => $request->prod_price,
-                        'qty' => $newQty
+                        'qty' => $newQty,
+                        'total' => $total
                     ]
                 ]);
             }

@@ -111,8 +111,8 @@
                     <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
                         <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status" value="{{ $order->order_status }}">
-                            <option value="กำลังดำเนินการ" selected>กำลังดำเนินการ</option>
-                            <option value="สำเร็จแล้ว">สำเร็จแล้ว</option>
+                            <option value="กำลังดำเนินการ" {{ ($order->order_status == "กำลังดำเนินการ") ? ("selected") : ("")}}>กำลังดำเนินการ</option>
+                            <option value="สำเร็จแล้ว" {{ ($order->order_status == "สำเร็จแล้ว") ? ("selected") : ("")}}>สำเร็จแล้ว</option>
                         </select>
                     </div>
 
@@ -140,7 +140,7 @@
                             <th class="px-4 py-3">ชื่อสินค้า</th>
                             <th class="px-4 py-3">ราคา</th>
                             <th class="px-4 py-3">จำนวน</th>
-                            <th class="px-4 py-3">ราคาสุทธิ</th>
+                            <th class="px-4 py-3">รวม</th>
                             <th class="px-4 py-3"></th>
                         </tr>
                     </thead>
@@ -148,8 +148,8 @@
                       
 
                         @if (count($data) == 0)
-                        <tr class="text-gray-700 dark:text-gray-400">
-                            <td colspan="4" class="px-4 py-3">
+                        <tr class="text-gray-700 dark:text-gray-400" id="no-data">
+                            <td colspan="6" class="px-4 py-3">
                                 ยังไม่มีข้อมูลรายการสินค้า...
                             </td>
                         </tr>
@@ -167,10 +167,10 @@
                                 {{ $product["price"] }}
                              </td>
                             <td class="px-4 py-3">
-                                <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="number" name="editItem" data-orderId="{{ $order->id }}" id="{{ $product["product_id"] }}" value="{{ $product['qty'] }}"/>
+                                <input class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="number" name="editItem" data-orderId="{{ $order->id }}" id="{{ $product["product_id"] }}" value="{{ $product['qty'] }}"/>
                              </td>
                              <td class="px-4 py-3">
-                                {{ $product["price"] * $product['qty'] }} //สร้างตัวแปรเก็บผล
+                                {{ $product["total"] }}
                              </td>
                              <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
