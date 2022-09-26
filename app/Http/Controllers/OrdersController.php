@@ -219,29 +219,6 @@ class OrdersController extends Controller
         $order->fill($request->all());
         $order->save();
         
-        /*DB::transaction(function() use($request) 
-        {
-            $productLists = json_decode($request->session()->get('products')); 
- 
-            $order->fill($request->all());
-            $order->save();
-        
-            $orderProducts = [];
-            foreach ($productLists as $product) {
-                $orderProducts[] = [
-                    'order_id' => $order->id,
-                    'price' => $product->price,
-                    'qty' => $product->amount,
-                    'product_id' => $product->id,
-                    'product_name' => $product->name,
-                    'total' => $product->price * $product->amount
-                ];
-            }
-
-            OrderList::insert($orderProducts);
-            
-        });*/
-
         $orderLists = OrderList::query();
         $data = $orderLists->where("order_id","=", $order->id)->get();
 
@@ -280,6 +257,13 @@ class OrdersController extends Controller
                     ]
                 );
 
+                DB::statement('UPDATE orders INNER JOIN (
+                  SELECT order_id, SUM(total) as total
+                  FROM order_lists
+                  GROUP BY order_id
+                ) list ON orders.id = list.order_id
+                SET orders.order_total = list.total');
+
                 if ($update) 
                 {
                     return response()->json([
@@ -292,6 +276,13 @@ class OrdersController extends Controller
             else if ($request->action_method == "remove")
             {
                 $result = OrderList::where("order_id","=", $order->id)->where("product_id","=", $request->prod_id)->delete();
+
+                DB::statement('UPDATE orders INNER JOIN (
+                    SELECT order_id, SUM(total) as total
+                    FROM order_lists
+                    GROUP BY order_id
+                  ) list ON orders.id = list.order_id
+                  SET orders.order_total = list.total');
 
                 return response()->json([
                     'statusCode' => 200,
@@ -319,6 +310,13 @@ class OrdersController extends Controller
                         'total' => $total
                     ]
                 ], ['order_id', 'product_id'], ['qty', 'price', 'total']);
+
+                DB::statement('UPDATE orders INNER JOIN (
+                    SELECT order_id, SUM(total) as total
+                    FROM order_lists
+                    GROUP BY order_id
+                  ) list ON orders.id = list.order_id
+                  SET orders.order_total = list.total');
 
                 return response()->json([
                     'statusCode' => 200,

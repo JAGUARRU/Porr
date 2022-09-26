@@ -64,7 +64,7 @@
                                     {{ $order->created_at }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    //ราคาสุทธิ
+                                    {{ $order->order_total }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
