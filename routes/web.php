@@ -22,7 +22,7 @@ use App\Http\Controllers\RetailsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -88,5 +88,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/orders/{search}','OrdersController@search');
 
     Route::get('/orders/{term}','OrdersController@term');
-
 });

@@ -20,7 +20,7 @@ class SearchController extends Controller
         $resultArray = User::query()
         ->select('users.id', 'users.empId', 'users.name')
         ->where(fn($query) => $query->where("empId","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
-        ->take(5)->get()->toArray();
+        ->get()->toArray();
 
         foreach($resultArray as $user)
         {
@@ -28,7 +28,7 @@ class SearchController extends Controller
         }
 
         $resultArray = Product::query()
-        ->where("prod_name","LIKE","%{$request->term}%")->take(5)->get();
+        ->where("prod_name","LIKE","%{$request->term}%")->get();
 
         foreach($resultArray as $product)
         {
@@ -36,7 +36,7 @@ class SearchController extends Controller
         }
 
         $resultArray = Retail::query()
-        ->where("retail_name","LIKE","%{$request->term}%")->take(5)->get();
+        ->where("retail_name","LIKE","%{$request->term}%")->get();
 
         foreach($resultArray as $retail)
         {
@@ -45,9 +45,7 @@ class SearchController extends Controller
 
         $resultArray = Truck::query()->select('users.*','users.id as user_id', 'trucks.*','trucks.id as truck_id')
         ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
-        ->where(fn($query) => $query->where("plateNumber","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
-        ->groupBy('trucks.id')
-        ->take(5)
+        ->where(fn($query) => $query->where("plateNumber","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%")->orWhereNull("name"))
         ->get();
 
         foreach($resultArray as $truck)
@@ -56,7 +54,7 @@ class SearchController extends Controller
         }
 
         $resultArray = Order::query()
-        ->where("id","LIKE","%{$request->term}%")->take(5)->get();
+        ->where("id","LIKE","%{$request->term}%")->get();
 
         foreach($resultArray as $order)
         {
