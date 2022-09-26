@@ -60,5 +60,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- CUSTOM JS -->
+<script src="{{asset('js/main.js')}}" defer></script>
 <script src="{{asset('js/products.js')}}" defer></script>
 </html>
