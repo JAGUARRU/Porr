@@ -92,10 +92,10 @@
                                     บันทึก
                                 </button>
                             </div>
-                            <div class="pr-4">
-                                <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    ยกเลิก
-                                </button>
+                            <div class="pr-4 mt-2">
+                                <a href="{{ route('retails.index') }}" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded">
+                                    <span>ยกเลิก</span>
+                                </a>
                             </div>
                         </div>
                     </div>
