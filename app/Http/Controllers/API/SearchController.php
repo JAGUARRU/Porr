@@ -10,12 +10,15 @@ use App\Models\Retail;
 use App\Models\Truck;
 use App\Models\Product;
 use App\Models\Order;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
     public function search(Request $request)
     {
         $res = array();
+
+        //array_push($res, array("v"=>$request->user()));
 
         $resultArray = User::query()
         ->select('users.id', 'users.empId', 'users.name')

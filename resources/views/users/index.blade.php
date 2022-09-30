@@ -76,7 +76,7 @@
                                 <td class="px-4 py-3 text-sm">
                                     @if ($user->inactive)
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-500 text-gray-100">
-                                            ถูกยกเลิก
+                                            ถูกระงับ
                                         </span>
                                     @else
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

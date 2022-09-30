@@ -35,7 +35,13 @@ class DatabaseSeeder extends Seeder
         $this->command->info('main table seeded!');
 
         $path = 'app/developer_docs/tambons.sql';
+        
         DB::unprepared(file_get_contents($path));
+
         $this->command->info('tambons table seeded!');
+
+        DB::statement('DELETE FROM `tambons` WHERE `province` != "พิษณุโลก"');
+
+        $this->command->info('only phitsanulok data seeded!');
     }
 }

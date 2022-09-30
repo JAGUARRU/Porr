@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+
 use Symfony\Component\HttpFoundation\Response;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use DB;
@@ -74,13 +75,9 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->fill($request->all());
-        $user->update();
-
         $user->update($request->validated());
         $user->roles()->sync($request->input('roles', []));
         $user->positions()->sync($request->input('positions', []));
-
         return redirect()->route('users.index');
     }
 

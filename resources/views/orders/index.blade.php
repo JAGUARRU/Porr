@@ -39,7 +39,7 @@
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
                                 <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3">สร้างเมื่อ</th>
-                                <th class="px-4 py-3">ยอดชำระ</th>
+                                <th class="px-4 py-3">ยอดชำระ (บาท)</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
                         </thead>
@@ -64,7 +64,7 @@
                                     {{ $order->created_at }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    {{ $order->order_total }}
+                                    {{ number_format((float)$order->order_total, 2, '.', '') }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">

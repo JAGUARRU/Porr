@@ -96,7 +96,7 @@
                 <div class="col-span-1">
                     <div class="">
                         <label for="text-gray-700 dark:text-gray-400">ราคา</label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="prod_price"/>
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="number" step="0.1" name="prod_price"/>
                     </div>
 
                     <div class="mt-4">
@@ -152,19 +152,83 @@
                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="id" placeholder="ระบุรหัสประเภทสินค้า" />
             </div> -->
             <div class="mt-4">
-                <label for="text-gray-700 dark:text-gray-400">ชื่อประเภทสินค้า </label>
+                <label for="text-gray-700 dark:text-gray-400">ชื่อประเภทสินค้าใหม่ </label>
                 <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="name" placeholder="ระบุชื่อประเภทสินค้า" />
             </div>
         </div>
         <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
-            <button type="button" @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+            <button type="button" @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
                 ปิด
             </button>
             <button type="submit" @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg sm:w-auto sm:px-4 sm:py-2 active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                เพิ่มประเภท
+                เพิ่ม
             </button>
         </footer>
+
+        <div class="mt-8">
+            <div class="w-full overflow-hidden rounded-lg">
+                <div class="w-full overflow-x-auto">
+                    <div class="grid grid-cols-6 grid-rows-1 gap-3">  
+                        <div class="col-span-3">
+                            <div class="h-3 font-bold mb-4">รายการประเภทสินค้า</div>
+                        </div>
+                        <div class="col-span-3">
+                            <div class="grid grid-rows-1 grid-cols-3 gap-2">
+                                <input type="search" id="search-category" name="search-category" placeholder="ค้นหาประเภทสินค้า" class="col-span-2 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"/>                 
+                            </div>           
+                        </div>                
+                    </div>
+
+                    <table id="category" class="w-full whitespace-no-wrap">
+
+                        <thead>
+                            <tr
+                                class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3"></th>
+                                <th class="px-4 py-3"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                          
+                            @foreach ($categories as $category)
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <td class="px-4 py-3 text-sm">
+                                    <input class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="{{ $category->id }}" name="editItem" value="{{ $category->name }}"/>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        
+                                        <button
+                                            id="updateCategory"
+                                            data-categoryId="{{ $category->id }}"
+                                            type="button"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            อัปเดตข้อมูล
+                                        </button>
+  
+                                    </div>
+                                </td>
+                            </tr>
+                          
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+            
+                    <div>
+                        <span id="updateItems" class="flex justify-end py-6 text-green-600 transition-opacity ease-in duration-700 opacity-0">รายการได้รับการอัปเดตแล้ว</span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </form>
 </div>
+
+<script src="{{asset('js/products.js')}}" defer></script>
 
 </x-app-layout>

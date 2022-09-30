@@ -19,7 +19,7 @@ class CreateOrderListsTable extends Migration
             $table->string('product_id')->index();
             $table->string('product_name');
             $table->integer('qty');
-            $table->integer('price');
+            $table->float('price', 8, 2);
             $table->float('total', 8, 2);
             $table->timestamps();
 

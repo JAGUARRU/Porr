@@ -55,7 +55,7 @@
                                     {{ $product->prod_name}}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
-                                    {{ $product->prod_price}}
+                                    {{ number_format((float)$product->prod_price, 2, '.', '') }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ $product->prod_type_name}}

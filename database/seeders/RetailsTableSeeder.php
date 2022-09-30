@@ -22,10 +22,10 @@ class RetailsTableSeeder extends Seeder
             'id' => $id,
             'retail_name' => 'Shop 1',
             'retail_address' => 'ที่อยู่ร้าน ....',
-            'retail_province' => 'สมุทรปราการ',
-            'retail_district' => 'เมืองสมุทรปราการ',
-            'retail_sub_district' => 'บางเมืองใหม่',
-            'retail_postcode' => '10270',
+            'retail_province' => 'พิษณุโลก',
+            'retail_district' => 'นครไทย',
+            'retail_sub_district' => 'นาบัว',
+            'retail_postcode' => '65120',
             'retail_phone' => '-',
             'retail_contact' => '-'
         ]);
@@ -36,10 +36,10 @@ class RetailsTableSeeder extends Seeder
             'id' => $id,
             'retail_name' => 'Shop 2',
             'retail_address' => 'ที่อยู่ร้าน ....',
-            'retail_province' => 'สมุทรปราการ',
-            'retail_district' => 'เมืองสมุทรปราการ',
-            'retail_sub_district' => 'ปากน้ำ',
-            'retail_postcode' => '10270',
+            'retail_province' => 'พิษณุโลก',
+            'retail_district' => 'นครไทย',
+            'retail_sub_district' => 'นาบัว',
+            'retail_postcode' => '65120',
             'retail_phone' => '-',
             'retail_contact' => '-'
         ]);
@@ -50,10 +50,10 @@ class RetailsTableSeeder extends Seeder
             'id' => $id,
             'retail_name' => 'Shop 3',
             'retail_address' => 'ที่อยู่ร้าน ....',
-            'retail_province' => 'สมุทรปราการ',
-            'retail_district' => 'เมืองสมุทรปราการ',
-            'retail_sub_district' => 'ท้ายบ้าน',
-            'retail_postcode' => '10280',
+            'retail_province' => 'พิษณุโลก',
+            'retail_district' => 'วังทอง',
+            'retail_sub_district' => 'ดินทอง',
+            'retail_postcode' => '65130',
             'retail_phone' => '-',
             'retail_contact' => '-'
         ]);

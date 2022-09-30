@@ -1,33 +1,39 @@
 $(document).ready(function() {
 
-    $.widget( "custom.catcomplete", $.ui.autocomplete, {
-        _create: function() {
-          this._super();
-          this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
-        },
-        _renderMenu: function( ul, items ) {
-          var that = this,
-            currentCategory = "";
-          $.each( items, function( index, item ) {
-            var li;
-            if ( item.category != currentCategory ) {
-              ul.append( "<li class='ui-autocomplete-category font-bold p-2 mt-4 mb-2 leading-4'>" + item.category + "</li>" );
-              currentCategory = item.category;
-            }
-            li = that._renderItemData( ul, item );
-            if ( item.category ) {
-              li.attr( "aria-label", item.category + " : " + item.label );
-            }
-          });
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  $.widget( "custom.catcomplete", $.ui.autocomplete, {
+    _create: function() {
+      this._super();
+      this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+    },
+    _renderMenu: function( ul, items ) {
+      var that = this,
+        currentCategory = "";
+      $.each( items, function( index, item ) {
+        var li;
+        if ( item.category != currentCategory ) {
+          ul.append( "<li class='ui-autocomplete-category font-bold p-2 mt-4 mb-2 leading-4'>" + item.category + "</li>" );
+          currentCategory = item.category;
+        }
+        li = that._renderItemData( ul, item );
+        if ( item.category ) {
+          li.attr( "aria-label", item.category + " : " + item.label );
         }
       });
+    }
+  });
 
-    var $input = $("#auto-search").catcomplete(
+    $("#auto-search").catcomplete(
         {
             source: function(request, response) 
             {
                 $.ajax({
-                    url: siteUrl + '/' +"api/search",
+                    url: siteUrl + "/api/v1/search",
                     data: {
                         term : request.term
                     },
