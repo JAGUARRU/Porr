@@ -97,15 +97,16 @@
 
                         <div class="flex mt-12 place-content-end pb-4">
                             <div class="pr-6">
-                                <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    สร้าง
-                                </button>
+                                    <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
+                                        <span>สร้าง</span>
+                                    </button>
                             </div>
-                            <div class="pr-4">
-                                <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    ยกเลิก
-                                </button>
+                            <div class="pr-4 mt-2">
+                                <a href="{{ route('users.index') }}" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded">
+                                    <span>ยกเลิก</span>
+                                </a>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
