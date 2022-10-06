@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\Truck;
+use App\Models\Tambon;
 use Illuminate\Http\Request;
 use Redirect;
 
@@ -10,7 +11,10 @@ class TrucksController extends Controller
 {
     public function index()
     {
-        $trucks = Truck::with('user')->paginate(5);
+        $trucks = Truck::with(["routes" => function($res) {
+            $res->where('status', '=', 0)->with('order')->orderBy('created_at', 'desc');
+        }, "user"])->paginate(5);
+
         return view('trucks.index', ["trucks"=>$trucks]);
     }
 
@@ -36,17 +40,24 @@ class TrucksController extends Controller
         return Redirect::route('trucks.index')->with('status','Truck Added Successfully');
     }
 
-    public function show(Truck $truck)
+    public function edit(Truck $truck)
     {
-        $trucks = Truck::query();
+        $truck->load('user');
 
-        $truck->user = $trucks
-            ->select('users.*','users.id as user_id')
-            ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
-            ->where("trucks.id","=",$truck->id)
-            ->first()->toArray();
+        $provinces = Tambon::select('province')->distinct()->get();
+        $amphoes = Tambon::select('amphoe')->distinct()->get();
+        $tambons = Tambon::select('tambon')->distinct()->get();
 
-        return view('trucks.edit', compact('truck'));
+        return view('trucks.edit', compact('truck','provinces','amphoes','tambons'));
+    }
+
+    public function show($id)
+    {
+        $truck = Truck::where('id', '=', $id)->with(["routes" => function($res) {
+            $res->orderBy('created_at', 'desc')->take(1)->first();
+        }, "user"])->first();
+
+        return view('trucks.show', compact('truck'));
     }
 
     public function update(Request $request, Truck $truck)

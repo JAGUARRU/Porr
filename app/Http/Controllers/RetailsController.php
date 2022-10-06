@@ -26,8 +26,6 @@ class RetailsController extends Controller
         return view('retails.create')->with(compact('provinces','amphoes','tambons', 'id'));
     }
 
-    
-
     public function store(Request $request)
     {
         $retail = new Retail;
@@ -44,7 +42,7 @@ class RetailsController extends Controller
         return Redirect::route('retails.index')->with('status','Retail Added Successfully');
     }
 
-    public function show($id)
+    public function edit($id)
     {
         $retail = Retail::find($id);
 
@@ -53,6 +51,15 @@ class RetailsController extends Controller
         $tambons = Tambon::select('tambon')->distinct()->get();
 
         return view('retails.edit', compact('provinces','amphoes','tambons', 'retail'));
+    }
+
+    public function show($id)
+    {
+        $retail = Retail::where('id', '=', $id)->with(["orders" => function($res) {
+            $res->orderBy('created_at', 'desc')->take(3);
+        }])->first();
+
+        return view('retails.show', compact('retail'));
     }
 
     public function update(Request $request, $id)

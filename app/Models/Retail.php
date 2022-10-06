@@ -5,6 +5,7 @@ namespace App\Models;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Order;
 
 class Retail extends Model
 {
@@ -29,5 +30,10 @@ class Retail extends Model
         self::creating(function ($model) {
             $model->id = IdGenerator::generate(['table' => 'retails', 'length' => 10, 'prefix' =>'RETAIL-']);
         });
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

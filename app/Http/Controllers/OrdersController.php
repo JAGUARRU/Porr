@@ -24,7 +24,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(5);
+        $orders = Order::orderBy('order_cancelled', 'asc')->withCount('products')->where('order_status', '!=', 'สำเร็จแล้ว')->orderBy('created_at', 'desc')->paginate(5);
         return view('orders.index', ["orders"=>$orders]);
     }
 
@@ -77,123 +77,11 @@ class OrdersController extends Controller
         
         $id = IdGenerator::generate($config);
 
-
-        /*
-        $searchInput = "";
-        $products = Product::query();
-
-        if (!empty($request->name)) 
-        {
-            $searchInput = $request->name;
-            $products->where('prod_name', 'Like', '%' . $request->name . '%');
-        }
-
-        $products = $products->paginate(5);
-
-        if (!empty($request->prod_id) && !empty($request->action_method))
-        {
-
-            if ($request->action_method == "del")
-            {
-                $data = json_decode($request->session()->get('products'), true) ?? [];
-                $created = -1;
-    
-                if ($data)
-                {
-                    foreach ($data as $key => $value)
-                    {
-                        if($data[$key]["id"] == $request->prod_id)
-                        {
-                            $created = $key;
-                            break;
-                        }
-                    }
-                }
-    
-                $array = $data;
-    
-                if ($created != -1)
-                {
-                    unset($array[$created]);
-                }
-
-                $request->session()->put('products', json_encode($array));
-            }
-            else if ($request->action_method == "onchange")
-            {
-                $data = json_decode($request->session()->get('products'), true) ?? [];
-                $created = -1;
-    
-                if ($data)
-                {
-                    foreach ($data as $key => $value)
-                    {
-                        if($data[$key]["id"] == $request->prod_id)
-                        {
-                            $created = $key;
-                            break;
-                        }
-                    }
-                }
-    
-                $array = $data;
-    
-                if ($created == -1 && $request->v > 0)
-                {
-                    array_push($array, array("id"=>$request->prod_id, "name"=>$request->prod_name, "amount"=>$request->v, "price"=>$request->prod_price));
-                }
-                else
-                {
-                    if ($request->v > 0) $array[$created]["amount"] = $request->v;
-                    else
-                    {
-                        unset($array[$created]);
-                    }
-                }
-    
-                $request->session()->put('products', json_encode($array));
-                return Response::json($array);
-            }
-            else if ($request->action_method == "add")
-            {
-                $data = json_decode($request->session()->get('products'), true) ?? [];
-                $created = -1;
-    
-                if ($data)
-                {
-                    foreach ($data as $key => $value)
-                    {
-                        if($data[$key]["id"] == $request->prod_id)
-                        {
-                            $created = $key;
-                            break;
-                        }
-                    }
-                }
-    
-                $array = $data;
-    
-                if ($created == -1)
-                {
-                    array_push($array, array("id"=>$request->prod_id, "name"=>$request->prod_name, "price"=>$request->prod_price, "amount"=>1));
-                }
-                else
-                {
-                    $array[$created]["amount"] += 1;
-                }
-    
-                $request->session()->put('products', json_encode($array));
-            }
-        
-        }
-
-        $data = json_decode($request->session()->get('products'), true) ?? [];*/
-
         $provinces = Tambon::select('province')->distinct()->get();
         $amphoes = Tambon::select('amphoe')->distinct()->get();
         $tambons = Tambon::select('tambon')->distinct()->get();
 
-    return view('orders.create', compact('id', 'provinces', 'amphoes', 'tambons'/*, 'products', 'searchInput', 'data'*/));
+        return view('orders.create', compact('id', 'provinces', 'amphoes', 'tambons'));
     }
 
     /**
@@ -205,11 +93,15 @@ class OrdersController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'retail_id' => 'required',
-            'truck_id' => 'required',
-            'truck_driver' => 'required'
-        ]);
+        $this->validate(
+            $request, 
+            [   
+                'retail_id'             => 'required'
+            ],
+            [   
+                'retail_id.required'    => 'โปรดเลือกร้านค้าจากระบบ'
+            ]
+        );
         
         $provinces = Tambon::select('province')->distinct()->get();
         $amphoes = Tambon::select('amphoe')->distinct()->get();
@@ -229,15 +121,22 @@ class OrdersController extends Controller
         return view('orders.edit', compact('order', 'provinces', 'amphoes', 'tambons', 'data', 'products', 'searchInput'));
     }
 
+    public function show(Order $order)
+    {
+        $order->load('products');
+        $order->load('routes');
+
+        return view('orders.show', compact('order'));
+    }
+
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order, Request $request)
+    public function edit(Order $order, Request $request)
     {
-
         $products = Product::query();
         $searchInput = "";
 
@@ -247,13 +146,13 @@ class OrdersController extends Controller
             {
                 $query = OrderList::where("order_id", "=", $order->id)->where('product_id', "=", $request->prod_id);
 
-                $order = $query->get()->first();
+                $tempOrder = $query->get()->first();
                 
                 $update = $query
                 ->update(
                     [
                         'qty' => $request->v,
-                        'total' => $order->price * $request->v
+                        'total' => $tempOrder->price * $request->v
                     ]
                 );
 
@@ -268,7 +167,7 @@ class OrdersController extends Controller
                 {
                     return response()->json([
                         'statusCode' => 200,
-                        'prev' => $order,
+                        'prev' => $tempOrder,
                         'data' => $query->get()->first()
                     ]);
                 }
@@ -350,17 +249,6 @@ class OrdersController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -369,12 +257,6 @@ class OrdersController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        
-        /*if ($order->order_cancelled)
-        {
-            return;
-        }*/
-
         if ($request->order_cancelled)
         {
             $order->order_cancelDateTime = now();

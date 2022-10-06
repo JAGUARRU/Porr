@@ -33,7 +33,7 @@ $(document).ready(function() {
             source: function(request, response) 
             {
                 $.ajax({
-                    url: siteUrl + "/api/v1/search",
+                    url: siteUrl + "/api/search",
                     data: {
                         term : request.term
                     },

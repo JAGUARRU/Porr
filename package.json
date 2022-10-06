@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "alpinejs": "^2.8.1",
+        "moment": "^2.29.4",
         "turbolinks": "^5.2.0"
     }
 }

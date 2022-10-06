@@ -56,13 +56,45 @@
 
             <div class="col-span-1"> 
                 
-                <div class="mt-4">
+                <div class="mb-4">
                     <label class="text-gray-700 dark:text-gray-400 col-span-2" name="truck_status">
                         สถานะรถ
                     </label>
                 </div>
 
-                <div class="mt-4">
+                <div class="mb-4">
+                    <label for="text-gray-700 dark:text-gray-400">จังหวัด</label>
+                    <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="input_province" name="retail_province">
+                        <option value="">จังหวัด</option>
+                        @foreach($provinces as $item)
+                        <option value="{{ $item->province }}" {{ $truck->truck_province == $item->province ? 'selected' : '' }}>{{ $item->province }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="text-gray-700 dark:text-gray-400">อำเภอ</label>
+                    <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="input_amphoe" name="retail_district">
+                        <option value="">เขต/อำเภอ</option>
+                        @foreach($amphoes as $item)
+                        <option value="{{ $item->amphoe }}" {{ $truck->truck_district == $item->amphoe ? 'selected' : '' }}>{{ $item->amphoe }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="text-gray-700 dark:text-gray-400">ตำบล</label>
+                    <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="input_tambon" name="retail_sub_district">
+                        <option value="">แขวง/ตำบล</option>
+                        @foreach($tambons as $item)
+                        <option value="{{ $item->tambon }}" {{ $truck->truck_sub_district == $item->tambon ? 'selected' : '' }}>{{ $item->tambon }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="text-gray-700 dark:text-gray-400">รหัสไปรษณีย์</label>
+                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="input_zipcode" name="retail_postcode" value="{{ $truck->truck_postcode }}"/>
+                </div> 
+
+                <div class="mb-4">
                     <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
                         <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="status" value="พร้อมใช้งาน" {{ ($truck->status == "พร้อมใช้งาน") ? ("checked") : ("")}} />
                         <span class="ml-2">พร้อมใช้งาน</span>

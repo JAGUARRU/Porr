@@ -21,7 +21,7 @@ class RetailsTableSeeder extends Seeder
         DB::table('retails')->insert([
             'id' => $id,
             'retail_name' => 'Shop 1',
-            'retail_address' => 'ที่อยู่ร้าน ....',
+            'retail_address' => 'ธุรกิจท้องถิ่น 100 หมู่ที่ 3 บ้านโนน',
             'retail_province' => 'พิษณุโลก',
             'retail_district' => 'นครไทย',
             'retail_sub_district' => 'นาบัว',
@@ -35,7 +35,7 @@ class RetailsTableSeeder extends Seeder
         DB::table('retails')->insert([
             'id' => $id,
             'retail_name' => 'Shop 2',
-            'retail_address' => 'ที่อยู่ร้าน ....',
+            'retail_address' => 'ธุรกิจท้องถิ่น 101 หมู่ที่ 3 บ้านโนน',
             'retail_province' => 'พิษณุโลก',
             'retail_district' => 'นครไทย',
             'retail_sub_district' => 'นาบัว',
@@ -49,7 +49,7 @@ class RetailsTableSeeder extends Seeder
         DB::table('retails')->insert([
             'id' => $id,
             'retail_name' => 'Shop 3',
-            'retail_address' => 'ที่อยู่ร้าน ....',
+            'retail_address' => 'ถนน11',
             'retail_province' => 'พิษณุโลก',
             'retail_district' => 'วังทอง',
             'retail_sub_district' => 'ดินทอง',

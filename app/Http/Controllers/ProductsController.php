@@ -43,11 +43,16 @@ class ProductsController extends Controller
         return Redirect::route('products.index')->with('status','Product Added Successfully');
     }
 
-    public function show($id)
+    public function edit($id)
     {
         $product = Product::find($id);
         $categories = ProductCategory::orderBy('id','desc')->get();
         return view('products.edit', compact(['product', 'categories']));
+    }
+
+    public function show(Product $product)
+    {
+        return view('products.show', compact(['product']));
     }
 
     public function update(Request $request, $id)

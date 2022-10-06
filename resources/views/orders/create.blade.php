@@ -97,28 +97,11 @@
                 <!--2-->
                 <div class="col-span-1">
 
-                    <div class="">
-                        <label for="text-gray-700 dark:text-gray-400">พาหนะที่ใช้ (ป้ายทะเบียน)</label>
-                        <input type="hidden" class="hidden" name="truck_id" id="truck_id" value="{{ old('truck_id') }}"/>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_plate" id="auto-trucks" placeholder="ป้อนชื่อคนขับหรือป้ายทะเบียนเพื่อค้นหา"/>
-                    
-                        @if ($errors->has('truck_id'))
-                            <span class="text-red-600">{{ $errors->first('truck_id') }}</span>
-                        @endif
-                    </div>
-
-                    <div class="mt-4">
-                        <label for="text-gray-700 dark:text-gray-400">คนขับรถ</label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_driver" value="{{ old('truck_driver') }}"/>
-                        @if ($errors->has('truck_driver'))
-                            <span class="text-red-600">{{ $errors->first('truck_driver') }}</span>
-                        @endif
-                    </div>
-
                     <div class="mt-4">
                         <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
                         <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status">
-                            <option value="กำลังดำเนินการ" selected>กำลังดำเนินการ</option>
+                            <option value="รอดำเนินการ" selected>รอดำเนินการ</option>
+                            <option value="กำลังดำเนินการ">กำลังดำเนินการ</option>
                             <option value="สำเร็จแล้ว">สำเร็จแล้ว</option>
                         </select>
                     </div>

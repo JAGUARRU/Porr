@@ -27,7 +27,7 @@ class SearchController extends Controller
 
         foreach($resultArray as $user)
         {
-            array_push($res, array("title"=> $user['empId']. ": " . $user['name'], "url"=>"users/".$user['id']."/edit", "category"=>"ผู้ใช้"));
+            array_push($res, array("title"=> $user['empId']. ": " . $user['name'], "url"=>"users/".$user['id'], "category"=>"ผู้ใช้"));
         }
 
         $resultArray = Product::query()
@@ -39,7 +39,8 @@ class SearchController extends Controller
         }
 
         $resultArray = Retail::query()
-        ->where("retail_name","LIKE","%{$request->term}%")->get();
+        ->where(fn($query) => $query->where("retail_name","LIKE","%{$request->term}%")->orWhere("id","LIKE","%{$request->term}%")->orWhereNull("retail_name"))
+        ->get();
 
         foreach($resultArray as $retail)
         {
@@ -48,7 +49,7 @@ class SearchController extends Controller
 
         $resultArray = Truck::query()->select('users.*','users.id as user_id', 'trucks.*','trucks.id as truck_id')
         ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
-        ->where(fn($query) => $query->where("plateNumber","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%")->orWhereNull("name"))
+        ->where(fn($query) => $query->where("plateNumber","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%")->orWhere("trucks.id","LIKE","%{$request->term}%")->orWhereNull("name"))
         ->get();
 
         foreach($resultArray as $truck)
@@ -57,11 +58,11 @@ class SearchController extends Controller
         }
 
         $resultArray = Order::query()
-        ->where("id","LIKE","%{$request->term}%")->get();
+        ->where("id","LIKE","%{$request->term}%")->withCount('products')->orderBy('created_at', 'desc')->get();
 
         foreach($resultArray as $order)
         {
-            array_push($res, array("title"=> $order['id'], "url"=>"orders/".$order['id'], "category"=>"ออเดอร์"));
+            array_push($res, array("title"=> $order['id'] . ' สถานะ' . $order['order_status'] . ' (สินค้า '. $order->products_count .' รายการ)', "url"=>"orders/".$order['id'], "category"=>"ออเดอร์"));
         }
 
         return response()->json($res);

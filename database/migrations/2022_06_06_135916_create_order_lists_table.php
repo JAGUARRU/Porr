@@ -13,17 +13,18 @@ class CreateOrderListsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_lists', function (Blueprint $table) {
-
-            // $table->id();
+        Schema::create('order_lists', function (Blueprint $table) 
+        {
+            $table->id();
             $table->string('product_id')->index();
             $table->string('product_name');
+
             $table->integer('qty');
             $table->float('price', 8, 2);
             $table->float('total', 8, 2);
             $table->timestamps();
 
-            $table->string('order_id')->nullable()->index();
+            $table->string('order_id')->index();
             $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
             $table->unique(['order_id', 'product_id']);
         });

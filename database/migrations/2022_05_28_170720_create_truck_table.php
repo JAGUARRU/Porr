@@ -17,6 +17,12 @@ class CreateTruckTable extends Migration
             $table->string('id')->primary();
             $table->string('plateNumber');
             $table->string('status');
+
+            $table->string('truck_province');
+            $table->string('truck_district');
+            $table->string('truck_sub_district');
+            $table->string('truck_postcode');
+
             $table->foreignId('user_id')->nullable()->references('id')->on('users')->cascadeOnDelete();
 
             $table->timestamps();

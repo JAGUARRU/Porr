@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\OrderList;
+use App\Models\OrderRoute;
 
 class Order extends Model
 {
@@ -39,5 +41,15 @@ class Order extends Model
         self::creating(function ($model) {
             $model->id = IdGenerator::generate(['table' => 'orders', 'length' => 10, 'prefix' =>'ORDER-']);
         });
+    }
+
+    public function products()
+    {
+        return $this->hasMany(OrderList::class);
+    }
+
+    public function routes()
+    {
+        return $this->hasMany(OrderRoute::class);
     }
 }

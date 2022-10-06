@@ -27,12 +27,12 @@ Route::get('/tambons', [ TambonController::class , 'getTambons' ]);
 Route::get('/zipcodes', [TambonController::class, 'getZipcodes'] );
 
 Route::get('/drivers', [ EmployeeController::class , 'getDrivers' ]);
-//Route::get('/search', [ SearchController::class , 'search' ]);
+Route::get('/search', [ SearchController::class , 'search' ]);
 
 
-Route::group(['prefix' => 'v1',  'middleware' => 'auth:sanctum'], function()
+/*Route::group(['prefix' => 'v1',  'middleware' => 'auth:sanctum'], function()
 {
     Route::get("/search", [ SearchController::class , 'search' ]);
-});
+});*/
 
 // Route::middleware('auth:api')->get('/search', [ SearchController::class , 'search' ]);

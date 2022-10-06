@@ -9,6 +9,7 @@ use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RetailsController;
+use App\Http\Controllers\OrderRouteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('trucks', \App\Http\Controllers\TrucksController::class);
 
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);
+
+    Route::get('/routes/list', [OrderRouteController::class, 'list']);
+    Route::get('/routes/confirm/{id}', [OrderRouteController::class, 'confirm']);
+    Route::get('/routes/order', [OrderRouteController::class, 'order']);
+    
+    Route::post('/routes/confirmRoute', [OrderRouteController::class, 'confirmRoute']);
+
+    Route::resource('routes', \App\Http\Controllers\OrderRouteController::class);
 
     Route::get('/orders/{search}','OrdersController@search');
 

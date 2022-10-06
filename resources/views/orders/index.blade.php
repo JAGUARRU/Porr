@@ -28,7 +28,6 @@
                 <h6 class="alert alert-success">{{ session('success') }}</h6>
             @endif
 
-
             <!-- With actions -->
             <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
                 <div class="w-full overflow-x-auto">
@@ -39,6 +38,7 @@
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
                                 <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3">สร้างเมื่อ</th>
+                                <th class="px-4 py-3">จำนวนรายการสินค้า</th>
                                 <th class="px-4 py-3">ยอดชำระ (บาท)</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
@@ -64,32 +64,32 @@
                                     {{ $order->created_at }}
                                 </td>
                                 <td class="px-4 py-3">
+                                    {{ $order->products_count }}
+                                </td>
+                                <td class="px-4 py-3">
                                     {{ number_format((float)$order->order_total, 2, '.', '') }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
+
                                         <a href="{{ url('orders/'.$order->id) }}">
                                             <button
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="View">
+                                                แสดง
+                                            </button>
+                                        </a>
+
+                                        <a href="{{ url('orders/'.$order->id.'/edit') }}">
+                                            <button
+                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Edit">
-                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                                    </path>
-                                                </svg>
                                                 แก้ไข
                                             </button>
                                         </a>
 
                                         @if (!$order->order_cancelled)
                                         <button type="button" @click="openModal('cancel-confirm-model')" data-toggle="modal" data-id="{{ $order->id }}" data-target="{{ url('orders/'.$order->id) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray cancel-order-button">   
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                                </path>
-                                            </svg>
                                             <span>ยกเลิก</span>
                                         </button>
                                         @endif

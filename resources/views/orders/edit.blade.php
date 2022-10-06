@@ -37,7 +37,7 @@
                     </span>
                 </div>
             @endif
-            
+        
             <!--1-->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div class="col-span-1">
@@ -51,7 +51,7 @@
                             <div class="relative inline-block block w-full">
                                 <label for="text-gray-700 dark:text-gray-400">ร้านค้า</label>
                                 <input class="block w-full mt-1 text-sm dark:border-gray-200 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="retail_name" id="auto-retails" placeholder="พิมพ์เพื่อค้นหาร้านค้าในระบบ" value="{{ $order->retail_name }}" />
-                                <input type="hidden" class="hidden" name="retail_id" id="retail_id" />
+                                <input type="hidden" class="hidden" name="retail_id" id="retail_id" value="{{ $order->retail_id }}" />
                                 <!--<div id="autocomplete-list" class="absolute border-l-2 border-r-2 border-gray-200 z-50 inset-x-0 top-full">
                                     <div class="autocomplete-items p-1 bg-white hover:bg-gray-200 cursor-pointer border-b border-gray-200"><strong>Sh</strong>op 1</div>
                                     <div class="autocomplete-items p-1 bg-white hover:bg-gray-200 cursor-pointer border-b border-gray-200">Shop 2</div>
@@ -97,20 +97,10 @@
                 <!--2-->
                 <div class="col-span-1">
 
-                    <div class="">
-                        <label for="text-gray-700 dark:text-gray-400">พาหนะที่ใช้ (ป้ายทะเบียน)</label>
-                        <input type="hidden" class="hidden" name="truck_id" id="truck_id" value="{{ $order->truck_id }}" />
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_plate" value="{{ $order->truck_plate }}" id="auto-trucks" placeholder="ป้อนชื่อคนขับหรือป้ายทะเบียนเพื่อค้นหา"/>
-                    </div>
-
-                    <div class="mt-4">
-                        <label for="text-gray-700 dark:text-gray-400">คนขับรถ</label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="truck_driver" value="{{ $order->truck_driver }}" placeholder=""/>
-                    </div>
-
-                    <div class="mt-4">
+                    <div>
                         <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
                         <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status" value="{{ $order->order_status }}">
+                            <option value="รอดำเนินการ" {{ ($order->order_status == "รอดำเนินการ") ? ("selected") : ("")}}>รอดำเนินการ</option>
                             <option value="กำลังดำเนินการ" {{ ($order->order_status == "กำลังดำเนินการ") ? ("selected") : ("")}}>กำลังดำเนินการ</option>
                             <option value="สำเร็จแล้ว" {{ ($order->order_status == "สำเร็จแล้ว") ? ("selected") : ("")}}>สำเร็จแล้ว</option>
                         </select>
@@ -132,6 +122,11 @@
             </div>  
             
             <div class="mt-4">
+
+                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    รายการสินค้า
+                </h2>
+
                 <table class="w-full whitespace-no-wrap" id="productOrder">
                     <thead>
                         <tr
@@ -190,6 +185,7 @@
                              </td>
                         </tr>
                         @endforeach
+                        
                     </tbody>
                 </table>
                 <div>

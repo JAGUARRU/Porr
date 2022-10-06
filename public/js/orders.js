@@ -1,9 +1,6 @@
-$(document).ready(function() {
 
-    $("#input_amphoe").on('change', (event) => {
-        console.log("update related (onchange)");
-        // check relate transpot from this amphoe
-    });
+
+$(document).ready(function() {
 
     $("input[name=orderItem]").on('input', function(event){
 
@@ -29,7 +26,7 @@ $(document).ready(function() {
     function onChangeProduct(event)
     {
         $.ajax({
-            url: '/orders/' + $(this).attr('data-orderId'),
+            url: '/orders/' + $(this).attr('data-orderId') + '/edit',
             method: 'GET',
             data: 'action_method=onchange&prod_id=' + event.target.id + '&v=' + event.target.value,
             dataType: 'JSON',
@@ -81,7 +78,7 @@ $(document).ready(function() {
 
         let orderId = $(this).attr('data-id');
         $.ajax({
-            url: '/orders/' + orderId,
+            url: '/orders/' + orderId + '/edit',
             method: 'GET',
             data: 'action_method=add&prod_id=' + $(this).attr('data-productId') + '&prod_name=' + $(this).attr('data-productName')+ '&prod_price=' + $(this).attr('data-productPrice'),
             dataType: 'JSON',
@@ -168,7 +165,7 @@ $(document).ready(function() {
         let orderId = $(this).attr('data-id');
 
         $.ajax({
-            url: '/orders/' + orderId,
+            url: '/orders/' + orderId + '/edit',
             method: 'GET',
             data: 'action_method=remove&prod_id=' + $(this).attr('data-productId'),
             dataType: 'JSON',
@@ -268,16 +265,12 @@ $(document).ready(function() {
 
                     var resp = $.map(data,function(obj)
                     {
-                        if (obj.order_status == "กำลังดำเนินการ" && obj.retail_district != amphoe)
-                        {
-                            return;
-                        }
-                        
+
                         if (obj.retail_district && obj.retail_district == amphoe && $("input[name=order_id]").val() != obj.order_id)
                         {
-                            return { label: (obj.name ? obj.name : ("ไม่พบคนขับ")) + " (" + obj.plateNumber + ")" + " - รถคันนี้มีสินค้าที่กำลังจัดส่งอยู่ในอำเภอเดียวกัน", value: obj };
+                            return { label: (obj.name ? obj.name : ("ไม่พบคนขับ")) + " (" + obj.plateNumber + ")" + " - จัดส่งอยู่ในอำเภอ" + obj.retail_district, value: obj };
                         }
-                        return { label: (obj.name ? obj.name : ("ไม่พบคนขับ")) + " (" + obj.plateNumber + ")", value: obj };
+                        return { label: (obj.name ? obj.name : ("ไม่พบคนขับ")) + " (" + obj.plateNumber + ")" + "อำเภอ" + obj.truck_district, value: obj };
                     }); 
 
                     response(resp);
