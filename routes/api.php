@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TambonController;
 use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\SearchController;
+use App\Http\Controllers\API\ReportController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,6 +30,7 @@ Route::get('/zipcodes', [TambonController::class, 'getZipcodes'] );
 Route::get('/drivers', [ EmployeeController::class , 'getDrivers' ]);
 Route::get('/search', [ SearchController::class , 'search' ]);
 
+Route::get('/report/salesChart', [ ReportController::class , 'salesChart' ]);
 
 /*Route::group(['prefix' => 'v1',  'middleware' => 'auth:sanctum'], function()
 {

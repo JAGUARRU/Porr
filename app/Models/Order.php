@@ -29,6 +29,7 @@ class Order extends Model
         'truck_driver',
         'truck_plate',
 
+        'order_date',
         'order_status',
         'order_cancelled',
         'order_cancelDateTime',

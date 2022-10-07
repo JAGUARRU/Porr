@@ -97,7 +97,7 @@
                 <!--2-->
                 <div class="col-span-1">
 
-                    <div>
+                    <div class="mb-4">
                         <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
                         <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status" value="{{ $order->order_status }}">
                             <option value="รอดำเนินการ" {{ ($order->order_status == "รอดำเนินการ") ? ("selected") : ("")}}>รอดำเนินการ</option>
@@ -105,6 +105,11 @@
                             <option value="สำเร็จแล้ว" {{ ($order->order_status == "สำเร็จแล้ว") ? ("selected") : ("")}}>สำเร็จแล้ว</option>
                         </select>
                     </div>
+
+                    <div class="mb-4">
+                        <label for="text-gray-700 dark:text-gray-400">วันที่สั่งซื้อ</label>
+                        <input type="datetime-local" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="order_date" name="order_date" value="{{ $order->order_date }}"/>
+                    </div> 
 
                     <div class="flex mt-12 place-content-end pb-4">
                         <div class="pr-6">

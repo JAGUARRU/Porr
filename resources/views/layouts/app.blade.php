@@ -19,18 +19,14 @@
     <script src="{{asset('js/init-alpine.js')}}" defer></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data.min.js" integrity="sha512-BbPxnWR+i+tcacIqSiUXJq496oz6m8XAI4W9guCx08dRKQFRjMSxcIsAzLvYMHcfJGNzluReCg9CB6ePDMm3vQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
-    <script src="{{asset('js/charts-lines.js')}}" defer></script>
-    <script src="{{asset('js/charts-pie.js')}}" defer></script>
-    <script src="{{asset('js/charts-bars.js')}}" defer></script>
     @livewireStyles
-    <script>
-        import Turbolinks from 'turbolinks';
-        Turbolinks.start()
-    </script>
+
+    <script src="{{asset('js/importer.js')}}" type="module"></script>
 
     <script type="text/javascript">
         var siteUrl = "{{url('/')}}";

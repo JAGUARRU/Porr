@@ -29,6 +29,8 @@ class CreateOrdersTable extends Migration
             $table->string('truck_driver');
             $table->string('truck_plate');*/
 
+            $table->timestamp('order_date')->useCurrent();
+            
             $table->string('order_status');
             $table->boolean('order_cancelled')->default(false);
             $table->dateTime('order_cancelDateTime', $precision = 0)->nullable()->default(null);
