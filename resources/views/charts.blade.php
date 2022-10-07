@@ -83,7 +83,7 @@
                 <div class="flex justify-center mt-4 space-x-3 text-sm text-gray-600 dark:text-gray-400">
                     <div class="flex items-center">
                         <span class="inline-block w-3 h-3 mr-1 bg-purple-600 rounded-full"></span>
-                        <span>จำนวน</span>
+                        <span>ยอดขาย</span>
                     </div>
                 </div>
             </div>

@@ -4,15 +4,7 @@ const salesConfig =
     type: 'bar',
     data: {
         labels: moment.monthsShort(),
-        datasets: [
-            {
-                label: 'จำนวน',
-                backgroundColor: '#7e3af2',
-                // borderColor: window.chartColors.red,
-                borderWidth: 1,
-                data: [-3, 14, 52, 74, 33, 90, 70, 0, 0, 0, 0, 0],
-            }
-        ],
+        datasets: [],
     },
     options: {
         tooltips: {
