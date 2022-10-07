@@ -37,7 +37,7 @@
                 <div class="mt-4">
                     <label for="text-gray-700 dark:text-gray-400">คนขับ</label>
                     <input type="hidden" class="hidden" name="user_id" id="user_id" placeholder="ชื่อหรือรหัสพนักงาน" value="{{ $truck->user_id }}" />
-                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="emp_id" id="emp_id" value="{{ $truck->user['empId'] }}" disabled />
+                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="emp_id" id="emp_id" value="{{ $truck->user ? $truck->user['empId'] : '' }}" disabled />
      
                     <div class="relative text-gray-600 focus-within:text-gray-400">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -49,7 +49,7 @@
                                 @endif
                             </div>
                         </span>
-                        <input type="search" value="{{ $truck->user['name'] }}" id="auto-drivers" class="py-2 pl-10 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ป้อนรหัสพนักงานหรือชื่อพนักงาน" autocomplete="off" id="auto-drivers">
+                        <input type="search" value="{{ $truck->user ? $truck->user['name'] : ('') }}" id="auto-drivers" class="py-2 pl-10 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ป้อนรหัสพนักงานหรือชื่อพนักงาน" autocomplete="off" id="auto-drivers">
                     </div>
                 </div>
             </div>
