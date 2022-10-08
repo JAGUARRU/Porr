@@ -10,7 +10,7 @@
                     <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                     </path>
                 </svg>
-                <span class="ml-4">{{ __('Dashboard') }}</span>
+                <span class="ml-4">{{ __('แดชบอร์ด') }}</span>
             </a>
         </li>
         <!--<li class="relative px-6 py-3">
@@ -170,11 +170,14 @@
                 <!-- Dropdown menu -->
                 <div id="dropdownNavbar" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                      <li>
-                        <a href="{{route('reports.sales')}}" class="block py-2 px-4 {{ request()->routeIs('reports.sales') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขายต่อเดือน</a>
+                        <li>
+                          <a href="{{route('reports.index')}}" class="block py-2 px-4 {{ request()->routeIs('reports.index') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขายและสั่งซื้อ</a>
+                        </li>
+                        <li>
+                        <a href="{{route('reports.sales')}}" class="block py-2 px-4 {{ request()->routeIs('reports.sales') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขาย</a>
                       </li>
                       <li>
-                        <a href="{{route('reports.orders')}}" class="block py-2 px-4 {{ request()->routeIs('reports.orders') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดสั่งซื้อต่อเดือน</a>
+                        <a href="{{route('reports.orders')}}" class="block py-2 px-4 {{ request()->routeIs('reports.orders') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดสั่งซื้อ</a>
                       </li>
                       <li>
                         <a href="{{route('reports.compare')}}" class="block py-2 px-4 {{ request()->routeIs('reports.compare') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">เปรียบเทียบยอดขายระหว่างเดือน</a>

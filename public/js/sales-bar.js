@@ -9,7 +9,7 @@ const salesConfig =
     options: {
         tooltips: {
           callbacks: {
-            label: (item) => `${item.yLabel.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}`,
+            label: (item) => `ยอดขาย: ${item.yLabel.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}`,
           },
 
           /*callbacks: {
@@ -128,6 +128,7 @@ console.log(query);*/
 
 const salesCtx = document.getElementById('sales')
 const ordersCtx = document.getElementById('orders')
+
 $.ajax({
     url: siteUrl + '/api/report/salesChart',
     method: 'GET',

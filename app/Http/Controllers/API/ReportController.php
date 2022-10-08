@@ -15,12 +15,15 @@ class ReportController extends Controller
 {
     public function salesChart(Request $request)
     {
+        $selectedYear = intval(\Carbon\Carbon::now()->format('Y'));
+        
         $listArray = Order::select(
                 DB::raw('DATE_FORMAT(orders.order_date, "%b") as labels'), 
                 DB::raw('SUM(order_lists.total) as sale'), 
                 DB::raw('YEAR(orders.order_date) year, MONTH(orders.order_date) month'))
             ->join('order_lists', 'orders.id', '=', 'order_lists.order_id')
             ->where('orders.order_status', '=', 'สำเร็จแล้ว')
+            ->whereYear('orders.order_date', $selectedYear)
             ->groupBy('year', 'month')
             ->get()
             ->toArray();
@@ -30,6 +33,7 @@ class ReportController extends Controller
                 DB::raw('DATE_FORMAT(orders.order_date, "%b") as labels'), 
                 DB::raw('YEAR(orders.order_date) year, MONTH(orders.order_date) month'))
             ->where('orders.order_status', '=', 'สำเร็จแล้ว')
+            ->whereYear('orders.order_date', $selectedYear)
             ->groupBy('year', 'month')
             ->get()
             ->toArray();
