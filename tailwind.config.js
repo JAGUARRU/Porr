@@ -5,6 +5,13 @@ const Color = require('color')
 module.exports = {
     purge: ['./storage/framework/views/*.php', './resources/views/**/*.blade.php'],
 
+    content: [
+      "./resources/**/*.blade.php",
+      "./resources/**/*.js",
+      "./resources/**/*.vue",
+      "./node_modules/flowbite/**/*.js"
+    ],
+      
     theme: {
         themeVariants: ['dark'],
         customForms: (theme) => ({
@@ -205,6 +212,7 @@ module.exports = {
         require('tailwindcss-multi-theme'),
         require('@tailwindcss/custom-forms'),
         require('@tailwindcss/ui'),
+        require('flowbite/plugin'),
         plugin(({
             addUtilities,
             e,

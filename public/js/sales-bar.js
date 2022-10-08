@@ -11,6 +11,20 @@ const salesConfig =
           callbacks: {
             label: (item) => `${item.yLabel.toLocaleString('th-TH', { style: 'currency', currency: 'THB' })}`,
           },
+
+          /*callbacks: {
+            label: function(context) {
+                let label = context.dataset.label || '';
+
+                if (label) {
+                    label += ': ';
+                }
+                if (context.parsed.y !== null) {
+                    label += new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(context.parsed.y);
+                }
+                return label;
+            }
+          }*/
         },
         responsive: true,
         legend: {
@@ -18,6 +32,36 @@ const salesConfig =
         },
     },
 }
+
+
+const ordersConfig = 
+{
+    type: 'bar',
+    data: {
+        labels: moment.monthsShort(),
+        datasets: [],
+    },
+    options: {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true,
+                  userCallback: function(label, index, labels) {
+                      if (Math.floor(label) === label) {
+                          return label;
+                      }
+
+                  },
+              }
+          }],
+      },
+        responsive: true,
+        legend: {
+            display: false,
+        },
+    },
+}
+
 /*
 let week = 0;
 const fullWeeks = [{
@@ -83,7 +127,7 @@ console.log(query);*/
 // select date_format(created_at,'%M') as labels, sum(total) as sale from order_lists group by year(created_at),month(created_at) order by year(created_at), month(created_at);
 
 const salesCtx = document.getElementById('sales')
-
+const ordersCtx = document.getElementById('orders')
 $.ajax({
     url: siteUrl + '/api/report/salesChart',
     method: 'GET',
@@ -94,7 +138,7 @@ $.ajax({
     success:function(response)
     {
         let res = response.map(x => {
-            return {labels: x.labels, sale: parseInt(x.sale)};
+            return {labels: x.labels, sale: parseInt(x.sale), order: parseInt(x.order_count)};
         });
 
         let momentMonths = moment.monthsShort();
@@ -102,29 +146,41 @@ $.ajax({
         let fullMonths = momentMonths.map((x, index) => {
           return {
             labels: momentMonths[index],
-            sale: 0
+            sale: 0,
+            order: 0
           };
         });
 
-        fullMonths = Object.values([...fullMonths, ...res].reduce((res, { labels, sale }) => {
+        fullMonths = Object.values([...fullMonths, ...res].reduce((res, { labels, sale, order }) => {
             res[labels] = { 
               labels,
-              sale: (res[labels] ? res[labels].sale : 0) + sale
+              sale: (res[labels] ? res[labels].sale : 0) + sale,
+              order: (res[labels] ? res[labels].order : 0) + order
             };
             return res;
           }, {}));
 
-          //console.log(fullMonths.map((v) => v.sale));
-          //console.log(salesConfig.data.datasets[0]);
         salesConfig.data.datasets[0] = 
             {
-                label: 'จำนวน',
-                backgroundColor: '#7e3af2',
-                borderWidth: 1,
-                data: fullMonths.map((v) => v.sale),
-            };
+              label: 'ยอดขาย',
+              backgroundColor: '#7e3af2',
+              borderWidth: 1,
+              data: fullMonths.map((v) => v.sale),
+            }
+        ;
+
+        ordersConfig.data.datasets[0] = 
+            {
+              label: 'ยอดสั่งซื้อ',
+              backgroundColor: '#0694a2',
+              borderWidth: 1,
+              data: fullMonths.map((v) => v.order),
+            }
+        ;
 
         window.myBar = new Chart(salesCtx, salesConfig)
+
+        window.myBar = new Chart(ordersCtx, ordersConfig)
     },
     error: function(response) {
         console.log(response);

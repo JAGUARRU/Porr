@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RetailsController;
 use App\Http\Controllers\OrderRouteController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);
 
+    Route::get('/reports/sales', [ReportController::class, 'monthly_sales'])->name('reports.sales');
+    Route::get('/reports/orders', [ReportController::class, 'monthly_orders'])->name('reports.orders');
+    Route::get('/reports/compare', [ReportController::class, 'monthly_compare'])->name('reports.compare');
+
+    Route::resource('reports', \App\Http\Controllers\ReportController::class);
+
+    
     Route::get('/routes/list', [OrderRouteController::class, 'list']);
     Route::get('/routes/confirm/{id}', [OrderRouteController::class, 'confirm']);
     Route::get('/routes/order', [OrderRouteController::class, 'order']);

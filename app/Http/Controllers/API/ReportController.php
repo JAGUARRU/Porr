@@ -19,13 +19,32 @@ class ReportController extends Controller
                 DB::raw('DATE_FORMAT(orders.order_date, "%b") as labels'), 
                 DB::raw('SUM(order_lists.total) as sale'), 
                 DB::raw('YEAR(orders.order_date) year, MONTH(orders.order_date) month'))
-            ->groupBy('year', 'month')
-            ->leftJoin('order_lists', 'orders.id', '=', 'order_lists.order_id')
+            ->join('order_lists', 'orders.id', '=', 'order_lists.order_id')
             ->where('orders.order_status', '=', 'สำเร็จแล้ว')
+            ->groupBy('year', 'month')
             ->get()
             ->toArray();
 
-        // select date_format(created_at,'%b') as labels, sum(total) as sale from order_lists group by year(created_at),month(created_at) order by year(created_at), month(created_at);
+        $orderArray = Order::select(
+                DB::raw('COUNT(orders.id) as order_count'), 
+                DB::raw('DATE_FORMAT(orders.order_date, "%b") as labels'), 
+                DB::raw('YEAR(orders.order_date) year, MONTH(orders.order_date) month'))
+            ->where('orders.order_status', '=', 'สำเร็จแล้ว')
+            ->groupBy('year', 'month')
+            ->get()
+            ->toArray();
+
+        foreach($listArray as $key=>$value)
+        {
+            foreach($orderArray as $orderKey=>$orderValue)
+            {
+                if ($listArray[$key]['labels'] == $orderArray[$key]['labels'])
+                {
+                    $listArray[$key]['order_count'] = $orderArray[$key]['order_count'];
+                }
+            }
+        }
+    
         return response()->json($listArray);
     }
 }
