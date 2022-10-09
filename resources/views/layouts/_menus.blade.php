@@ -170,9 +170,9 @@
                 <!-- Dropdown menu -->
                 <div id="dropdownNavbar" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                        <li>
+                        <!--<li>
                           <a href="{{route('reports.index')}}" class="block py-2 px-4 {{ request()->routeIs('reports.index') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขายและสั่งซื้อ</a>
-                        </li>
+                        </li>-->
                         <li>
                         <a href="{{route('reports.sales')}}" class="block py-2 px-4 {{ request()->routeIs('reports.sales') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขาย</a>
                       </li>

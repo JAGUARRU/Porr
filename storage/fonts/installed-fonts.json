@@ -1,0 +1,20 @@
+{
+    "nunito": {
+        "normal": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/nunito_normal_586f3f8a461df5c8635a870033365d5e",
+        "600": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/nunito_600_20ff5cd6c5269dcc48ef3e7c73cd0a00",
+        "bold": "nunito_bold_ea226530427d2573f837779baf2817af"
+    },
+    "inter": {
+        "normal": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/inter_normal_4c1c39b2d60dc6de8a3bc272ce3fe7dc",
+        "500": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/inter_500_73384d6e47fd66bbc719b75497af932b",
+        "600": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/inter_600_5fa3cee4db6b0338a4ce38a93c93ddd3",
+        "bold": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/inter_bold_c57a050bb9f74fe1522e9f687ba11188",
+        "800": "inter_800_d0a767ffeda1c5c5782aa5e0f854b616"
+    },
+    "thsarabunnew": {
+        "normal": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/thsarabunnew_normal_bb35acc55ee67aefbf614a988085f7fb",
+        "bold": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/thsarabunnew_bold_0bda158066585592974870706e78f55a",
+        "italic": "C:\\JustWantDoingInsideSSD\\Porr\\storage\\fonts\/thsarabunnew_italic_06f95f7c1215e65aeb7c119b4b3a84b8",
+        "bold_italic": "thsarabunnew_bold_italic_f4bb6174653ef372010451f9468dd0ea"
+    }
+}
