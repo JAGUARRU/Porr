@@ -79,7 +79,7 @@
         <span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
     </div>
     <div style="text-align: center;">
-        <span style="font-weight: bolder; font-size: 18px;">รายงานสรุปยอดสั่งซื้อรายเดือน</span>
+        <span style="font-weight: bolder; font-size: 18px;">รายงานสรุปเปรียบเทียบยอดการขาย</span>
     </div>
     <div style="width: 100%;">
         <span style="display: inline-block;">พิมพ์เมื่อวันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}}</span>
