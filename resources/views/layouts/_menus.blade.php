@@ -162,17 +162,44 @@
         </li>
 
         <li class="relative px-6 py-3">
+            {!! request()->routeIs('reports.sales') ? '<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>' : '' !!}
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('reports.sales') }}">
+                <svg class="h-6 w-6 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
+                    <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />  <path d="M5 21v-10.15" />  <path d="M19 21v-10.15" />  <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+                </svg>
+                <span class="ml-4">รายงานสรุปยอดขาย</span>
+            </a>
+        </li>
+
+        <li class="relative px-6 py-3">
+            {!! request()->routeIs('reports.orders') ? '<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>' : '' !!}
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('reports.orders') }}">
+                <svg class="h-6 w-6 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
+                    <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />  <path d="M5 21v-10.15" />  <path d="M19 21v-10.15" />  <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+                </svg>
+                <span class="ml-4">รายงานสรุปยอดสั่งซื้อ</span>
+            </a>
+        </li>
+
+        <li class="relative px-6 py-3">
+            {!! request()->routeIs('reports.compare') ? '<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>' : '' !!}
+            <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('reports.compare') }}">
+                <svg class="h-6 w-6 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
+                    <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="3" y1="21" x2="21" y2="21" />  <path d="M3 7v1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1m0 1a3 3 0 0 0 6 0v-1h-18l2 -4h14l2 4" />  <path d="M5 21v-10.15" />  <path d="M19 21v-10.15" />  <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+                </svg>
+                <span class="ml-4">รายงานเปรียบเทียบยอดขายระหว่างเดือน</span>
+            </a>
+        </li>
+        <!--
+        <li class="relative px-6 py-3">
 
             {!! request()->routeIs('reports.*') ? '<span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>' : '' !!}
             
             <div class="inline-flex items-center w-full transition-colors duration-150">
                 <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex justify-between text-sm font-semibold items-center px-4 py-2 w-full rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">รายงาน <svg class="ml-1 w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
-                <!-- Dropdown menu -->
+
                 <div id="dropdownNavbar" class="hidden z-10 w-44 font-normal bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                        <!--<li>
-                          <a href="{{route('reports.index')}}" class="block py-2 px-4 {{ request()->routeIs('reports.index') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขายและสั่งซื้อ</a>
-                        </li>-->
                         <li>
                         <a href="{{route('reports.sales')}}" class="block py-2 px-4 {{ request()->routeIs('reports.sales') ? ('bg-purple-600 text-white hover:bg-purple-600 dark:hover:bg-purple-600 dark:hover:text-gray-700') : ('hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white')}}">สรุปยอดขาย</a>
                       </li>
@@ -187,6 +214,6 @@
             </div>
             
         </li>
-
+-->
     </ul>
 </div>

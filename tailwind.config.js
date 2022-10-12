@@ -9,7 +9,7 @@ module.exports = {
       "./resources/**/*.blade.php",
       "./resources/**/*.js",
       "./resources/**/*.vue",
-      "./node_modules/flowbite/**/*.js"
+      //"./node_modules/flowbite/**/*.js"
     ],
       
     theme: {
@@ -212,7 +212,7 @@ module.exports = {
         require('tailwindcss-multi-theme'),
         require('@tailwindcss/custom-forms'),
         require('@tailwindcss/ui'),
-        require('flowbite/plugin'),
+        // require('flowbite/plugin'),
         plugin(({
             addUtilities,
             e,
