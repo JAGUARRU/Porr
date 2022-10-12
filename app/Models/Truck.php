@@ -17,7 +17,12 @@ class Truck extends Model
         'id',
         'plateNumber',
         'status',
-        'user_id'
+        'user_id',
+
+        'truck_province',
+        'truck_district',
+        'truck_sub_district',
+        'truck_postcode'
     ];
 
     public $timestamps = false;

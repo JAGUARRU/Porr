@@ -46,7 +46,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     //Route::post('save' , [GeneratorController::class, 'save'])->name('generate.save');
 
-    //Route::get('employees', [EmployeeController::class, 'index'])->name('employees');
     //Route::get('add-employee', [EmployeeController::class, 'create']);
     //Route::post('add-employee', [EmployeeController::class, 'store']);
     //Route::get('edit-employee/{emp_id}', [EmployeeController::class, 'edit']);
