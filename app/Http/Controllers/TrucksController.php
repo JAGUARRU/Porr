@@ -6,6 +6,7 @@ use App\Models\Truck;
 use App\Models\Tambon;
 use Illuminate\Http\Request;
 use Redirect;
+use PDF;
 
 class TrucksController extends Controller
 {
@@ -54,9 +55,10 @@ class TrucksController extends Controller
     public function show($id)
     {
         $truck = Truck::where('id', '=', $id)->with(["routes" => function($res) {
-            $res->orderBy('created_at', 'desc')->take(1)->first();
+            $res->orderBy('created_at', 'desc');
         }, "user"])->first();
 
+        // dd($truck->routes()->where('status', '=', 0)->get()->toArray());
         return view('trucks.show', compact('truck'));
     }
 
@@ -83,5 +85,15 @@ class TrucksController extends Controller
     public function drivers(Request $request)
     {
         dd($request);
+    }
+    
+    public function product_print(Request $request)
+    {
+        $truck = Truck::where('id', '=', $request['id'])->with(["routes" => function($res) {
+            $res->orderBy('created_at', 'desc');
+        }, "user"])->first();
+
+        $pdf = PDF::loadView('trucks.product_print', ['truck' => $truck]);
+        return $pdf->stream();
     }
 }

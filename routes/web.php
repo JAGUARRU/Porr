@@ -82,6 +82,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('retails', \App\Http\Controllers\RetailsController::class);
     Route::resource('products', \App\Http\Controllers\ProductsController::class);
+
+    Route::get('/trucks/product/pdf', [\App\Http\Controllers\TrucksController::class, 'product_print'])->name('trucks.product_print');
     Route::resource('trucks', \App\Http\Controllers\TrucksController::class);
 
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);

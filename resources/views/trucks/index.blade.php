@@ -71,18 +71,25 @@
                                 <td class="px-4 py-3">
                                     @if (count($truck->routes))
                                         @php
-                                            $id = array();
                                             $district = array();
                                         @endphp
                                         @foreach ($truck->routes as $route)
                                             @php
                                                 array_push($district, $route->order->retail_district);
-                                                array_push($id, $route->order->id);
                                             @endphp
                                         @endforeach
 
                                         @foreach (array_unique($district) as $key=>$value)
-                                            <div>มีออเดอร์ที่อำเภอ{{$district[$key]}} <a href="{{ url('orders/'.$id[$key]) }}" >#{{$id[$key]}}</a></div>
+                                        <!--@//foreach ($district as $key=>$value)-->
+                                            <div>มีออเดอร์ที่อำเภอ{{$district[$key]}} 
+                                                
+                                                @foreach ($truck->routes as $route)
+                                                    @if($route->order->retail_district == $district[$key])
+                                                        <a class="text-blue-600 underline" href="{{ url('orders/'.$route->order->id) }}" >#{{$route->order->id}}</a>
+                                                    @endif
+                                                @endforeach
+                                            
+                                            </div>
                                         @endforeach
 
                                     @endif

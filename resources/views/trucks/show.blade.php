@@ -75,6 +75,71 @@
                     </div>
                 </div>
             </div>
+
+            <div class="flex flex-col mt-6">
+
+                <div class="w-full my-6">
+
+                    <span class="inline-block text-2xl font-semibold">รายการสินค้าที่บรรทุกไว้</span>
+    
+                    <span class="inline-block float-right">
+                        <a href="{{ route('trucks.product_print', ['id'=> $truck->id]) }}">
+                            <button type="button" class="bg-purple-600 rounded hover:bg-blue-700 text-white font-bold py-2 px-4" value="print">
+                                พิมพ์ / PDF
+                            </button>
+                        </a>
+                    </span>
+            
+                </div>
+
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr
+                            class="font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            <th class="px-4 py-3">รหัสออเดอร์</th>
+                            <th class="px-4 py-3">รายการสินค้า</th>
+                            <th class="px-4 py-3">จำนวน</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white text-center divide-y dark:divide-gray-700 dark:bg-gray-800">
+
+                        @if (count($truck->routes()->where('status', '=', 0)->get()) == 0)
+                        <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
+                            <td colspan="4" class="px-4 py-3">
+                                ไม่พบข้อมูล...
+                            </td>
+                        </tr>
+                        @endif
+                        
+                        @foreach($truck->routes()->where('status', '=', 0)->get() as $routes)
+                            @foreach($routes->order()->get() as $order)
+                                @foreach($order->products()->get()->toArray() as $product)
+                                <tr class="text-gray-700 dark:text-gray-400 {{ (!isset($currentOrder) || $currentOrder != $order->id) ? ('') : ('border-none')}}" id="{{ $product['product_id'] }}">
+                                    <td class="px-4 py-3">
+                                        @php
+                                        if (!isset($currentOrder) || $currentOrder != $order->id)
+                                        {
+                                            $currentOrder = $order->id;
+                                            echo $order->id;
+                                        }
+                                        @endphp
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $product['product_id'] }}: {{ $product['product_name'] }}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        {{ $product['qty'] }}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            @endforeach
+                        @endforeach
+
+                    </tbody>
+                </table>
+            </div>
+
+            
         </div>
     </div>
 </x-app-layout>
