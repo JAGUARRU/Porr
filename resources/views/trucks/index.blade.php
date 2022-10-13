@@ -82,13 +82,14 @@
                                         @foreach (array_unique($district) as $key=>$value)
                                         <!--@//foreach ($district as $key=>$value)-->
                                             <div>มีออเดอร์ที่อำเภอ{{$district[$key]}} 
-                                                
+                                                @php
+                                                    $count = 0;
+                                                @endphp
                                                 @foreach ($truck->routes as $route)
                                                     @if($route->order->retail_district == $district[$key])
-                                                        <a class="text-blue-600 underline" href="{{ url('orders/'.$route->order->id) }}" >#{{$route->order->id}}</a>
+                                                    {{ $count++ > 0 ? ('/ ') : ('') }}<a class="text-blue-600 underline" href="{{ url('orders/'.$route->order->id) }}" >#{{$route->order->id}}</a>
                                                     @endif
                                                 @endforeach
-                                            
                                             </div>
                                         @endforeach
 
