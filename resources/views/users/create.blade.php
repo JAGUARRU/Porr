@@ -32,6 +32,7 @@
                             <label for="name text-gray-700 dark:text-gray-400">ชื่อ-สกุลพนักงาน</label>
                             <input type="text" name="name" id="name" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                    value="{{ old('name', '') }}" />
+
                             @error('name')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror

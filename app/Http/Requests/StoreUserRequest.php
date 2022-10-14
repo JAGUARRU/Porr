@@ -11,8 +11,8 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name'     => [
-                'string',
                 'required',
+                'string'
             ],
             'email'    => [
                 'required',
@@ -31,6 +31,16 @@ class StoreUserRequest extends FormRequest
             'inactive' => [
                 'integer'
             ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required'    => 'โปรดระบุชื่อผู้ใช้งาน',
+            'email.required'    => 'โปรดระบุที่อยู่อีเมล',
+            'password.required'    => 'โปรดระบุรหัสผ่าน',
+            'roles.required'    => 'โปรดระบุบทบาท',
         ];
     }
 

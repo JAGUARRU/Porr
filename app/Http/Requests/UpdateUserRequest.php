@@ -11,16 +11,16 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name'    => [
-                'string',
                 'required',
+                'string'
             ],
             'email'   => [
                 'required',
                 'unique:users,email,' . request()->route('user')->id,
             ],
             'password'    => [
-                'string',
                 'required',
+                'string'
             ],
             'roles.*' => [
                 'integer',
@@ -36,6 +36,17 @@ class UpdateUserRequest extends FormRequest
             'inactive' => [
                 'integer'
             ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required'    => 'โปรดระบุชื่อผู้ใช้งาน',
+            'email.required'    => 'โปรดระบุที่อยู่อีเมล',
+            'password.required'    => 'โปรดระบุรหัสผ่าน',
+            'roles.required'    => 'โปรดกำหนดบทบาท',
+            'positions.required'    => 'โปรดกำหนดตำแหน่ง',
         ];
     }
 
