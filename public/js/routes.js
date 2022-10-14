@@ -183,10 +183,16 @@ $(document).ready(function() {
                                     <td class="px-4 py-3"><input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{$product["qty"]}}"></td>
                                 </tr>
      */
+
+    $("#auto-trucks").click(function () {
+        $("#auto-trucks").autocomplete('search', $("#input_amphoe").html());
+    });
+
     $("#auto-trucks").autocomplete(
         {
             source: function(request, response) 
             {
+                console.log(request, response)
                 $.ajax({
                     url: siteUrl + '/' +"routes/create",
                     data: {
@@ -212,7 +218,7 @@ $(document).ready(function() {
                     }
                 });
             },
-            minLength: 1,
+            minLength: 0,
             select: function( event, ui ) {
 
                 $("input[name=truck_id]").val(ui.item.value.truck_id);

@@ -277,7 +277,7 @@ $(document).ready(function() {
                     }
                 });
             },
-            minLength: 2,
+            minLength: 0,
             select: function( event, ui ) {
 
                 /*const retailId = ui.item.label.match(/\(([^)]+)\)/)[1];

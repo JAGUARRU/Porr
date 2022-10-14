@@ -70,9 +70,7 @@
 
                     <div class="mb-4">
                         <label for="text-gray-700 dark:text-gray-400">อำเภอ</label>
-                        <span class="block font-normal" id="input_amphoe">
-                            {{ $order->retail_district }}
-                        </span>
+                        <span class="block font-normal" id="input_amphoe">{{ $order->retail_district }}</span>
                     </div>
 
                     <div class="mb-4">

@@ -59,6 +59,9 @@ class OrderRouteController extends Controller
                     })
                     ->groupBy('routes.id')
                     ->groupBy('trucks.id')
+                    ->orderBy(DB::raw('LOCATE("'.$request->term.'", trucks.truck_district)'), 'desc')
+                    ->orderBy(DB::raw('LOCATE("'.$request->term.'", trucks.plateNumber)'), 'desc')
+                    ->orderBy(DB::raw('LOCATE("'.$request->term.'", users.name)'), 'desc')
                     ->orderBy('routes.id', 'desc')
                     ->take(10)
                     ->get();
