@@ -36,22 +36,20 @@ class ProductsController extends Controller
     {
 
         $validatedData = $request->validate([
+            'id' => ['required', 'string', 'unique:products'],
             'prod_name' => [
                 'required',
                 Rule::unique('products')->where(function ($query) use($request) {
                     return $query->where('prod_name', $request->input('prod_name'))->where('prod_type_name', $request->input('prod_type_name'));
                 })
-            ]/*,
-            'prod_type_name' => [
-                'required',
-                Rule::unique('products')->where(function ($query) use($request) {
-                    return $query->where('prod_name', $request->input('prod_name'))->where('prod_type_name', $request->input('prod_type_name'));
-                })
-             ]*/
+            ]
         ],
         [
-         'prod_name.required'=> 'โปรดระบุชื่อสินค้า', // custom message
+         'id.required'=> 'โปรดระบุรหัสสินค้า',
+         'id.unique'=> 'รหัสสินค้าซ้ำ',
+         'prod_name.required'=> 'โปรดระบุชื่อสินค้า',
          'prod_type_name.required'=> 'โปรดระบุประเภทสินค้า',
+         'prod_price.required'=> 'โปรดระบุราคาสินค้า',
          'prod_name.unique'=> 'รายการสินค้าซ้ำกัน (ชื่อสินค้าและประเภทสินค้านี้มีอยู่ในฐานข้อมูลแล้ว)'
         ]);
 
@@ -80,6 +78,22 @@ class ProductsController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $validatedData = $request->validate([
+            'prod_name' => [
+                'required',
+                Rule::unique('products')->where(function ($query) use($request, $id) {
+                    return $query->where('prod_name', $request->input('prod_name'))->where('prod_type_name', $request->input('prod_type_name'));
+                })->ignore($id)
+            ]
+        ],
+        [
+         'prod_name.required'=> 'โปรดระบุชื่อสินค้า',
+         'prod_type_name.required'=> 'โปรดระบุประเภทสินค้า',
+         'prod_price.required'=> 'โปรดระบุราคาสินค้า',
+         'prod_name.unique'=> 'รายการสินค้าซ้ำกัน (ชื่อสินค้าและประเภทสินค้านี้มีอยู่ในฐานข้อมูลแล้ว)'
+        ]);
+
         $product = Product::find($id);
         $product->prod_name = $request->input('prod_name');
         $product->prod_price = $request->input('prod_price');
