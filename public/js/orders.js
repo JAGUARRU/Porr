@@ -196,6 +196,10 @@ $(document).ready(function() {
 
     });
 
+    $("#auto-retails").click(function () {
+        $("#auto-retails").autocomplete('search', 'RETAIL');
+    });
+    
     $("#auto-retails").autocomplete(
         {
             source: function(request, response) 
@@ -217,12 +221,9 @@ $(document).ready(function() {
                     }
                 });
             },
-            minLength: 2,
+            minLength: 0,
             select: function( event, ui ) {
-
-                /*const retailId = ui.item.label.match(/\(([^)]+)\)/)[1];
-                console.log(retailId, ui);*/
-                
+ 
                 $("#retail_id").val(ui.item.value.id);
                 
                 $("#input_province").val(ui.item.value.retail_province);

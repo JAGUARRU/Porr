@@ -68,9 +68,10 @@
                     </div>-->
 
                     <div class="mt-4">
-                        <label for="text-gray-700 dark:text-gray-400">ประเภทสินค้า
+                        <div class="block mb-4">
+                            <label for="text-gray-700 dark:text-gray-400 inline-block">ประเภทสินค้า</label>
 
-                            <div class="flex place-content-end">
+                            <div class="float-right inline-block">
                                 <button type="button" @click="openModal('add-category-model')" class="flex items-center justify-between px-5 py-1 text-sm font-medium leading-5  transition-colors duration-150 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-0 px-7 border border-blue-500 hover:border-transparent rounded">   
                                     <svg class="h-4 w-4 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
                                         <path stroke="none" d="M0 0h24v24H0z"/>  
@@ -79,17 +80,23 @@
                                             <line x1="12" y1="9" x2="12" y2="15" />
                                     </svg>
                                     <span>เพิ่มประเภทสินค้า</span>
-                                </button>
+                                </button>       
                             </div>
 
-                            <select id="productCategory" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="prod_type_name">
-                                <option value="">- เลือก -</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->name }}" {{ $product->prod_type_name == $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </label>
+                            <div class="block text-sm">
+                                <span id="storeItems" class="py-6 text-red-700 transition-all ease-in duration-700 hidden">เกิดข้อผิดพลาด: <span id="msg"></span></span>
+                            </div>
+
+                        </div>
+
+                        <select id="productCategory" class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="prod_type_name">
+                            <option value="">- เลือก -</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->name }}" {{ $product->prod_type_name == $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
+                    
                 </div>
 
 

@@ -127,17 +127,17 @@
 
             <div class="mb-4">
 
-                <h4 class="mb-4 text-lg pl-2 font-semibold text-gray-600 dark:text-gray-300">
+                <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
                     การยืนยันจำนวนสินค้า
                 </h4>
 
                 <table class="w-full whitespace-no-wrap">
                     <thead>
                         <tr
-                            class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                            class="font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-4 py-3">รหัสสินค้า</th>
-                            <th class="px-4 py-3">จำนวน</th>
-                            <th class="px-4 py-3">จำนวน (ยืนยัน)</th>
+                            <th class="px-4 py-3">จำนวนที่บรรทุก</th>
+                            <th class="px-4 py-3">ส่งถึงปลายทาง</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
@@ -154,14 +154,23 @@
                         @foreach ($orderRoute->lists as $route)
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3">{{ $route["product_id"] }}<input class="hidden" type="hidden" name="products[]" value="{{ $route["product_id"] }}" /></td>
-                                <td class="px-4 py-3">{{ $route["qty"] }}<input class="hidden" type="hidden" name="qty[]" value="{{ $route["qty"] }}" /></td>
-                                <td class="px-4 py-3"><input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="number" name="changes[]" min="0" max="{{ $route["qty"] }}" value="{{ $route["qty"] }}" /></td>
+                                <td class="px-4 py-3 text-center">{{ $route["qty"] }}<input class="hidden" type="hidden" name="qty[]" value="{{ $route["qty"] }}" /></td>
+                                <td class="px-4 py-3"><input class="block w-full text-right mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" type="number" name="changes[]" min="0" max="{{ $route["qty"] }}" value="{{ $route["qty"] }}" /></td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
                 <div>
                     <span id="orderItems" class="flex justify-end py-6 text-green-600 transition-opacity ease-in duration-700 opacity-0">รายการสินค้าได้รับการอัปเดตแล้ว</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+                    <div class="col-span-1">
+                        <div class="mb-4">
+                            <label for="text-gray-700 dark:text-gray-400">วันที่ส่งสินค้า</label>
+                            <input type="datetime-local" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="confirmDate" name="confirmDate" value="{{ \Carbon\Carbon::now()->toDateTimeString() }}"/>
+                        </div> 
+                    </div>
                 </div>
             </div>
 

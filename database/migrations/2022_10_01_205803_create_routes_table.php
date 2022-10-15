@@ -27,6 +27,9 @@ class CreateRoutesTable extends Migration
 
             $table->integer('status');
 
+            $table->timestamp('transportDate');
+            $table->timestamp('confirmDate')->nullable()->default(null);
+ 
             $table->timestamps();
         });
     }

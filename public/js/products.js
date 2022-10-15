@@ -26,14 +26,14 @@ $(document).ready(function(){
 
                 $(productCategory).val(response.name).change();
 
-                let newRow = '<tr class="text-gray-700 dark:text-gray-400" id="' + element.id + '">';
+                let newRow = '<tr class="text-gray-700 dark:text-gray-400" id="' + response.id + '">';
                 let newInput = $('<input>', {
                     class: 'block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input',
-                    id: element.id,
+                    id: response.id,
                     name: 'editItem',
-                    value: element.name
+                    value: response.name
                 });
-                let updateBtn = '<div class="flex items-center space-x-4 text-sm"><button id="updateCategory" data-categoryId="'+ element.id +'" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">อัปเดตข้อมูล</button></div>';
+                let updateBtn = '<div class="flex items-center space-x-4 text-sm"><button id="updateCategory" data-categoryId="'+ response.id +'" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">อัปเดตข้อมูล</button></div>';
                 newRow += '<td class="px-4 py-3 text-sm">' + newInput.get(0).outerHTML + '</td>';
                 newRow += '<td class="px-4 py-3">' + updateBtn + '</td>';
                 newRow += '</tr>';
@@ -41,7 +41,21 @@ $(document).ready(function(){
 
                 $(form).trigger("reset");
             },
-            error: function(response) {
+            error: function(response) 
+            {
+
+                if (response.responseJSON.errors && response.responseJSON.errors.name.length)
+                {
+                    $("#storeItems span#msg").html(response.responseJSON.errors.name[0]);
+
+                    $("#storeItems").removeClass("hidden");
+
+                    setTimeout(function() {
+                        $("#storeItems").addClass("hidden");
+                    }, 5000);
+
+                    return;
+                }
             }
         });
     });
@@ -94,22 +108,13 @@ $(document).ready(function(){
         }, 300);
     });
 
-
-    /*function onChangeProductCategory(event)
-    {
-        console.log(event);
-    }
-
-    $(document).on("input", 'input[name^="editItem"]', onChangeProductCategory);*/
-
-
     $(document).on("click", 'button[id^="updateCategory"]', function(event) {
 
         $.ajax({
             url: siteUrl + '/categories/' + $(this).attr('data-categoryId'),
             method: 'GET',
 
-            data: 'id=' + $(this).attr('data-categoryId') + '&value=' + $('input#' + $(this).attr('data-categoryId')).val() + '&search=' + $('input#search-category').val(),
+            data: 'id=' + $(this).attr('data-categoryId') + '&name=' + $('input#' + $(this).attr('data-categoryId')).val() + '&search=' + $('input#search-category').val(),
 
             dataType: 'JSON',
             contentType: false,
@@ -156,15 +161,32 @@ $(document).ready(function(){
                         $("select#productCategory").append(newRow);
                     }
 
+                    $("#updateItems").html("รายการได้รับการอัปเดตแล้ว");
                     $("#updateItems").removeClass("opacity-0");
+                    $("#updateItems").addClass("text-green-600");
+                    $("#updateItems").removeClass("text-red-700");
 
                     setTimeout(function() {
                         $("#updateItems").addClass("opacity-0");
-                    }, 800);
+                    }, 5000);
                 }
             },
             error: function(response) {
-                console.log(response);
+    
+                if (response.responseJSON.errors && response.responseJSON.errors.name.length)
+                {
+                    $("#updateItems").html(response.responseJSON.errors.name[0]);
+                    $("#updateItems").removeClass("opacity-0");
+                    $("#updateItems").removeClass("text-green-600");
+                    $("#updateItems").addClass("text-red-700");
+
+                    setTimeout(function() {
+                        $("#updateItems").addClass("opacity-0");
+                    }, 5000);
+
+                    return;
+                }
+
             }
         });
 

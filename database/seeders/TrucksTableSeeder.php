@@ -20,13 +20,13 @@ class TrucksTableSeeder extends Seeder
 
         DB::table('trucks')->insert([
             'id' => $id,
-            'plateNumber' => 'กขค 123',
+            'plateNumber' => 'พค 8183',
             'status' => 'พร้อมใช้งาน',
             'truck_province' => 'พิษณุโลก',
             'truck_district' => 'วังทอง',
             'truck_sub_district' => 'ดินทอง',
             'truck_postcode' => '65130',
-            'user_id' => null,
+            'user_id' => 5,
             'created_at' => now()
         ]);
 
@@ -34,13 +34,13 @@ class TrucksTableSeeder extends Seeder
         
         DB::table('trucks')->insert([
             'id' => $id,
-            'plateNumber' => 'ABC 123',
+            'plateNumber' => 'พค 8381',
             'status' => 'พร้อมใช้งาน',
             'truck_province' => 'พิษณุโลก',
             'truck_district' => 'วังทอง',
             'truck_sub_district' => 'ดินทอง',
             'truck_postcode' => '65130',
-            'user_id' => null,
+            'user_id' => 4,
             'created_at' => now()
         ]);
       
@@ -48,13 +48,13 @@ class TrucksTableSeeder extends Seeder
         
         DB::table('trucks')->insert([
             'id' => $id,
-            'plateNumber' => 'สว 123',
+            'plateNumber' => 'พค 8318',
             'status' => 'พร้อมใช้งาน',
             'truck_province' => 'พิษณุโลก',
             'truck_district' => 'วังทอง',
             'truck_sub_district' => 'ดินทอง',
             'truck_postcode' => '65130',
-            'user_id' => null,
+            'user_id' => 3,
             'created_at' => now()
         ]);
     
@@ -62,7 +62,7 @@ class TrucksTableSeeder extends Seeder
         
         DB::table('trucks')->insert([
             'id' => $id,
-            'plateNumber' => 'กจ 123',
+            'plateNumber' => 'พค 8813',
             'status' => 'พร้อมใช้งาน',
             'truck_province' => 'พิษณุโลก',
             'truck_district' => 'นครไทย',

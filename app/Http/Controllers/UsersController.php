@@ -75,11 +75,15 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        if (!$request->password) {
+        if (!$request->password || !strlen($request->password)) {
             unset($request['password']);
         }
         
-        $user->update($request->validated());
+        $user->fill($request->all());
+        $user->update();
+
+        // $user->update($request->validated());
+        
         $user->roles()->sync($request->input('roles', []));
         $user->positions()->sync($request->input('positions', []));
         return redirect()->route('users.index');

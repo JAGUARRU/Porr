@@ -68,33 +68,33 @@
                                     @endif
                                 </td>
 
-                                <td class="px-4 py-3">
-                                    @if (count($truck->routes))
-                                        @php
+                                <!--<td class="px-4 py-3">
+                                    @ if (count($truck->routes))
+                                        @ php
                                             $district = array();
-                                        @endphp
-                                        @foreach ($truck->routes as $route)
-                                            @php
+                                        @ endphp
+                                        @ foreach ($truck->routes as $route)
+                                            @ php
                                                 array_push($district, $route->order->retail_district);
-                                            @endphp
-                                        @endforeach
+                                            @ endphp
+                                        @ endforeach
 
-                                        @foreach (array_unique($district) as $key=>$value)
-                                        <!--@//foreach ($district as $key=>$value)-->
-                                            <div>มีออเดอร์ที่อำเภอ{{$district[$key]}} 
-                                                @php
+                                        @ foreach (array_unique($district) as $key=>$value)
+                                            <div>มีออเดอร์ที่อำเภอ{ {$district[$key]}} 
+                                                @ php
                                                     $count = 0;
-                                                @endphp
-                                                @foreach ($truck->routes as $route)
-                                                    @if($route->order->retail_district == $district[$key])
-                                                    {{ $count++ > 0 ? ('/ ') : ('') }}<a class="text-blue-600 underline" href="{{ url('orders/'.$route->order->id) }}" >#{{$route->order->id}}</a>
-                                                    @endif
-                                                @endforeach
+                                                @ endphp
+                                                @ foreach ($truck->routes as $route)
+                                                    @ if($route->order->retail_district == $district[$key])
+                                                    { { $count++ > 0 ? ('/ ') : ('') }}<a class="text-blue-600 underline" href="{ { url('orders/'.$route->order->id) }}" >#{ {$route->order->id}}</a>
+                                                    @ endif
+                                                @ endforeach
                                             </div>
-                                        @endforeach
+                                        @ endforeach
 
-                                    @endif
+                                    @ endif
                                 </td>
+                            -->
 
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">

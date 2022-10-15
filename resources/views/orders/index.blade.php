@@ -195,10 +195,10 @@
 
                 <div class="mt-4 mb-6">
                     <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                        การยืนยันยกเลิกรหัสออเดอร์ #<span class="text-lg" id="order-id"></span>
+                        การยืนยันยกเลิกออเดอร์ #<span class="text-lg" id="order-id"></span>
                     </p>
                     <p class="text-sm text-gray-700 dark:text-gray-400">
-                        การดำเนินการนี้ไม่สามารถย้อนกลับได้ คุณแน่ใจไหมที่จะยกเลิก!
+                        ข้อมูลเกี่ยวกับการจัดส่งทั้งหมดจะถูกลบทิ้ง การดำเนินการนี้ไม่สามารถย้อนกลับได้ คุณแน่ใจไหมที่จะยกเลิก!
                     </p>
                 </div>
 

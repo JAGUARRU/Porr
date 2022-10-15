@@ -52,9 +52,9 @@
                 @if (isset($input['startDate']) && isset($input['endDate'])
                 && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false
                 && \Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate']) !== false)
-                    <span class="inline-block">รายงาน {{ $input['startDate'] }} ถึง {{ $input['endDate'] }}</span>
+                    <span class="inline-block text-gray-700 dark:text-gray-200">รายงาน {{ $input['startDate'] }} ถึง {{ $input['endDate'] }}</span>
                 @else
-                <span class="inline-block">รายงานปี {{ $input['year'] }}</span>
+                <span class="inline-block text-gray-700 dark:text-gray-200">รายงานปี {{ $input['year'] }}</span>
                 @endif
 
 

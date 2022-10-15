@@ -40,7 +40,7 @@
 
                         <div class="mt-4">
                             <label for="password text-gray-700 dark:text-gray-400">รหัสผ่าน</label>
-                            <input type="password" name="password" id="password" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" />
+                            <input type="password" name="password" id="password" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="เว้นว่างไว้เมื่อไม่ต้องการที่จะเปลี่ยนรหัสผ่านใหม่" />
                             @error('password')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror

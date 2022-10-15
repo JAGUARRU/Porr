@@ -16,7 +16,8 @@ class OrderRoute extends Model
 
     protected $fillable = [
         'order_id',
-
+        'transportDate',
+        'confirmDate',
         'truck_id',
         'truck_driver',
         'truck_plate'

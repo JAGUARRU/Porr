@@ -39,6 +39,7 @@
                                 <th class="px-4 py-3">ชื่อ</th>
                                 <th class="px-4 py-3">อำเภอ</th>
                                 <th class="px-4 py-3">เบอร์โทรศัพท์</th>
+                                <th class="px-4 py-3"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">

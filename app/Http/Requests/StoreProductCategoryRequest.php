@@ -11,9 +11,21 @@ class StoreProductCategoryRequest extends FormRequest
     {
         return [
             'name'     => [
-                'string',
                 'required',
+                'string',
+                'min:2',
+                'unique:product_categories,name'
             ],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.min'    => 'โปรดระบุชื่อประเภทสินค้าอย่างน้อย 2 ตัวอักษร',
+            'name.string'    => 'โปรดระบุชื่อประเภทสินค้า',
+            'name.required'    => 'โปรดระบุชื่อประเภทสินค้า',
+            'name.unique'    => 'ชื่อประเภทสินค้านี้ได้ถูกใช้แล้ว'
         ];
     }
 

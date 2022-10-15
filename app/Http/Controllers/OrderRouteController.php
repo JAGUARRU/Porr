@@ -44,11 +44,11 @@ class OrderRouteController extends Controller
 
     public function create(Request $request)
     {
-        if (!empty($request->term) && !empty($request->type)) 
+        if (!empty($request->type)) 
         {
             if ($request->type == "trucks")
             {
-                $trucks = Truck::query();
+                /*$trucks = Truck::query();
 
                 $res = $trucks
                     ->select('users.*','users.id as user_id', 'routes.*','routes.id as route_id', 'trucks.*','trucks.id as truck_id')
@@ -64,7 +64,22 @@ class OrderRouteController extends Controller
                     ->orderBy(DB::raw('LOCATE("'.$request->term.'", users.name)'), 'desc')
                     ->orderBy('routes.id', 'desc')
                     ->take(10)
-                    ->get();
+                    ->get();*/
+
+                $res = Truck::query()
+                ->select('users.*','users.id as user_id', 'order_routes.*','order_routes.id as route_id', 'order_routes.status as route_status', 'trucks.*','trucks.id as truck_id')
+                ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
+                ->leftJoin("order_routes", function ($join) {
+                    $join->on('trucks.id', '=', 'order_routes.truck_id')->On('order_routes.status', DB::raw('0'));
+                })
+                ->orderBy(DB::raw('LOCATE("'.$request->term.'", trucks.truck_district)'), 'desc')
+                ->orderBy(DB::raw('LOCATE("'.$request->term.'", trucks.plateNumber)'), 'desc')
+                ->orderBy(DB::raw('LOCATE("'.$request->term.'", users.name)'), 'desc')
+                ->orderBy('order_routes.transportDate', 'ASC')
+                ->groupBy('trucks.id')
+                ->groupBy('order_routes.id')
+                ->get();
+                
 
                 return response()->json($res);
             }
@@ -91,6 +106,7 @@ class OrderRouteController extends Controller
         {
             $orderRoute = OrderRoute::find($request->order_id);
             $orderRoute->status = 1;
+            $orderRoute->confirmDate = $request->confirmDate;
             $orderRoute->update();
     
             if(count($items) > 0)
@@ -99,7 +115,7 @@ class OrderRouteController extends Controller
             }
     
             $order = Order::find($orderRoute->order_id);
-            $routeCheck = OrderRouteLists::selectRaw('sum(route_lists.qty) as amount, route_lists.product_id')
+            $routeCheck = OrderRouteLists::selectRaw('sum(route_lists.qty) as amount, route_lists.product_id, order_routes.status as status')
             ->leftJoin('order_routes', 'order_routes.id', '=', 'route_lists.order_route_id')
             ->leftJoin('orders', 'orders.id', '=', 'order_routes.order_id')
             ->where('orders.id', '=', $orderRoute->order_id)
@@ -117,7 +133,7 @@ class OrderRouteController extends Controller
                 {
                     if ($order['product_id'] == $route['product_id'])
                     {
-                        if ($order['qty'] != $route['amount'])
+                        if ($order['qty'] != $route['amount'] || !$route['status'])
                         {
                             return redirect('routes');
                         }
@@ -203,8 +219,7 @@ class OrderRouteController extends Controller
         $order->load('routes');
 
         // OrderRouteLists order_route_id
-
-
+ 
         if (count($order->routes))
         {
             foreach($order->routes as $key => $value)
@@ -213,7 +228,18 @@ class OrderRouteController extends Controller
             }
         }
 
-        return view('routes.create', compact('order'));
+        $trucks = Truck::query()
+        ->select('order_routes.*','order_routes.id as route_id', 'order_routes.status as route_status', 'trucks.*','trucks.id as truck_id')
+        ->leftJoin("order_routes", function ($join) {
+            $join->on('trucks.id', '=', 'order_routes.truck_id')->On('order_routes.status', DB::raw('0'));
+        })
+        ->orderBy(DB::raw('LOCATE("'.$order->retail_district.'", trucks.truck_district)'), 'DESC')
+        ->orderBy('order_routes.transportDate', 'ASC')
+        ->groupBy('trucks.id')
+        ->groupBy('order_routes.id')
+        ->get();
+
+        return view('routes.create', compact('order', 'trucks'));
     }
 
     /**

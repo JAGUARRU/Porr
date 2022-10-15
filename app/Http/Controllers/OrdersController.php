@@ -9,6 +9,9 @@ use App\Models\Truck;
 use App\Models\Tambon;
 use App\Models\OrderList;
 use Illuminate\Http\Request;
+
+use App\Models\OrderRoute;
+
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Validator;
 use Response;
@@ -41,7 +44,7 @@ class OrdersController extends Controller
             {
                 $retails = Retail::query();
 
-                $res = $retails->where("retail_name","LIKE","%{$request->term}%")->take(10)->get();
+                $res = $retails->where(fn($query) => $query->where("retail_name","LIKE","%{$request->term}%")->orWhere("id","LIKE","%{$request->term}%"))->get();
             
                 return response()->json($res);
             }
@@ -84,12 +87,6 @@ class OrdersController extends Controller
         return view('orders.create', compact('id', 'provinces', 'amphoes', 'tambons'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -103,22 +100,11 @@ class OrdersController extends Controller
             ]
         );
         
-        $provinces = Tambon::select('province')->distinct()->get();
-        $amphoes = Tambon::select('amphoe')->distinct()->get();
-        $tambons = Tambon::select('tambon')->distinct()->get();
-        
         $order = new Order;
         $order->fill($request->all());
         $order->save();
         
-        $orderLists = OrderList::query();
-        $data = $orderLists->where("order_id","=", $order->id)->get();
-
-        $products = Product::query();
-        $products = $products->paginate(5);
-        $searchInput = "";
-
-        return view('orders.edit', compact('order', 'provinces', 'amphoes', 'tambons', 'data', 'products', 'searchInput'));
+        return redirect(route('orders.edit', compact('order')));
     }
 
     public function show(Order $order)
@@ -242,7 +228,8 @@ class OrdersController extends Controller
         $orderLists = OrderList::query();
         $data = $orderLists->where("order_id","=", $order->id)->get();
 
-        $products->where('prod_name', 'Like', '%' . $request->name . '%');
+        $products->where(fn($query) => $query->where("prod_name","LIKE","%{$request->name}%")->orWhere("prod_type_name","LIKE","%{$request->name}%")->orWhere("id","LIKE","%{$request->name}%"));
+        // $products->where('prod_name', 'Like', '%' . $request->name . '%');
         $products = $products->paginate(5);
 
         return view('orders.edit', compact('order', 'provinces', 'amphoes', 'tambons', 'data', 'products', 'searchInput'));
@@ -261,6 +248,11 @@ class OrdersController extends Controller
         {
             $order->order_cancelDateTime = now();
             $order->order_status = "ถูกยกเลิก";
+
+            // remove routes
+
+            $routes = OrderRoute::where('order_id', '=', $order->id);
+            $routes->delete();
         }
         else
         {

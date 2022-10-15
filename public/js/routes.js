@@ -52,6 +52,7 @@ function calcProductLoad()
 
 function calcRemainingProduct()
 {
+    productOrderArray = [];
     $('table#productOrder > tbody > tr').each(function(rIndex, tr) 
     {
         let id = $(this).find(`td:eq(${1})`).html();
@@ -60,14 +61,44 @@ function calcRemainingProduct()
         productOrderArray.push({ id, amount, rowIndex: rIndex });
     });
 
+    historyProductArray = [];
     $('table#routeProduct > tbody > tr').each(function(rIndex, tr) 
     {
-        let id = $(this).find(`td:eq(${3})`).html();
-        let amount = parseInt($(this).find(`td:eq(${4})`).html());
+        let id = $(this).find(`td:eq(${5})`).html();
+        let amountText = $(this).find(`td:eq(${7})`).html();
 
-        console.log(id, amount);
+        let amount = 0;
+
+        if (amountText && amountText.length > 0)
+        {
+            let [ positiveAmount, negativeAmount ] = amountText.split(' ');
+
+            if (negativeAmount)
+            {
+                let bracket = negativeAmount.match(/\((.*?)\)/);
+                if (bracket.length)
+                {
+                    negativeAmount = bracket[1];
+                }
+                else
+                {
+                    negativeAmount = "0";
+                }
+    
+                negativeAmount = parseInt(negativeAmount);
+            }
+
+            amount = parseInt(positiveAmount);
+
+            if (negativeAmount)
+            {
+                amount += negativeAmount;
+            }
+
+        }
 
         let existHistory = historyProductArray.find(item => item.id == id);
+        console.log({ id, amount, rowIndex: rIndex }, id);
         if (!existHistory)
         {
             historyProductArray.push({ id, amount, rowIndex: rIndex });
@@ -77,8 +108,6 @@ function calcRemainingProduct()
             existHistory.amount += amount;
         }
     });
-
-    console.log(historyProductArray);
 
     // bind value
     productOrderArray.forEach(v => {
@@ -115,6 +144,17 @@ function calcRemainingProduct()
 
 $(document).ready(function() {
 
+    // $("table#trucks > tbody > tr").on("tr.rows", "click", function(e)
+
+    $(document).on("click", 'button[id^="selectDriver"]', function(event) 
+    {
+        let data = JSON.parse($(this).attr('data-id'));
+
+        $("input[name=truck_id]").val(data.id);
+        $("input[name=truck_driver]").val(data.truck_driver ? (data.truck_driver) : ('ไม่ระบุ'));
+        $("#auto-trucks").val(data.plateNumber); 
+    });
+
     $(document).on("click", 'button[id^="loadProductOrder"]', function(event) 
     {
         let id = $(this).attr('data-id');
@@ -150,9 +190,18 @@ $(document).ready(function() {
         }
         else
         {
+
+            let amountLoad = historyProductArray.find(load => load.id == loadProduct.id) ?? { amount: 0 };
+            let amountOrder = productOrderArray.find(load => load.id == loadProduct.id);
+    
+            let max = amountOrder.amount - amountLoad.amount;
+
             if (loadProduct)
             {
-                loadProduct.amount = parseInt(e.target.value);
+                let amount = parseInt(e.target.value);
+                loadProduct.amount = amount > max ? max : amount;
+
+                $(`#${e.target.id}[name^="productLists"]`).val(loadProduct.amount);
             }
         }
 
@@ -222,7 +271,7 @@ $(document).ready(function() {
             select: function( event, ui ) {
 
                 $("input[name=truck_id]").val(ui.item.value.truck_id);
-                $("input[name=truck_driver]").val(ui.item.value.name ? (ui.item.value.name) : ('ไม่พบชื่อคนขับ'));
+                $("input[name=truck_driver]").val(ui.item.value.name ? (ui.item.value.name) : ('ไม่ระบุ'));
                 $("#auto-trucks").val(ui.item.value.plateNumber); 
                 
                 return false;

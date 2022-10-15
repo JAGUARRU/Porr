@@ -35,7 +35,7 @@
             
             <div class="w-full mb-12">
 
-                <span class="inline-block">รายงาน {{ $input['startDate'] }} ถึง {{ $input['endDate'] }}</span>
+                <span class="inline-block text-gray-700 dark:text-gray-200">รายงาน {{ $input['startDate'] }} ถึง {{ $input['endDate'] }}</span>
 
                 <span class="inline-block float-right">
                     <a href="{{ route('reports.compare_pdf', ['startDate'=> isset($input['startDate']) ? $input['startDate'].'-01' : null, 'endDate'=>isset($input['endDate']) ? $input['endDate'].'-01' : null]) }}">
@@ -65,84 +65,81 @@
                           ไม่พบข้อมูล...
                       </td>
                   </tr>
-                  @endif
-    
+                  @else
                   @php
-                      $input['sum_sale'] = 0;
-                      $input['currentYear'] = 0;
-                  @endphp
-    
-                  <tr class="text-gray-700 dark:text-gray-400">
-                      <td class="px-4 py-3">
-                         {{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->format('Y') }}
-                      </td>
-                      <td class="px-4 py-3">
-                        {{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->thaidate('F') }}
-                      </td>
-                      <td class="px-4 py-3 text-right">
-                      
-                        @foreach ($reports as $report)
-                            @if ($report['month'] == \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'])->format('m'))
-  
-                                  {{ number_format((float)$report->sale, 2, '.', '') }}
-  
-                                @php
-                                  $hasStart = true;
-                                  $input['sum_sale'] += $report->sale;
-                                @endphp
-                            @endif
-                        @endforeach
-                        
-                        @if (!isset($hasStart))
-                        0.00
+                  $input['sum_sale'] = 0;
+                  $input['currentYear'] = 0;
+              @endphp
+
+              <tr class="text-gray-700 dark:text-gray-400">
+                  <td class="px-4 py-3">
+                     {{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->format('Y') }}
+                  </td>
+                  <td class="px-4 py-3">
+                    {{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->thaidate('F') }}
+                  </td>
+                  <td class="px-4 py-3 text-right">
+                  
+                    @foreach ($reports as $report)
+                        @if ($report['month'] == \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'])->format('m'))
+
+                              {{ number_format((float)$report->sale, 2, '.', '') }}
+
+                            @php
+                              $hasStart = true;
+                              $input['sum_sale'] += $report->sale;
+                            @endphp
                         @endif
-  
-                      </td>
-                  </tr>
-                
-                  <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">
-                       {{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->format('Y') }}
-                    </td>
-                    <td class="px-4 py-3">
-                      {{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->thaidate('F') }}
-                    </td>
-                    <td class="px-4 py-3 text-right">
-                      
-                      @foreach ($reports as $report)
-                          @if ($report['month'] == \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'])->format('m'))
+                    @endforeach
+                    
+                    @if (!isset($hasStart))
+                    0.00
+                    @endif
 
-                                {{ number_format((float)$report->sale, 2, '.', '') }}
+                  </td>
+              </tr>
+            
+              <tr class="text-gray-700 dark:text-gray-400">
+                <td class="px-4 py-3">
+                   {{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->format('Y') }}
+                </td>
+                <td class="px-4 py-3">
+                  {{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->thaidate('F') }}
+                </td>
+                <td class="px-4 py-3 text-right">
+                  
+                  @foreach ($reports as $report)
+                      @if ($report['month'] == \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'])->format('m'))
 
-                              @php
-                                $hasEnd = true;
-                                $input['sum_sale'] += $report->sale;
-                              @endphp
-                          @endif
-                      @endforeach
-                      
-                      @if (!isset($hasEnd))
-                      0.00
+                            {{ number_format((float)$report->sale, 2, '.', '') }}
+
+                          @php
+                            $hasEnd = true;
+                            $input['sum_sale'] += $report->sale;
+                          @endphp
                       @endif
-
-                    </td>
-                </tr>
-
-                  @if (count($reports) != 0)
-                  <tr class="text-gray-100 dark:text-gray-700 bg-gray-600 dark:bg-gray-300 text-right">
-                      <td colspan="2" class="px-4 py-3">
-                        รวมทั้งสิ้น
-                      </td>
-                      <td class="px-4 py-3">
-                        @if(isset($input['sum_sale']))
-
-                        {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
-
-                        @endif
-                      </td>
-                  </tr>
+                  @endforeach
+                  
+                  @if (!isset($hasEnd))
+                  0.00
                   @endif
-    
+
+                </td>
+            </tr>
+            <tr class="text-gray-100 dark:text-gray-700 bg-gray-600 dark:bg-gray-300 text-right">
+                <td colspan="2" class="px-4 py-3">
+                  รวมทั้งสิ้น
+                </td>
+                <td class="px-4 py-3">
+                  @if(isset($input['sum_sale']))
+
+                  {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
+
+                  @endif
+                </td>
+            </tr>
+                  @endif
+
                 </tbody>
     
             </table>

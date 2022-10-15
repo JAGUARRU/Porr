@@ -111,8 +111,7 @@
                       ไม่พบข้อมูล...
                   </td>
               </tr>
-              @endif
-
+              @else
               @php
                   $input['sum_sale'] = 0;
                   $input['currentYear'] = 0;
@@ -174,21 +173,20 @@
 
                 </td>
             </tr>
+            <tr style="text-align: right;">
+                <td colspan="2">
+                  รวมทั้งสิ้น
+                </td>
+                <td>
+                  @if(isset($input['sum_sale']))
 
-              @if (count($reports) != 0)
-              <tr style="text-align: right;">
-                  <td colspan="2">
-                    รวมทั้งสิ้น
-                  </td>
-                  <td>
-                    @if(isset($input['sum_sale']))
+                  {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
 
-                    {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
-
-                    @endif
-                  </td>
-              </tr>
+                  @endif
+                </td>
+            </tr>
               @endif
+
 
             </tbody>
 

@@ -319,8 +319,8 @@ class ReportController extends Controller
         }
         else
         {
-            $from = \Carbon\Carbon::now()->format('Y-m');
-            $to = \Carbon\Carbon::now()->subMonth()->format('Y-m');
+            $to = \Carbon\Carbon::now()->format('Y-m');
+            $from = \Carbon\Carbon::now()->subMonth()->format('Y-m');
         }
 
     
@@ -358,8 +358,8 @@ class ReportController extends Controller
         }
         else
         {
-            $from = \Carbon\Carbon::now()->format('Y-m');
-            $to = \Carbon\Carbon::now()->subMonth()->format('Y-m');
+            $to = \Carbon\Carbon::now()->format('Y-m');
+            $from = \Carbon\Carbon::now()->subMonth()->format('Y-m');
         }
 
     

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductCategoryRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use Response;
 
 class ProductCategoryController extends Controller
@@ -39,9 +41,22 @@ class ProductCategoryController extends Controller
     {
         $category = ProductCategory::find($request->id);
 
-        if ($request->value)
+        if ($request->name)
         {
-            $category->name = $request->value;
+
+            $validatedData = $request->validate([
+                'name' => [
+                    'required',
+                    Rule::unique('product_categories')->where(function ($query) use($request) {
+                        return $query->where('name', $request->input('name'));
+                    })->ignore($request->id)
+                ]
+            ],
+            [
+             'name.unique'=> 'ประเภทสินค้าซ้ำกัน (ประเภทสินค้านี้มีอยู่ในฐานข้อมูลแล้ว)'
+            ]);
+
+            $category->name = $request->name;
             $category->update();
         }
         else
