@@ -15,7 +15,7 @@ class CreateTruckTable extends Migration
     {
         Schema::create('trucks', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->string('plateNumber');
+            $table->string('plateNumber')->unique();
             $table->string('status');
 
             $table->string('truck_province');

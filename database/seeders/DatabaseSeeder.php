@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             RoleUserTableSeeder::class,
             PositionUserTableSeeder::class,
             ProductCategorySeeder::class,
+            ProductSeeder::class,
 
             RetailsTableSeeder::class,
             TrucksTableSeeder::class

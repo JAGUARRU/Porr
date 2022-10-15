@@ -19,7 +19,7 @@ class StoreUserRequest extends FormRequest
                 'unique:users',
             ],
             'password' => [
-                'required',
+                'required'
             ],
             'roles.*'  => [
                 'integer',

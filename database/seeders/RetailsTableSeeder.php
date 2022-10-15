@@ -27,7 +27,8 @@ class RetailsTableSeeder extends Seeder
             'retail_sub_district' => 'นาบัว',
             'retail_postcode' => '65120',
             'retail_phone' => '-',
-            'retail_contact' => '-'
+            'retail_contact' => '-',
+            'created_at' => now()
         ]);
 
         $id = IdGenerator::generate(['table' => 'retails', 'length' => 10, 'prefix' =>'RETAIL-']);
@@ -41,7 +42,8 @@ class RetailsTableSeeder extends Seeder
             'retail_sub_district' => 'นาบัว',
             'retail_postcode' => '65120',
             'retail_phone' => '-',
-            'retail_contact' => '-'
+            'retail_contact' => '-',
+            'created_at' => now()
         ]);
       
         $id = IdGenerator::generate(['table' => 'retails', 'length' => 10, 'prefix' =>'RETAIL-']);
@@ -55,7 +57,8 @@ class RetailsTableSeeder extends Seeder
             'retail_sub_district' => 'ดินทอง',
             'retail_postcode' => '65130',
             'retail_phone' => '-',
-            'retail_contact' => '-'
+            'retail_contact' => '-',
+            'created_at' => now()
         ]);
         
     }

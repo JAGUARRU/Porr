@@ -61,7 +61,8 @@
                                     {{ $order->order_status }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date )->thaidate('j F Y') }}
+                                    <!-- \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date )->thaidate('j F Y') -->
+                                    {{ $order->order_date }}
                                 </td>
                                 <td class="px-4 py-3">
                                     {{ $order->products_count }}

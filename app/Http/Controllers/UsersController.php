@@ -75,6 +75,10 @@ class UsersController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
+        if (!$request->password) {
+            unset($request['password']);
+        }
+        
         $user->update($request->validated());
         $user->roles()->sync($request->input('roles', []));
         $user->positions()->sync($request->input('positions', []));

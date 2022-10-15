@@ -26,7 +26,8 @@ class TrucksTableSeeder extends Seeder
             'truck_district' => 'วังทอง',
             'truck_sub_district' => 'ดินทอง',
             'truck_postcode' => '65130',
-            'user_id' => null
+            'user_id' => null,
+            'created_at' => now()
         ]);
 
         $id = IdGenerator::generate(['table' => 'trucks', 'length' => 6, 'prefix' =>'T-']);
@@ -39,7 +40,8 @@ class TrucksTableSeeder extends Seeder
             'truck_district' => 'วังทอง',
             'truck_sub_district' => 'ดินทอง',
             'truck_postcode' => '65130',
-            'user_id' => null
+            'user_id' => null,
+            'created_at' => now()
         ]);
       
         $id = IdGenerator::generate(['table' => 'trucks', 'length' => 6, 'prefix' =>'T-']);
@@ -52,7 +54,8 @@ class TrucksTableSeeder extends Seeder
             'truck_district' => 'วังทอง',
             'truck_sub_district' => 'ดินทอง',
             'truck_postcode' => '65130',
-            'user_id' => null
+            'user_id' => null,
+            'created_at' => now()
         ]);
     
         $id = IdGenerator::generate(['table' => 'trucks', 'length' => 6, 'prefix' =>'T-']);
@@ -65,7 +68,8 @@ class TrucksTableSeeder extends Seeder
             'truck_district' => 'นครไทย',
             'truck_sub_district' => 'นาบัว',
             'truck_postcode' => '65120',
-            'user_id' => 1
+            'user_id' => 1,
+            'created_at' => now()
         ]);
     }
     

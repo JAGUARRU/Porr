@@ -17,6 +17,8 @@ class CreateProductCategoriesTable extends Migration
             $table->string('id', 32)->primary();
             $table->string('name');
             $table->timestamps();
+
+            $table->unique(['name']);
         });
     }
 

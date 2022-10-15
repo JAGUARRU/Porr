@@ -29,11 +29,27 @@ class TrucksController extends Controller
         
         $id = IdGenerator::generate($config);
 
-        return view('trucks.create', compact('id'));
+        $provinces = Tambon::select('province')->distinct()->get();
+        $amphoes = Tambon::select('amphoe')->distinct()->get();
+        $tambons = Tambon::select('tambon')->distinct()->get();
+        
+        return view('trucks.create', compact('id','provinces','amphoes','tambons'));
     }
 
     public function store(Request $request)
     {
+        // plateNumber required
+        $this->validate(
+            $request, 
+            [   
+                'plateNumber'             => 'required|unique:trucks,plateNumber'
+            ],
+            [   
+                'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
+                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
+            ]
+        );
+
         $truck = new Truck;
         $truck->fill($request->all());
         $truck->save();
@@ -64,7 +80,7 @@ class TrucksController extends Controller
 
     public function update(Request $request, Truck $truck)
     {
-
+        // plateNumber required
 
         $truck->fill($request->all());
         $truck->update();

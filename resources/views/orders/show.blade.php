@@ -51,7 +51,9 @@
                                         วันที่สั่งซื้อ
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200">
-                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date)->thaidate('j F Y \เ\ว\ล\า H:i \น\า\ฬิ\ก\า') }}
+                                        <!-- \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date)->thaidate('j F Y \เ\ว\ล\า H:i \น\า\ฬิ\ก\า') -->
+
+                                        {{ $order->order_date }}
                                     </td>
                                 </tr>
                                 <tr>
