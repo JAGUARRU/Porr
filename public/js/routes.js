@@ -149,9 +149,10 @@ $(document).ready(function() {
     $(document).on("click", 'button[id^="selectDriver"]', function(event) 
     {
         let data = JSON.parse($(this).attr('data-id'));
+        let driver = JSON.parse($(this).attr('data-driver'));
 
         $("input[name=truck_id]").val(data.id);
-        $("input[name=truck_driver]").val(data.truck_driver ? (data.truck_driver) : ('ไม่ระบุ'));
+        $("input[name=truck_driver]").val(driver.name ? (driver.name) : ('ไม่ระบุ'));
         $("#auto-trucks").val(data.plateNumber); 
     });
 

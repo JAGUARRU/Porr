@@ -1,16 +1,24 @@
-<x-app-layout title="แก้ไขข้อมูล">
-    <form action="{{ url('trucks/'.$truck->id) }}" method="POST" class="container grid px-6 mx-auto ">
-        @csrf
-        @method('PUT')
+<x-app-layout title="จัดการข้อมูลรถ">
 
+<form action="{{ url('trucks/'.$truck->id) }}" method="POST" class="container grid px-6 mx-auto ">
+    @csrf
+    @method('PUT')
+
+    <div class="container grid px-6 mx-auto ">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            แก้ไขข้อมูล
+            จัดการข้อมูลรถ
         </h2>
 
-    <div class="container ">
+    <div class="container">
         <div class="flex flex-row">
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor"
+                viewBox="0 0 20 20">
+                <path
+                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                </path>
+            </svg>
             <h4 class="mb-4 text-lg pl-2 font-semibold text-gray-600 dark:text-gray-300">
-                ข้อมูลรถ
+                แก้ไขข้อมูลรถ
             </h4>
         </div>
 
@@ -62,7 +70,11 @@
                         <div class="relative inline-block text-gray-600 focus-within:text-gray-400">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                                 <div id="validDriver" class="p-1 focus:outline-none focus:shadow-outline">
+                                    @if($truck->user_id)
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                    @else
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    @endif
                                 </div>
                             </span>
                             <input type="search" id="auto-drivers" class="py-2 pl-10 mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="ป้อนรหัสพนักงานหรือชื่อพนักงาน" autocomplete="off" id="auto-drivers" value="{{ $truck->user ? $truck->user['name'] : ('') }}">
@@ -98,7 +110,7 @@
     <div class="container ">
         <div class="flex flex-row">
             <h4 class="mb-4 text-lg pl-2 font-semibold text-gray-600 dark:text-gray-300">
-                พื้นที่จัดส่ง
+                แก้ไขข้อมูลพื้นที่จัดส่ง
             </h4>
         </div>
 
@@ -169,6 +181,6 @@
 
 </form>
 
-    <script src="{{asset('js/trucks.js')}}" defer></script>
+<script src="{{asset('js/trucks.js')}}" defer></script>
 
 </x-app-layout>

@@ -354,7 +354,7 @@
                     @foreach ($trucks as $truck)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
-                            <button @click="closeModal" type="button" id="selectDriver" data-id="{{ json_encode($truck->toArray()) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">เลือก</button>
+                            <button @click="closeModal" type="button" id="selectDriver" data-id="{{ json_encode($truck->toArray()) }}" data-driver="{{ json_encode($truck->user ? $truck->user->toArray() : []) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">เลือก</button>
                         </td>
                         <td class="px-4 py-3">
                             {{ $truck->user ? $truck->user['name'] : 'ยังไม่ได้ตั้งค่า' }}
