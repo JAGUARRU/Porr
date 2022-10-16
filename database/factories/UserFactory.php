@@ -26,7 +26,7 @@ class UserFactory extends Factory
         $currentTeamId = User::count() + 1;
         
         return [
-            //'name' => $this->faker->name,
+            'username' => $this->faker->username(),
             'name' => $this->faker->firstName . ' ' . $this->faker->lastName,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),

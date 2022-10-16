@@ -10,6 +10,10 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'username'    => [
+                'required',
+                'string'
+            ],
             'name'     => [
                 'required',
                 'string'
@@ -37,7 +41,8 @@ class StoreUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'    => 'โปรดระบุชื่อผู้ใช้งาน',
+            'email.required'    => 'โปรดระบุชื่อผู้ใช้งาน',
+            'name.required'    => 'โปรดระบุชื่อและนามสกุล',
             'email.required'    => 'โปรดระบุที่อยู่อีเมล',
             'password.required'    => 'โปรดระบุรหัสผ่าน',
             'roles.required'    => 'โปรดระบุบทบาท',

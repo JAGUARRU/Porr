@@ -30,6 +30,16 @@
                         </div>
 
                         <div class="mt-4">
+                            <label for="username text-gray-700 dark:text-gray-400">ชื่อผู้ใช้</label>
+                            <input type="text" name="username" id="username" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                   value="{{ old('username', $user->username) }}" />
+
+                            @error('username')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mt-4">
                             <label for="email text-gray-700 dark:text-gray-400">อีเมล</label>
                             <input type="email" name="email" id="email" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                    value="{{ old('email', $user->email) }}" />

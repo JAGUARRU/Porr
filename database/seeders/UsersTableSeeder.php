@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
         $id = IdGenerator::generate(['table' => 'users', 'length' => 8, 'field' => 'empId', 'prefix' =>'EMP-']);
 
         DB::table('users')->insert([
+            'username' => 'aksongsang',
             'name' => 'อัครเดช ส่องแสง',
             'email' => 'akkawit.tah@gmail.com',
             'email_verified_at' => now(),
@@ -34,6 +35,7 @@ class UsersTableSeeder extends Seeder
         $id = IdGenerator::generate(['table' => 'users', 'length' => 8, 'field' => 'empId', 'prefix' =>'EMP-']);
 
         DB::table('users')->insert([
+            'username' => 'avisiagrace',
             'name' => 'พรประภา บำรุงกิจ',
             'email' => 'garagrace@gmail.com',
             'password' => Hash::make('123456'),
