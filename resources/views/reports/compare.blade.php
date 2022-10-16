@@ -9,12 +9,12 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 mb-4 text-sm font-normal">
                 <div class="w-1/3 mb-4">
-                    <p class="text-lg font-bold">แสดงตามช่วงเวลา</p>
+                    <p class="text-lg font-bold">ระบุเดือนที่ต้องการเปรียบเทียบ</p>
                     <div>
-                        <label for="text-gray-700 dark:text-gray-400 my-2">วันที่ 1
+                        <label for="text-gray-700 dark:text-gray-400 my-2">เดือนที่ 1
                             <input name="startDate" type="date" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" />
                         </label>
-                        <label for="text-gray-700 dark:text-gray-400 my-2">วันที่ 2
+                        <label for="text-gray-700 dark:text-gray-400 my-2">เดือนที่ 2
                             <input name="endDate" type="date" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" />
                         </label>
                     </div>
