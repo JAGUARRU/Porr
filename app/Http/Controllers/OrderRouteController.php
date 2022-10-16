@@ -236,8 +236,8 @@ class OrderRouteController extends Controller
         ->orderBy(DB::raw('LOCATE("'.$order->retail_district.'", trucks.truck_district)'), 'DESC')
         ->orderBy('order_routes.transportDate', 'ASC')
         ->groupBy('trucks.id')
-        ->groupBy('order_routes.id')
         ->get();
+        
 
         return view('routes.create', compact('order', 'trucks'));
     }
