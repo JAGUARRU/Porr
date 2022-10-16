@@ -58,7 +58,8 @@ class SearchController extends Controller
         }
 
         $resultArray = Order::query()
-        ->where("id","LIKE","%{$request->term}%")->withCount('products')->orderBy('created_at', 'desc')->get();
+        ->where(fn($query) => $query->where("id","LIKE","%{$request->term}%")->orWhere("order_status","LIKE","%{$request->term}%"))
+        ->withCount('products')->orderBy('created_at', 'desc')->get();
 
         foreach($resultArray as $order)
         {
