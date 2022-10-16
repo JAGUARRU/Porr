@@ -23,8 +23,16 @@ $(document).ready(function() {
         });
     });
 
-    function onChangeProduct(event)
+    $('input[name^="editItem"]').on('focusin', function() 
     {
+        $(this).data('val', $(this).val());
+    });
+
+    $(document).on("input", 'input[name^="editItem"]', function onChangeProduct(event)
+    {
+        let oldValue = $(this).data('val');
+        let input = this;
+        
         $.ajax({
             url: '/orders/' + $(this).attr('data-orderId') + '/edit',
             method: 'GET',
@@ -35,10 +43,24 @@ $(document).ready(function() {
             processData: false,
             success:function(res)
             {
-
                 if (res.statusCode == 200)
                 {
+                    if (res.error)
+                    {
+                        $("#orderItems").html(res.error.msg);
+                        $("#orderItems").removeClass("opacity-0");
+                        $("#orderItems").removeClass("text-green-600");
+                        $("#orderItems").addClass("text-red-700");
+    
+                        setTimeout(function() {
+                            $("#orderItems").addClass("opacity-0");
+                        }, 5000);
 
+                        $(input).val(oldValue);
+
+                        return;
+                    }
+                    
                     $('table#productOrder > tbody > tr').each(function(index, tr) 
                     { 
                         if (res.data.product_id == tr.id)
@@ -52,14 +74,14 @@ $(document).ready(function() {
                         }
                     });
 
-
+                    $("#orderItems").html("รายการได้รับการอัปเดตแล้ว");
                     $("#orderItems").removeClass("opacity-0");
-                    //$("#orderItems").addClass("opacity-100");
-  
+                    $("#orderItems").addClass("text-green-600");
+                    $("#orderItems").removeClass("text-red-700");
+
                     setTimeout(function() {
-                        //$("#orderItems").removeClass("opacity-100");
                         $("#orderItems").addClass("opacity-0");
-                    }, 800);
+                    }, 5000);
                 }
 
                 if (!event.target.value || event.target.value == "0")
@@ -69,10 +91,7 @@ $(document).ready(function() {
                 console.log(response);
             }
         });
-    }
-    // $('input[name^="editItem"]').on('input', onChangeProduct);
-
-    $(document).on("input", 'input[name^="editItem"]', onChangeProduct);
+    });
 
     $('button[id^="addToOrder"]').click(function(event) {
 
@@ -89,14 +108,31 @@ $(document).ready(function() {
             {
                 if (res.statusCode == 200)
                 {
+                    if (res.error)
+                    {
+                        $("#orderItems").html(res.error.msg);
+                        $("#orderItems").removeClass("opacity-0");
+                        $("#orderItems").removeClass("text-green-600");
+                        $("#orderItems").addClass("text-red-700");
+    
+                        setTimeout(function() {
+                            $("#orderItems").addClass("opacity-0");
+                        }, 5000);
 
+                        return;
+                    }
+
+                    
                     let created = false;
 
+                    $("#orderItems").html("รายการได้รับการอัปเดตแล้ว");
                     $("#orderItems").removeClass("opacity-0");
+                    $("#orderItems").addClass("text-green-600");
+                    $("#orderItems").removeClass("text-red-700");
 
                     setTimeout(function() {
                         $("#orderItems").addClass("opacity-0");
-                    }, 800);
+                    }, 5000);
 
                     $('tr#no-data').remove();
     
@@ -176,15 +212,33 @@ $(document).ready(function() {
             {
                 if (res.statusCode == 200)
                 {
-                    if (res.data.result)
+                    if (res.error)
                     {
+                        $("#orderItems").html(res.error.msg);
                         $("#orderItems").removeClass("opacity-0");
-      
+                        $("#orderItems").removeClass("text-green-600");
+                        $("#orderItems").addClass("text-red-700");
+    
                         setTimeout(function() {
                             $("#orderItems").addClass("opacity-0");
-                        }, 800);
+                        }, 5000);
+
+                        return;
+                    }
+
+                    if (res.data.result)
+                    {
+                        $("#orderItems").html("รายการได้รับการอัปเดตแล้ว");
+                        $("#orderItems").removeClass("opacity-0");
+                        $("#orderItems").addClass("text-green-600");
+                        $("#orderItems").removeClass("text-red-700");
+    
+                        setTimeout(function() {
+                            $("#orderItems").addClass("opacity-0");
+                        }, 5000);
     
                         $('table#productOrder tr#' + res.data.id).remove();
+                        
                     }
                 }
 

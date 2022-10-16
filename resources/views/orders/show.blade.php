@@ -215,7 +215,7 @@
                                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
                                                 @foreach ($route->lists()->get() as $list)
-                                                <tr class="text-gray-700 dark:text-gray-400" id="{{ $product['product_id'] }}">
+                                                <tr class="text-gray-700 dark:text-gray-400">
                                                     <td class="px-4 py-3">
                                                        {{ $list->product_id }}
                                                     </td>
@@ -224,6 +224,7 @@
                                                     </td>
                                                 </tr>
                                                 @endforeach
+                                                
                                             </tbody>
                                         </table>
                                     </td>

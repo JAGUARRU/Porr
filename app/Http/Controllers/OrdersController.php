@@ -128,6 +128,15 @@ class OrdersController extends Controller
 
         if($request->has('action_method'))
         {
+            if ($order->order_status != "รอดำเนินการ")
+            {
+                return response()->json([
+                    'statusCode' => 200,
+                    'error' => [
+                        'msg' => "ไม่สามารถแก้ไขรายการสินค้าที่กำลังดำเนินการหรือทำรายการสำเร็จไปแล้วได้"
+                    ]
+                ]);
+            }
             if ($request->action_method == "onchange")
             {
                 $query = OrderList::where("order_id", "=", $order->id)->where('product_id', "=", $request->prod_id);

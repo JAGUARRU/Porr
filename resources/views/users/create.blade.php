@@ -1,16 +1,16 @@
-<x-app-layout title="เพิ่มพนักงาน">
-    <div class="container grid px-6 mx-auto">
+<x-app-layout title="พนักงานใหม่">
+    <div class="container grid px-6 mx-auto ">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            จัดการข้อมูล
+            พนักงานใหม่
         </h2>
 
         <div class="container">
             <div class="flex flex-row">
                 <svg class="h-6 w-6 text-blue-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                  </svg>
+                </svg>
                 <h4 class="mb-4 text-lg pl-2 font-semibold text-gray-600 dark:text-gray-300">
-                    สร้างผู้ใช้
+                    สร้างผู้ใช้งานใหม่
                 </h4>
             </div>
 

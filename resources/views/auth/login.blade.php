@@ -9,7 +9,7 @@
                 <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                     <div class="w-full">
                         <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200">
-                            Login
+                            เข้าสู่ระบบ
                         </h1>
                         @if ($errors->any())
                         <div class="mb-4">
@@ -31,8 +31,8 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <label class="block text-sm">
-                                <span class="text-gray-700 dark:text-gray-400">ชื่อผู้ใช้/ที่อยูอีเมล</span>
-                                <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="identity" value="{{ old('email') }}" required autofocus />
+                                <span class="text-gray-700 dark:text-gray-400">ชื่อผู้ใช้/ที่อยู่อีเมล</span>
+                                <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="user.name / email@example.com" name="identity" value="{{ old('email') }}" required autofocus />
                             </label>
                             <label class="block mt-4 text-sm">
                                 <span class="text-gray-700 dark:text-gray-400">รหัสผ่าน</span>

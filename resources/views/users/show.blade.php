@@ -1,18 +1,28 @@
 <x-app-layout title="รายละเอียดพนักงาน">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Show User
+            รายละเอียดพนักงาน
         </h2>
     </x-slot>
 
-    <div>
+    <div class="container mx-auto">
+
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            รายละเอียดพนักงาน
+        </h2>
+
         <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
+
             <div class="flex">
-                <a href="{{ route('users.index') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
+                <a href="{{ route('users.index') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2 transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
                     <span class="text-base">กลับหน้าแรก</span>
                 </a>
+
+                <a href="{{ url('users/'.$user->id.'/edit') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
+                    <span class="text-base">แก้ไข</span>
+                </a>
             </div>
-           
+
             <div class="flex flex-col mt-6">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
