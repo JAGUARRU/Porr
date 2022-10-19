@@ -27,7 +27,14 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('order_cancelled', 'asc')->withCount('products')->where('order_status', '!=', 'สำเร็จแล้ว')->orderBy('created_at', 'desc')->paginate(5);
+        $orders = Order::orderBy('order_cancelled', 'asc')
+        ->withCount('products')
+        ->where('order_status', '!=', 'สำเร็จแล้ว')
+        ->orderBy(DB::raw('order_transportDate IS NULL', 'order_transportDate'), 'ASC')
+        ->orderBy('order_transportDate', 'ASC')
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
+        
         return view('orders.index', ["orders"=>$orders]);
     }
 
