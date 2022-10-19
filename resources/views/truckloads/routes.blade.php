@@ -72,7 +72,7 @@
                                             <button
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Print">
-                                                พิมพ์ใบส่ง
+                                                พิมพ์ใบส่งของ
                                             </button>
                                         </a>
                                         @endif

@@ -84,7 +84,7 @@
 
             </form>  
 
-            <div class="flex flex-row">
+            <div class="flex flex-row m-auto">
                 <svg class="w-6 h-6 dark:text-white" aria-hidden="true" fill="currentColor"
                     viewBox="0 0 20 20">
                     <path
@@ -94,9 +94,19 @@
                 <h4 class="mb-4 text-lg pl-2 font-semibold text-gray-600 dark:text-gray-300">
                     แก้ไขรายการออเดอร์
                 </h4>
+
             </div>
-    
+            
             <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
+
+                <div class="float-right">
+                    <a href="{{ url('truckloads/route/'.$route->id.'/print') }}">
+                        <button type="button" class="bg-purple-600 hover:bg-blue-700 text-white font-bold py-2 px-4" value="print">
+                            พิมพ์ใบส่งของ
+                        </button>
+                    </a>
+                </div>
+            
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
                         <thead>

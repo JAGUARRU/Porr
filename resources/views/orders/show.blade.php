@@ -211,7 +211,7 @@
                                         </th>
                                         <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
                                     
-                                            <a href="{{ url('truckloads/route/'.$order->transport->truck_route_id.'/view') }}">
+                                            <a href="{{ url('truckloads/route/'.$order->transport->truck_route_id.'/edit') }}">
                                                 <button type="button" class="bg-purple-600 rounded hover:bg-blue-700 text-white font-bold py-2 px-4">
                                                     เรียกดู
                                                 </button>

@@ -138,11 +138,11 @@
                                     </a>
 
                                     @if($truck->transportDate)
-                                    <a href="{{ url('truckloads/'.$truck->id.'/print') }}" class="btn btn-primary btn-sm">
+                                    <a href="{{ url('truckloads/route/'.$truck->id.'/print') }}" class="btn btn-primary btn-sm">
                                         <button
                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                             aria-label="View">
-                                            พิมพ์ใบส่ง
+                                            พิมพ์ใบส่งของ
                                         </button>
                                     </a>
                                     @endif
