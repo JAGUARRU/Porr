@@ -37,9 +37,9 @@ class TrucksTableSeeder extends Seeder
             'plateNumber' => 'พค 8381',
             'truck_status' => 0,
             'truck_province' => 'พิษณุโลก',
-            'truck_district' => 'วังทอง',
-            'truck_sub_district' => 'ดินทอง',
-            'truck_postcode' => '65130',
+            'truck_district' => 'เนินมะปราง',
+            'truck_sub_district' => 'บ้านมุง',
+            'truck_postcode' => '65190',
             'user_id' => 4,
             'created_at' => now()
         ]);
@@ -51,9 +51,9 @@ class TrucksTableSeeder extends Seeder
             'plateNumber' => 'พค 8318',
             'truck_status' => 1,
             'truck_province' => 'พิษณุโลก',
-            'truck_district' => 'วังทอง',
-            'truck_sub_district' => 'ดินทอง',
-            'truck_postcode' => '65130',
+            'truck_district' => 'วัดโบสถ์',
+            'truck_sub_district' => 'บ้านยาง',
+            'truck_postcode' => '65160',
             'user_id' => 3,
             'created_at' => now()
         ]);
