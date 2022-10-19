@@ -1,3 +1,4 @@
+
 let productOrderArray = [];
 let historyProductArray = [];
 let loadProductArray = [];
@@ -142,9 +143,72 @@ function calcRemainingProduct()
     });
 }
 
-$(document).ready(function() {
+function updateTruckRouteDetails(orderId, truckId)
+{
+    //console.log(orderId, truckId);
 
-    // $("table#trucks > tbody > tr").on("tr.rows", "click", function(e)
+    $.ajax({
+        url: siteUrl + "/api/trucks/route",
+        data: {
+            orderId,
+            truckId
+        },
+        dataType: "json",
+        success: function(response)
+        {
+
+            $('table#routeTable > tbody').html("");
+
+            response.forEach(element => {
+
+                /*if (element.transportDate && element.transportDate.length)
+                {
+                    element.transportDate = element.transportDate.split(' ')[0] + " 23:59:59";
+                }*/
+
+                let transportDate = moment(element.transportDate, 'YYYY-MM-DD HH:mm:ss').endOf('day');
+
+                let statusText;
+
+                if(element.transportDate)
+                {
+                    statusText = element.route_status + ' กำหนดส่ง (' + transportDate.from(moment().endOf('day')) + ')';
+                }
+                else
+                {
+                    statusText = element.routes_count == 0 ? element.truck_status : element.route_status;
+                }
+  
+                $('table#routeTable > tbody').append(`
+                    <tr class="text-gray-700 dark:text-gray-400">               
+                        <td class="px-4 py-3">
+                            <input type="radio" class="w-4 h-4 form-radio text-purple-600 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" name="route_id" value="${ element.route_id }" />
+                        </td>
+                        <td class="px-4 py-3">
+                        ${element.truck_district}
+                        </td>
+                        <td class="px-4 py-3">
+                        ${element.transportDate ? transportDate.format('Do MMMM') + ' ' + (parseInt(transportDate.format('YYYY')) + 543)  : '-' }
+                        </td>
+                        <td class="px-4 py-3">
+                        ${statusText}
+                        </td>
+                        <td class="px-4 py-3">
+                            <div>${(element.checkMatches.transportDiff != 0 ? ('ออเดอร์จะถูกเปลี่ยนกำหนดส่งเป็นวันที่ ' + transportDate.format('Do MMMM') + ' ' + (parseInt(transportDate.format('YYYY')) + 543))  : '' )}</div>
+                            <div>${(element.checkMatches.district == 0 ? 'พื้นที่จัดส่งประจำของรถไม่ตรงกับที่อยู่ของร้านค้า' : '')}</div>
+                        </td>
+                    </td>`);
+
+            });
+           
+        },
+        error: function(response) {
+            console.log(response);
+        }
+    });
+}
+
+$(document).ready(function() {
 
     $(document).on("click", 'button[id^="selectDriver"]', function(event) 
     {
@@ -154,6 +218,8 @@ $(document).ready(function() {
         $("input[name=truck_id]").val(data.id);
         $("input[name=truck_driver]").val(driver.name ? (driver.name) : ('ไม่ระบุ'));
         $("#auto-trucks").val(data.plateNumber); 
+
+        updateTruckRouteDetails($("#order_id").val(), data.id);
     });
 
     $(document).on("click", 'button[id^="loadProductOrder"]', function(event) 
@@ -219,41 +285,25 @@ $(document).ready(function() {
     calcRemainingProduct();
     calcProductLoad();
 
-    /**
-                                <tr class="text-gray-700 dark:text-gray-400" id="{{ $product['product_id'] }}">
-                                    <td class="px-4 py-3">
-                                        <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" aria-label="Like">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-                                              </svg>                                    
-                                        </button>
-                                     </td>
-                                    <td class="px-4 py-3">{{$product["product_id"]}}</td>
-                                    <td class="px-4 py-3">{{$product["product_name"]}}</td>
-                                    <td class="px-4 py-3"><input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{$product["qty"]}}"></td>
-                                </tr>
-     */
-
     $("#auto-trucks").click(function () {
-        $("#auto-trucks").autocomplete('search', $("#input_amphoe").html());
+        $("#auto-trucks").autocomplete('search', $("#input_amphoe").val());
     });
 
     $("#auto-trucks").autocomplete(
         {
             source: function(request, response) 
             {
-                console.log(request, response)
                 $.ajax({
-                    url: siteUrl + '/' +"routes/create",
+                    url: siteUrl + "/api/trucks/load",
                     data: {
-                        type : 'trucks',
                         term : request.term,
+                        district: $("#input_amphoe").val()
                     },
                     dataType: "json",
                     success: function(data)
                     {
     
-                        var amphoe = $("#input_amphoe span").text();
+                        var amphoe = $("#input_amphoe").val();
 
                         var resp = $.map(data,function(obj)
                         {
@@ -273,7 +323,9 @@ $(document).ready(function() {
 
                 $("input[name=truck_id]").val(ui.item.value.truck_id);
                 $("input[name=truck_driver]").val(ui.item.value.name ? (ui.item.value.name) : ('ไม่ระบุ'));
-                $("#auto-trucks").val(ui.item.value.plateNumber); 
+                $("#auto-trucks").val(ui.item.value.plateNumber);
+
+                updateTruckRouteDetails($("#order_id").val(), ui.item.value.truck_id);
                 
                 return false;
 

@@ -28,13 +28,11 @@ Route::get('/tambons', [ TambonController::class , 'getTambons' ]);
 Route::get('/zipcodes', [TambonController::class, 'getZipcodes'] );
 
 Route::get('/drivers', [ EmployeeController::class , 'getDrivers' ]);
-Route::get('/search', [ SearchController::class , 'search' ]);
 
 Route::get('/report/salesChart', [ ReportController::class , 'salesChart' ]);
 
-/*Route::group(['prefix' => 'v1',  'middleware' => 'auth:sanctum'], function()
-{
-    Route::get("/search", [ SearchController::class , 'search' ]);
-});*/
-
-// Route::middleware('auth:api')->get('/search', [ SearchController::class , 'search' ]);
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/search', [ SearchController::class , 'search' ])->name('api.search');
+    Route::get('/trucks/load', [ SearchController::class , 'truck_load' ])->name('api.available_truck_load');
+    Route::get('/trucks/route', [ SearchController::class , 'truck_route' ])->name('api.available_truck_route');
+});

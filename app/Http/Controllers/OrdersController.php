@@ -10,7 +10,7 @@ use App\Models\Tambon;
 use App\Models\OrderList;
 use Illuminate\Http\Request;
 
-use App\Models\OrderRoute;
+use App\Models\TruckRouteList;
 
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Validator;
@@ -61,7 +61,7 @@ class OrdersController extends Controller
                     })
                     ->where(fn($query) => $query->where("plateNumber","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
                     ->where(fn($query) => $query->where("orders.order_cancelled","=","0")->orWhereNull("orders.order_cancelled"))
-                    ->where("trucks.status","LIKE","พร้อมใช้งาน")
+                    ->where("trucks.truck_status","=",1)
                     ->groupBy('orders.id')
                     ->groupBy('trucks.id')
                     ->orderBy('orders.id', 'desc')
@@ -110,7 +110,7 @@ class OrdersController extends Controller
     public function show(Order $order)
     {
         $order->load('products');
-        $order->load('routes');
+        $order->load('transport');
 
         return view('orders.show', compact('order'));
     }
@@ -260,12 +260,21 @@ class OrdersController extends Controller
 
             // remove routes
 
-            $routes = OrderRoute::where('order_id', '=', $order->id);
+            $routes = TruckRouteList::where('order_id', '=', $order->id);
             $routes->delete();
         }
         else
         {
             $order->order_cancelled = 0;
+        }
+
+        if ($order->order_status == "สำเร็จแล้ว" && $request->order_status != $order->order_status)
+        {
+            $exists = TruckRouteList::where('order_id', $order->id)->where('route_list_status', "1")->count();
+            if ($exists > 0)
+            {
+                return redirect()->back()->withErrors(['msg' => 'โปรดยกเลิกการจัดส่งออเดอร์นี้เพื่อเปลี่ยนสถานะ']);
+            }
         }
 
         $order->fill($request->all());

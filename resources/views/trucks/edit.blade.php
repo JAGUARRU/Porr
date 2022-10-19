@@ -11,7 +11,7 @@
 
     <div class="container">
         <div class="flex flex-row">
-            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor"
+            <svg class="w-6 h-6 dark:text-white" aria-hidden="true" fill="currentColor"
                 viewBox="0 0 20 20">
                 <path
                     d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
@@ -92,11 +92,11 @@
                 </div>
                 <div class="mt-4">
                     <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                        <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="truck_status" value="พร้อมใช้งาน" {{ ($truck->status == "พร้อมใช้งาน") ? ("checked") : ("")}} />
+                        <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="truck_status" value="1" {{ ($truck->truck_status == "พร้อมใช้งาน") ? ("checked") : ("")}} />
                         <span class="ml-2">พร้อมใช้งาน</span>
                     </label>
                     <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                        <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="truck_status" value="ไม่พร้อมใช้งาน" {{ ($truck->status == "ไม่พร้อมใช้งาน") ? ("checked") : ("")}} />
+                        <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="truck_status" value="0" {{ ($truck->truck_status == "ไม่พร้อมใช้งาน") ? ("checked") : ("")}} />
                         <span class="ml-2">ไม่พร้อมใช้งาน</span>
                     </label>
                 </div>

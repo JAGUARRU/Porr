@@ -25,11 +25,8 @@ class CreateOrdersTable extends Migration
             $table->string('retail_sub_district');
             $table->string('retail_postcode');
 
-            /*$table->string('truck_id')->nullable()->index();
-            $table->string('truck_driver');
-            $table->string('truck_plate');*/
-
             $table->timestamp('order_date')->useCurrent();
+            $table->timestamp('order_transportDate')->nullable()->default(null);
             
             $table->string('order_status');
             $table->boolean('order_cancelled')->default(false);
@@ -38,7 +35,6 @@ class CreateOrdersTable extends Migration
             $table->float('order_total', 8, 2)->default(0.0);
 
             $table->foreign('retail_id')->references('id')->on('retails')->onDelete('set null');
-            // $table->foreign('truck_id')->references('id')->on('trucks')->onDelete('set null');
 
             $table->timestamps();
         });

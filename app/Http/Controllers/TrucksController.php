@@ -12,9 +12,7 @@ class TrucksController extends Controller
 {
     public function index()
     {
-        $trucks = Truck::with(["routes" => function($res) {
-            $res->where('status', '=', 0)->with('order')->orderBy('created_at', 'desc');
-        }, "user"])->paginate(5);
+        $trucks = Truck::paginate(5);
 
         return view('trucks.index', ["trucks"=>$trucks]);
     }
@@ -74,7 +72,6 @@ class TrucksController extends Controller
             $res->orderBy('created_at', 'desc');
         }, "user"])->first();
 
-        // dd($truck->routes()->where('status', '=', 0)->get()->toArray());
         return view('trucks.show', compact('truck'));
     }
 

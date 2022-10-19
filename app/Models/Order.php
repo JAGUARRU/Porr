@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\Retail;
 use App\Models\OrderList;
 use App\Models\OrderRoute;
 
@@ -30,6 +31,7 @@ class Order extends Model
         'truck_plate',
 
         'order_date',
+        'order_transportDate',
         'order_status',
         'order_cancelled',
         'order_cancelDateTime',
@@ -44,13 +46,18 @@ class Order extends Model
         });
     }
 
+    public function retail()
+    {
+        return $this->belongsTo(Retail::class);
+    }
+
     public function products()
     {
         return $this->hasMany(OrderList::class);
     }
 
-    public function routes()
+    public function transport()
     {
-        return $this->hasMany(OrderRoute::class);
+        return $this->hasOne(TruckRouteList::class);
     }
 }

@@ -111,6 +111,11 @@
                         <input type="datetime-local" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="order_date" name="order_date" value="{{ \Carbon\Carbon::now()->toDateTimeString() }}"/>
                     </div> 
 
+                    <div class="mb-4">
+                        <label for="text-gray-700 dark:text-gray-400">กำหนดส่ง</label>
+                        <input type="datetime-local" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="order_transportDate" name="order_transportDate"/>
+                    </div> 
+
                     <div class="flex mt-12 place-content-end pb-4">
                         <div class="pr-6">
                             <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -179,6 +179,24 @@ module.exports = {
         },
     },
 
+    variantOrder: [
+      'first',
+      'last',
+      'odd',
+      'even',
+      'visited',
+      'checked',
+      'group-hover',
+      'group-focus',
+      'focus-within',
+      'hover',
+      'focus',
+      'focus-visible',
+      'active',
+      'group-disabled', // Custom variant
+      'disabled',
+    ],
+
     variants: {
         backgroundColor: [
             'hover',
@@ -191,7 +209,7 @@ module.exports = {
             'dark:active',
             'dark:odd',
         ],
-        display: ['responsive', 'dark'],
+        display: ['dark', 'responsive', 'hover', 'group-hover'],
         textColor: [
             'focus-within',
             'hover',
@@ -205,7 +223,11 @@ module.exports = {
         borderColor: ['focus', 'hover', 'dark', 'dark:focus', 'dark:hover'],
         divideColor: ['dark'],
         boxShadow: ['focus', 'dark:focus'],
-        opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        opacity: ['responsive', 'hover', 'group-hover', 'focus', 'disabled'],
+        extend: {
+          opacity: ['responsive', 'hover', 'group-hover'],
+          display: ['responsive', 'hover', 'group-hover'],
+        },
     },
 
     plugins: [

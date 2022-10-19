@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'previous' => '&laquo; Previous',
-    'next' => 'Next &raquo;',
-    'showing' => 'SHOWING',
-    'of' => 'of'
+    'previous' => '&laquo; ก่อนหน้า',
+    'next' => 'ถัดไป &raquo;',
+    'showing' => 'แสดง',
+    'of' => 'จาก'
 
 ];

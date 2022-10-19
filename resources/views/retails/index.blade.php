@@ -12,7 +12,7 @@
             
             <div class="flex place-content-end">
                 <a href="{{ route('retails.create') }}">
-                <button class="flex items-center justify-between px-6 py-3 text-sm font-medium leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
+                <button class="flex items-center justify-between text-sm leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
                     <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
                         <path stroke="none" d="M0 0h24v24H0z"/>  
                             <circle cx="12" cy="12" r="9" /> 
@@ -89,7 +89,7 @@
                 <div
                     class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                     <span class="flex items-center col-span-3">
-                        Showing {{ $retail->firstItem() }}-{{ $retail->lastItem() }} of {{ $retail->total() }}
+                        {{ __('pagination.showing') }} {{ $retail->firstItem() }}-{{ $retail->lastItem() }} {{ __('pagination.of') }} {{ $retail->total() }}
                     </span>
                     <span class="col-span-2"></span>
                     <!-- Pagination -->

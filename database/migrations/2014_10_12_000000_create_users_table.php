@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->string('api_token', 36)->unique();
+
             $table->rememberToken();
             $table->string('current_team_id')->nullable();
             $table->integer('inactive')->default(0);

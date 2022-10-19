@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Models\User;
 use App\Models\Team;
+use App\Helpers\Helper;
 use DB;
 use Hash;
 use Str;
@@ -29,6 +30,7 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456'),
             'empId' => $id,
+            'api_token' => Helper::v4(),
             'created_at' => now()
         ]);
         
@@ -40,6 +42,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'garagrace@gmail.com',
             'password' => Hash::make('123456'),
             'empId' => $id,
+            'api_token' => Helper::v4(),
             'created_at' => now()
         ]);
         

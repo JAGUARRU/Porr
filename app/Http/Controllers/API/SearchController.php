@@ -10,7 +10,10 @@ use App\Models\Retail;
 use App\Models\Truck;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\TruckRoute;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\Helper;
+use DB;
 
 class SearchController extends Controller
 {
@@ -18,16 +21,17 @@ class SearchController extends Controller
     {
         $res = array();
 
-        //array_push($res, array("v"=>$request->user()));
-
-        $resultArray = User::query()
-        ->select('users.id', 'users.empId', 'users.name')
-        ->where(fn($query) => $query->where("empId","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
-        ->get()->toArray();
-
-        foreach($resultArray as $user)
+        if (!in_array("2", Auth::user()->roles->pluck('id')->toArray()))
         {
-            array_push($res, array("title"=> $user['empId']. ": " . $user['name'], "url"=>"users/".$user['id'], "category"=>"ผู้ใช้"));
+            $resultArray = User::query()
+            ->select('users.id', 'users.empId', 'users.name')
+            ->where(fn($query) => $query->where("empId","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
+            ->get()->toArray();
+    
+            foreach($resultArray as $user)
+            {
+                array_push($res, array("title"=> $user['empId']. ": " . $user['name'], "url"=>"users/".$user['id'], "category"=>"ผู้ใช้"));
+            }
         }
 
         $resultArray = Product::query()
@@ -67,5 +71,70 @@ class SearchController extends Controller
         }
 
         return response()->json($res);
+    }
+
+    public function truck_load(Request $request)
+    {
+        $res = Truck::query()
+            ->select(
+                'users.*',
+                'users.id as user_id', 
+                'truck_routes.*',
+                'truck_routes.id as route_id', 
+                'truck_routes.route_status as route_status', 
+                'trucks.*',
+                'trucks.id as truck_id', 
+                DB::raw('case when trucks.truck_district = "'.$request->district.'" then 1 else 0 end as match_district'))
+            ->leftJoin('users', 'users.id', '=', 'trucks.user_id')
+            ->leftJoin("truck_routes", function ($join) {
+                $join->on('trucks.id', '=', 'truck_routes.truck_id')->On('truck_routes.route_status', '!=', DB::raw('2'));
+            })
+            ->orderBy(DB::raw('LOCATE("'.$request->term.'", trucks.truck_district)'), 'desc')
+            ->orderBy(DB::raw('LOCATE("'.$request->term.'", trucks.plateNumber)'), 'desc')
+            ->orderBy(DB::raw('LOCATE("'.$request->term.'", users.name)'), 'desc')
+            ->orderBy('truck_routes.transportDate', 'ASC')
+            ->orderBy(DB::raw('match_district'), 'DESC')
+            ->where('trucks.truck_status', '=', 1)
+            ->groupBy('trucks.id')
+            ->get();
+
+        return response()->json($res);
+    }
+
+    public function truck_route(Request $request)
+    {
+        $trucks = TruckRoute::query()
+                ->select(
+                    'truck_routes.*',
+                    'truck_routes.id as route_id', 
+                    'truck_routes.route_status as route_status', 
+                    'trucks.*',
+                    'trucks.id as truck_id',
+                    DB::raw('COUNT(truck_routes.id) as routes_count'))
+                ->leftJoin("trucks", function ($join) {
+                    $join->on('trucks.id', '=', 'truck_routes.truck_id')->On('truck_routes.route_status', '!=', DB::raw('2'));
+                })
+                ->orderBy('truck_routes.transportDate', 'ASC')
+                ->groupBy('trucks.id')
+                ->where('trucks.id', '=', $request->truckId)
+                ->where(fn($query) => $query->whereDate("truck_routes.transportDate",">=",now())->orWhereNull("truck_routes.transportDate"))
+                ->get();
+
+
+        $order = Order::find($request->orderId);
+
+        foreach($trucks as $truck)
+        {
+            $diffDays = now()->diffInDays(\Carbon\Carbon::parse($truck->transportDate), false);
+
+            $transportDiff = 0;
+    
+            if ($truck->transportDate && $order->order_transportDate)
+                $transportDiff = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Helper::DateTimeStringToEndOfDay($truck->transportDate))->diffInDays(\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_transportDate), false);
+
+            $truck['checkMatches'] = array('diffDays' => $diffDays, 'transportDiff' => $transportDiff, 'orderTransportDate' => $order->order_transportDate, 'district' => $order->retail_district == $truck->truck_district);
+        }
+
+        return response()->json($trucks);
     }
 }

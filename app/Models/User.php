@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Truck;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
+use App\Helpers\Helper;
 
 class User extends Authenticatable
 {
@@ -44,6 +45,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'api_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
@@ -85,6 +87,7 @@ class User extends Authenticatable
         parent::boot();
         self::creating(function ($model) {
             $model->empId = IdGenerator::generate(['table' => 'users', 'length' => 8, 'prefix' =>'EMP-', 'field' => 'empId']);
+            $model->api_token = Helper::v4();
         });
     }
 

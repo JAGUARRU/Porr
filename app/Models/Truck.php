@@ -6,17 +6,21 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use App\Models\OrderRoute;
+use App\Models\TruckRoute;
 
 class Truck extends Model
 {
     use HasFactory;
     public $incrementing = false;
+
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
     protected $table = 'trucks';
+    
     protected $fillable = [
         'id',
         'plateNumber',
-        'status',
+        'truck_status',
         'user_id',
 
         'truck_province',
@@ -35,6 +39,16 @@ class Truck extends Model
         });
     }
 
+    protected $truckStatus = array(
+        '0' => 'ไม่พร้อมใช้งาน',
+        '1' => 'พร้อมใช้งาน'
+    );
+
+    public function getTruckStatusAttribute($value)
+    {
+        return $this->truckStatus[$value];
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -42,6 +56,6 @@ class Truck extends Model
 
     public function routes()
     {
-        return $this->hasMany(OrderRoute::class);
+        return $this->hasMany(TruckRoute::class);
     }
 }

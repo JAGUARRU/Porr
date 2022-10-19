@@ -98,7 +98,7 @@
 
             <tbody style="text-align: center;">
 
-              @if (count($truck->routes()->where('status', '=', 0)->get()) == 0)
+              @if (count($truck->routes()->where('truck_status', '=', 0)->get()) == 0)
               <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
                   <td colspan="4" class="px-4 py-3">
                       ไม่พบข้อมูล...
@@ -106,7 +106,7 @@
               </tr>
               @endif
 
-              @foreach($truck->routes()->where('status', '=', 0)->get() as $routes)
+              @foreach($truck->routes()->where('truck_status', '=', 0)->get() as $routes)
                 @foreach($routes->order()->get() as $order)
 
                     @php

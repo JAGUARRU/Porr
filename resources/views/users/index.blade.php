@@ -43,6 +43,7 @@
                                 <th class="px-4 py-3">ตำแหน่ง</th>
                                 <th class="px-4 py-3">บทบาท</th>
                                 <th class="px-4 py-3">สถานะ</th>
+                                <th class="px-4 py-3"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">

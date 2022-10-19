@@ -1,97 +1,90 @@
-<x-app-layout title="รายการข้อมูลรถ">
-    <div class="container grid px-6 mx-auto">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            รายการข้อมูลรถ
-        </h2>
-
-            @if (session('status'))
-                <div class="mb-4 text-sm font-medium text-green-600">
-                    {{ session('status') }}
-                </div>
-            @endif
-            
-            <div class="flex place-content-end">
-                <a href="{{ route('trucks.create') }}">
-                <button class="flex items-center justify-between px-6 py-3 text-sm font-medium leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
-                    <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
-                        <path stroke="none" d="M0 0h24v24H0z"/>  
-                            <circle cx="12" cy="12" r="9" /> 
-                            <line x1="9" y1="12" x2="15" y2="12" />  
-                            <line x1="12" y1="9" x2="12" y2="15" />
-                    </svg>
-                    <span class="text-base">ข้อมูลรถ</span>
-                </button>
-                </a>
-            </div>
-
-            @if (session('success'))
-                <h6 class="alert alert-success">{{ session('success') }}</h6>
-            @endif
-
-
-            <!-- With actions -->
+<x-app-layout title="ยืนยันการขนส่ง">
+    <div class="container grid px-6 mx-auto ">
+        <div class="my-6">
             <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
+
+                <h2 class="m-5 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    รายการการจัดส่ง
+                </h2>
+
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
                         <thead>
                             <tr
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสรถ</th>
-                                <th class="px-4 py-3">พนักงานขับรถ</th>
+                                <th class="px-4 py-3">คนขับ</th>
                                 <th class="px-4 py-3">ป้ายทะเบียน</th>
-                                <th class="px-4 py-3">สถานะรถ</th>
+                                <th class="px-4 py-3">กำหนดส่ง</th>
+                                <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                          
                             @foreach ($trucks as $truck)
                             <tr class="text-gray-700 dark:text-gray-400">
+
                                 <td class="px-4 py-3">
-                                   {{ $truck->id }}
+                                {{ $truck->id }}
                                 </td>
-                                <td class="px-4 py-3 text-sm">
+
+                                <td class="px-4 py-3">
                                     {{ $truck->user ? $truck->user->name : 'None' }}
                                 </td>
+
                                 <td class="px-4 py-3">
                                     {{ $truck->plateNumber }}
                                 </td>
-                                <td class="px-4 py-3 text-sm">
 
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $truck->truck_status == "พร้อมใช้งาน" ? ('bg-green-100 text-green-800') : ('bg-red-500 text-gray-100') }}">
-                                    {{ $truck->truck_status }}
-                                    </span>
+                                <td class="px-4 py-3">
+                                    @if($truck->transportDate)
+                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $truck->transportDate)->thaidate('j F Y') }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
 
+                                <td class="px-4 py-3">
+                                    @if($truck->transportDate)
+                                        {{ Helper::GetRouteStatus($truck->route_status) }}
+                                        @if($truck->route_status != 2)
+                                            กำหนดส่ง {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', Helper::DateTimeStringToEndOfDay($truck->transportDate))->diffForHumans() }}
+                                        @endif
+                                    @else
+                                        {{$truck->routes_count == 0 ? $truck->truck_status : Helper::GetRouteStatus($truck->route_status) }}
+                                    @endif
+                                    
                                 </td>
 
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
 
-                                        <a href="{{ url('trucks/'.$truck->id) }}" class="btn btn-primary btn-sm">
-                                            <button
-                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="View">
-                                                แสดง
-                                            </button>
-                                        </a>
-
-                                        <a href="{{ url('trucks/'.$truck->id.'/edit') }}" class="btn btn-primary btn-sm">
+                                        <a href="{{ url('truckloads/route/'.$truck->route_id.'/edit') }}" class="btn btn-primary btn-sm">
                                             <button
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Edit">
-                                                แก้ไข
+                                                จัดการ
                                             </button>
                                         </a>
+
+                                        @if($truck->transportDate)
+                                        <a href="{{ url('truckloads/route/'.$truck->route_id.'/print') }}" class="btn btn-primary btn-sm">
+                                            <button
+                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Print">
+                                                พิมพ์ใบส่ง
+                                            </button>
+                                        </a>
+                                        @endif
 
                                     </div>
                                 </td>
                             </tr>
-                          
+                        
                             @endforeach
-
                         </tbody>
                     </table>
-                </div>
+                </div> 
                 <div
                     class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                     <span class="flex items-center col-span-3">
@@ -167,4 +160,5 @@
                 </div>
             </div>
         </div>
+</div>
 </x-app-layout>

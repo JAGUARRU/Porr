@@ -1,8 +1,12 @@
+moment.tz.setDefault("Asia/Bangkok");
+moment.locale('th');
+
 $(document).ready(function() {
 
   $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+      'Authorization': 'Bearer ' + $('meta[name="api_token"]').attr('content'),
     }
   });
 

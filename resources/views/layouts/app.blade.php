@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta meta name="api_token" content="{{ (Auth::user()) ? Auth::user()->api_token : '' }}">
 
     <title>{{ $title }}</title>
 
@@ -16,11 +17,11 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tailwind.output.css') }}" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script src="{{asset('js/init-alpine.js')}}" defer></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data.min.js" integrity="sha512-BbPxnWR+i+tcacIqSiUXJq496oz6m8XAI4W9guCx08dRKQFRjMSxcIsAzLvYMHcfJGNzluReCg9CB6ePDMm3vQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
+    <script src="{{asset('js/init-alpine.js')}}" defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" defer></script>
@@ -28,12 +29,16 @@
     
     @livewireStyles
 
-    <script src="{{asset('js/importer.js')}}" type="module"></script>
-
     <script type="text/javascript">
         var siteUrl = "{{url('/')}}";
     </script>
     
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
+
     <!-- Scripts -->
     {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.6.0/dist/alpine.js" defer></script> --}}
 </head>

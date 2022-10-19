@@ -11,7 +11,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\RetailsController;
 use App\Http\Controllers\OrderRouteController;
 use App\Http\Controllers\ReportController;
-
+use App\Http\Controllers\TruckLoadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,6 +85,20 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/trucks/product/pdf', [\App\Http\Controllers\TrucksController::class, 'product_print'])->name('trucks.product_print');
     Route::resource('trucks', \App\Http\Controllers\TrucksController::class);
+
+    Route::get('truckloads/{id}/view', [\App\Http\Controllers\TruckLoadController::class, 'view'])->name('truckloads.view');
+
+    Route::get('truckloads/routes', [\App\Http\Controllers\TruckLoadController::class, 'routes'])->name('truckloads.routes');
+    Route::get('truckloads/route/{id}/edit', [\App\Http\Controllers\TruckLoadController::class, 'edit'])->name('truckloads.edit_route');
+    Route::get('truckloads/route/{id}/view', [\App\Http\Controllers\TruckLoadController::class, 'view_route'])->name('truckloads.view_route');
+
+    Route::get('truckloads/route/{id}/print', [\App\Http\Controllers\TruckLoadController::class, 'print_route'])->name('truckloads.print_route');
+
+    Route::put('truckloads/order/{id}', [\App\Http\Controllers\TruckLoadController::class, 'update_order'])->name('truckloads.update_order');
+
+    Route::get('truckloads/order/{id}', [\App\Http\Controllers\TruckLoadController::class, 'load_order'])->name('truckloads.load_order');
+ 
+    Route::resource('truckloads', \App\Http\Controllers\TruckLoadController::class);
 
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);
 
