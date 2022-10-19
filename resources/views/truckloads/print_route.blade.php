@@ -77,7 +77,6 @@
             width: 100%;
             margin-top: 12px;
             margin-bottom: 12px;
-            border-spacing: 10px;
         }
 
         .flex-item {
@@ -88,6 +87,22 @@
 
         div label {
             font-weight: bold;
+        }
+
+        .checkbox-inline {
+            display: block; 
+            padding-left: 15px;
+        }
+
+        .checkbox-inline input {
+            width: 13px;
+            height: 13px;
+            padding: 0;
+            margin-right:8px;
+            vertical-align: middle;
+            position: relative;
+            top: 1px;
+            *overflow: hidden;
         }
     </style>
 </head>
@@ -101,9 +116,7 @@
         <div style="margin-right: 20px; text-align: right;">เลขที่ {{ $route->id }}</div>
     </div>
 
-    <div class="flex-container" style=" 
-    
-    : auto; display:table; margin-bottom: 12px;">
+    <div class="flex-container" style="margin: auto; display:table; margin-bottom: 12px; border-spacing: 10px;">
         
         <div class="flex-item" style="padding: 12px; display: table-cell">
             <div><label>รหัสลูกค้า</label> {{ $route->order->retail_id }}</div> 
@@ -166,6 +179,53 @@
             </tbody>
 
         </table>
+
+        <div>
+            <div>
+                <label>ชำระโดย</label>
+                <div>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">เงินสด
+                    </label>
+                </div>
+                <div>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">เช็คธนาคาร
+                    </label>
+                </div>
+                <div>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">โอนผ่าน e-Banking
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <div class="flex-container" style="margin: auto; display:table; margin-bottom: 12px; margin-top: 12px;">
+        
+            <div class="flex-item" style="padding: 12px; display: table-cell">
+                <div style="text-align: center; line-height: .75rem;"><label>ผู้รับของ</label><div>ได้รับสินค้าตามรายการถูกต้องแล้ว</div></div>
+                <br> 
+                <div style="text-align: center;"><label>ลงชื่อ</label> ............................................</div>
+                <div style="text-align: center;"><label>วันที่</label> .....................................................</div> 
+            </div>
+            
+            <div class="flex-item"  style=" padding: 12px; display:table-cell">
+                <div style="text-align: center;"><label>ผู้ส่งของ</label></div>
+                <br>
+                <div style="text-align: center;"><label>ลงชื่อ</label> ............................................</div>
+                <div style="text-align: center;"><label>วันที่</label> .....................................................</div> 
+            </div>  
+            
+            <div class="flex-item"  style=" padding: 12px; display:table-cell">
+                <div style="text-align: center;"><label>ผู้รับเงิน</label></div>
+                <br> 
+                <div style="text-align: center;"><label>ลงชื่อ</label> ............................................</div>
+                <div style="text-align: center;"><label>วันที่</label> .....................................................</div> 
+            </div>  
+
+        </div> 
+
     </div>
 
 </body>
