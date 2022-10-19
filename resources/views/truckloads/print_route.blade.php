@@ -188,11 +188,7 @@
                         <input type="checkbox" value="">เงินสด
                     </label>
                 </div>
-                <div>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">เช็คธนาคาร
-                    </label>
-                </div>
+                
                 <div>
                     <label class="checkbox-inline">
                         <input type="checkbox" value="">โอนผ่าน e-Banking

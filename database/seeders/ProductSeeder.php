@@ -22,8 +22,24 @@ class ProductSeeder extends Seeder
         ];
         
         $id = IdGenerator::generate($config);
-        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสน้ำผึ้ง', 'prod_price' => 100, 'prod_type_name' => 'แท่ง', 'created_at' => now()]);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสกะทิ', 'prod_price' => 5, 'prod_type_name' => 'แท่ง', 'created_at' => now()]);
         $id = IdGenerator::generate($config);
-        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสนม', 'prod_price' => 200, 'prod_type_name' => 'ถ้วย', 'created_at' => now()]);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสชาไทย', 'prod_price' => 5, 'prod_type_name' => 'แท่ง', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสชาเขียว', 'prod_price' => 5, 'prod_type_name' => 'แท่ง', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสช็อกโกแลต', 'prod_price' => 5, 'prod_type_name' => 'แท่ง', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสสตรอว์เบอร์รี', 'prod_price' => 5, 'prod_type_name' => 'แท่ง', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสกะทิ', 'prod_price' => 10, 'prod_type_name' => 'ถ้วย', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสชาไทย', 'prod_price' => 10, 'prod_type_name' => 'ถ้วย', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสชาเขียว', 'prod_price' => 10, 'prod_type_name' => 'ถ้วย', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสช็อกโกแลต', 'prod_price' => 10, 'prod_type_name' => 'ถ้วย', 'created_at' => now()]);
+        $id = IdGenerator::generate($config);
+        DB::table('products')->insert(['id' => $id, 'prod_name' => 'รสสตรอว์เบอร์รี', 'prod_price' => 10, 'prod_type_name' => 'ถ้วย', 'created_at' => now()]);
     }
 }
