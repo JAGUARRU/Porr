@@ -36,6 +36,13 @@
                                     </td>
                                 </tr>
                                 <tr class="border-b">
+                                    <th class="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
+                                        ร้าน
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
+                                        {{ $order->retail_name }}
+                                    </td> 
+
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
                                         ที่อยู่
                                     </th>
