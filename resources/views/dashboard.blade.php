@@ -78,9 +78,9 @@
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             กราฟสถิติ
         </h2>
-        <div class="grid gap-6 mb-8 md:grid-cols-2">
+        <div class="grid gap-12 mb-8 grid-cols-1">
 
-                <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="col-span-1 mx-52 min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                     <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                         สถิติยอดขายประจำเดือน
                     </h4>
@@ -93,7 +93,7 @@
                     </div>
                 </div>
     
-                <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <!--<div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                     <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">
                         สถิติยอดสั่งซื้อประจำเดือน
                     </h4>
@@ -104,7 +104,7 @@
                             <span>ยอดสั่งซื้อ</span>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
     </div>
 

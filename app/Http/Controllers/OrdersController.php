@@ -140,7 +140,7 @@ class OrdersController extends Controller
                 return response()->json([
                     'statusCode' => 200,
                     'error' => [
-                        'msg' => "ไม่สามารถแก้ไขรายการสินค้าที่กำลังดำเนินการหรือทำรายการสำเร็จไปแล้วได้"
+                        'msg' => "ไม่สามารถแก้ไขรายการสินค้าในออเดอร์นี้ได้"
                     ]
                 ]);
             }

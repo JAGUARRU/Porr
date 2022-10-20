@@ -36,15 +36,24 @@ class TrucksController extends Controller
 
     public function store(Request $request)
     {
-        // plateNumber required
+
         $this->validate(
             $request, 
             [   
-                'plateNumber'             => 'required|unique:trucks,plateNumber'
+                'plateNumber'             => 'required|unique:trucks,plateNumber',
+                'truck_province'          => 'required|string',
+                'truck_district'          => 'required|string',
+                'truck_sub_district'      => 'required|string',
+                'truck_postcode'          => 'required|numeric'
             ],
             [   
                 'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
-                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
+                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว',
+                'truck_province.required'    => 'โปรดระบุจังหวัด',
+                'truck_district.required'    => 'โปรดระบุอำเภอ',
+                'truck_sub_district.required'    => 'โปรดระบุตำบล',
+                'truck_postcode.required'    => 'โปรดระบุรหัสไปรษณี',
+                'truck_postcode.numeric'    => 'รหัสไปรษณีต้องเป็นตัวเลขเท่านั้น'
             ]
         );
 
@@ -77,14 +86,29 @@ class TrucksController extends Controller
 
     public function update(Request $request, Truck $truck)
     {
-        // plateNumber required
+        $this->validate(
+            $request, 
+            [   
+                'plateNumber'             => 'required|unique:trucks,plateNumber',
+                'truck_province'          => 'required|string',
+                'truck_district'          => 'required|string',
+                'truck_sub_district'      => 'required|string',
+                'truck_postcode'          => 'required|numeric'
+            ],
+            [   
+                'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
+                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว',
+                'truck_province.required'    => 'โปรดระบุจังหวัด',
+                'truck_district.required'    => 'โปรดระบุอำเภอ',
+                'truck_sub_district.required'    => 'โปรดระบุตำบล',
+                'truck_postcode.required'    => 'โปรดระบุรหัสไปรษณี',
+                'truck_postcode.numeric'    => 'รหัสไปรษณีต้องเป็นตัวเลขเท่านั้น'
+            ]
+        );
 
         $truck->fill($request->all());
         $truck->update();
         
-        //return Redirect::route('trucks')->with('status','... Updated Successfully');
-        //return view('trucks.index', ["trucks"=>$trucks]);
-
         return Redirect::route('trucks.index')->with('status', $truck->id . ' ได้รับการปรับปรุงเรียบร้อยแล้ว');
     }
 

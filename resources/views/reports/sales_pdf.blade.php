@@ -29,7 +29,8 @@
         }
 
         body {
-            font-family: "THSarabunNew"
+            font-family: "THSarabunNew";
+            font-size: 20px;
         }
 
         table {
@@ -51,7 +52,7 @@
             border-bottom: 1px solid;
             border-right: 1px solid;
 
-            font-size: 18px;
+            font-size: 24px;
             padding-top: 0;
             padding-left: 5px;
             padding-right: 5px;
@@ -79,18 +80,25 @@
         <span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
     </div>
     <div style="text-align: center;">
-        <span style="font-weight: bolder; font-size: 18px;">รายงานสรุปยอดขายรายเดือน</span>
+        <div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>
+        <div><span style="font-weight: bolder; font-size: 24px;">รายงานสรุปยอดขายรายเดือน</span></div>
+        <div>
+            @if (isset($input['startDate']) && isset($input['endDate'])
+            && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false
+            && \Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate']) !== false)
+                <span style="font-weight: bold; font-size: 24px;">{{\Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate'])->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate'])->thaidate('j F Y')}}</span>
+            @else
+            <span style="font-weight: bold; font-size: 24px;">
+                <!--รายงานปี {{\Carbon\Carbon::parse($input['year'])->thaidate('Y')}} -->
+                {{\Carbon\Carbon::now()->startOfYear()->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::now()->thaidate('j F Y')}}
+            </span>
+            @endif
+        </div>
     </div>
     <div style="width: 100%;">
-        <span style="display: inline-block;">พิมพ์เมื่อวันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}}</span>
+        <span style="display: inline-block;">พิมพ์วันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}} เวลา {{\Carbon\Carbon::now()->thaidate('H:i')}}</span>
 
-        @if (isset($input['startDate']) && isset($input['endDate'])
-        && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false
-        && \Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate']) !== false)
-            <span style="display: inline-block; float: right;">รายงาน {{ $input['startDate'] }} ถึง {{ $input['endDate'] }}</span>
-        @else
-        <span style="display: inline-block; float: right;">รายงานปี {{ $input['year'] }}</span>
-        @endif
+        <span style="display: inline-block; float: right;">1/1</span>
     </div>
 
     <div style="width: 100%; overflow-x: auto; margin-top: 12px;">

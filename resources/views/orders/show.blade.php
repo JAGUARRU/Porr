@@ -95,7 +95,7 @@
                     รายการสินค้า
                 </h2>
 
-                <table class="w-full whitespace-no-wrap" id="productOrder">
+                <table class="w-full whitespace-no-wrap">
                     <thead>
                         <tr
                             class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">

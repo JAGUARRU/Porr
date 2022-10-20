@@ -17,10 +17,10 @@
         </div>
         @endif
 
-        <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4">
-            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
-                
-            
+        <div class="w-full rounded-lg mt-4">
+
+            <div class="px-4 py-3 mb-8 rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+
                 <form action="{{ route('truckloads.store', ['order_id'=>$order->id]) }}" method="POST" class="flex flex-col my-4">
                     @csrf
 
@@ -112,7 +112,9 @@
                     
                 </form>
             </div>
+        </div>
 
+        <div class="w-full rounded-lg mt-4">
             <div class="flex flex-col my-4">
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -195,14 +197,15 @@
                         </div>
                     </div>
             </div>
-
+        </div>
+        <div class="w-full rounded-lg mt-4">
             <div class="flex flex-col my-4">
 
                     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                         รายการสินค้า
                     </h2>
 
-                    <table class="w-full whitespace-no-wrap" id="productOrder">
+                    <table class="w-full whitespace-no-wrap">
                         <thead>
                             <tr
                                 class="font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -221,24 +224,24 @@
                                     ยังไม่มีข้อมูลรายการสินค้า...
                                 </td>
                             </tr>
-                            @endif
-                            
+                            @else
+
                             @foreach ($order->products as $product)
                             <tr class="text-gray-700 dark:text-gray-400 text-center">
                                 <td class="px-4 py-3">
-                                {{ $product["product_id"] }}
+                                {{ $product->product_id }}
                                 </td>
                                 <td class="px-4 py-3">
-                                {{ $product["product_name"] }}
+                                {{ $product->product_name }}
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    {{ number_format((float)$product["price"], 2, '.', '') }}฿
+                                    {{ number_format((float)$product->price, 2, '.', '') }}฿
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    {{ $product["qty"] }}
+                                    {{ $product->qty }}
                                 </td>
                                 <td class="px-4 py-3 text-right">
-                                    {{ number_format((float)$product["total"], 2, '.', '') }}฿
+                                    {{ number_format((float)$product->total, 2, '.', '') }}฿
                                 </td>
                             </tr>
                             @endforeach
@@ -251,6 +254,8 @@
                                     {{ number_format((float)$order->order_total, 2, '.', '') }}฿
                                 </td>
                             </tr>
+                            
+                            @endif
 
                         </tbody>
                     </table>
@@ -258,8 +263,8 @@
                         <span id="orderItems" class="flex justify-end py-6 text-green-600 transition-opacity ease-in duration-700 opacity-0">รายการสินค้าได้รับการอัปเดตแล้ว</span>
                     </div>
             </div>
-
         </div>
+   
  
     </div>
 

@@ -28,6 +28,24 @@ class RetailsController extends Controller
 
     public function store(Request $request)
     {
+
+        $this->validate(
+            $request, 
+            [   
+                'retail_province'          => 'required|string',
+                'retail_district'          => 'required|string',
+                'retail_sub_district'      => 'required|string',
+                'retail_postcode'          => 'required|numeric'
+            ],
+            [   
+                'retail_province.required'    => 'โปรดระบุจังหวัด',
+                'retail_district.required'    => 'โปรดระบุอำเภอ',
+                'retail_sub_district.required'    => 'โปรดระบุตำบล',
+                'retail_postcode.required'    => 'โปรดระบุรหัสไปรษณี',
+                'retail_postcode.numeric'    => 'รหัสไปรษณีต้องเป็นตัวเลขเท่านั้น'
+            ]
+        );
+
         $retail = new Retail;
         $retail->id = $request->input('id');
         $retail->retail_name = $request->input('retail_name');
@@ -64,6 +82,25 @@ class RetailsController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $this->validate(
+            $request, 
+            [   
+                'retail_province'          => 'required|string',
+                'retail_district'          => 'required|string',
+                'retail_sub_district'      => 'required|string',
+                'retail_postcode'          => 'required|numeric'
+            ],
+            [   
+                'retail_province.required'    => 'โปรดระบุจังหวัด',
+                'retail_district.required'    => 'โปรดระบุอำเภอ',
+                'retail_sub_district.required'    => 'โปรดระบุตำบล',
+                'retail_postcode.required'    => 'โปรดระบุรหัสไปรษณี',
+                'retail_postcode.numeric'    => 'รหัสไปรษณีต้องเป็นตัวเลขเท่านั้น'
+            ]
+        );
+
+        
         $retail = Retail::find($id);
         $retail->retail_name = $request->input('retail_name');
         $retail->retail_address = $request->input('retail_address');
