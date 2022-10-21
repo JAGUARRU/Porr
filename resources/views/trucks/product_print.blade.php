@@ -153,6 +153,12 @@
 
               @foreach($truck->routes()->where('route_status', '!=', 2)->get() as $routes)
                 @foreach($routes->lists()->get() as $route)
+
+                    @php
+                        if($route->route_list_status != Helper::GetRouteListStatus(0))
+                            continue;
+                    @endphp
+                
                   @foreach($route->order()->get() as $order)
                       @foreach($order->products()->get()->toArray() as $key=>$product)
 

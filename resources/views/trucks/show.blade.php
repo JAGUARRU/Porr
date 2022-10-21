@@ -110,6 +110,12 @@
     
                             @foreach($truck->routes()->where('route_status', '!=', 2)->get() as $routes)
                                 @foreach($routes->lists()->get() as $route)
+   
+                                    @php
+                                        if($route->route_list_status != Helper::GetRouteListStatus(0))
+                                            continue;
+                                    @endphp
+                                    
                                     @foreach($route->order()->get() as $order)
                                         @foreach($order->products()->get()->toArray() as $product)
                                         <tr class="text-gray-700 dark:text-gray-400 {{ (!isset($currentOrder) || $currentOrder != $order->id) ? ('') : ('border-none')}}" id="{{ $product['product_id'] }}">
