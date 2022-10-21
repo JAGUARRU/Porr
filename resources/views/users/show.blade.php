@@ -62,13 +62,13 @@
                                 </tr>
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
-                                        บทบาท
+                                        สิทธิ์
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
                                         @foreach ($user->roles as $role)
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {{ $role->title }}
-                                                </span>
+                                                {{ $role->title }}
+                                            </span>
                                         @endforeach
                                     </td>
                                 </tr>

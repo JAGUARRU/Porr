@@ -18,6 +18,14 @@ class PermissionsTableSeeder extends Seeder
                 'id'    => 2,
                 'title' => 'product_access',
             ],
+            [
+                'id'    => 3,
+                'title' => 'order_access',
+            ],
+            [
+                'id'    => 4,
+                'title' => 'truck_access',
+            ],
         ];
 
         Permission::insert($permissions);

@@ -45,7 +45,7 @@ class StoreUserRequest extends FormRequest
             'name.required'    => 'โปรดระบุชื่อและนามสกุล',
             'email.required'    => 'โปรดระบุที่อยู่อีเมล',
             'password.required'    => 'โปรดระบุรหัสผ่าน',
-            'roles.required'    => 'โปรดระบุบทบาท',
+            'roles.required'    => 'โปรดระบุสิทธิ์',
         ];
     }
 

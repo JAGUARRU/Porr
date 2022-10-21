@@ -76,7 +76,7 @@
 
                     <div class="col-span-1">
                         <div class="">
-                            <label for="roles text-gray-700 dark:text-gray-400"></label></label>บทบาท</label>
+                            <label for="roles text-gray-700 dark:text-gray-400"></label></label>สิทธิ์</label>
                             <select name="roles[]" id="roles" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" multiple="multiple">
                                 @foreach($roles as $id => $role)
                                     <option value="{{ $id }}"{{ in_array($id, old('roles', $user->roles->pluck('id')->toArray())) ? ' selected' : '' }}>

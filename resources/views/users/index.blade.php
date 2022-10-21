@@ -41,7 +41,7 @@
                                 <th class="px-4 py-3">ชื่อ-สกุลพนักงาน</th>
                                 <th calss="px-4 py-3">อีเมล</th>
                                 <th class="px-4 py-3">ตำแหน่ง</th>
-                                <th class="px-4 py-3">บทบาท</th>
+                                <th class="px-4 py-3">สิทธิ์</th>
                                 <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3"></th>
                             </tr>

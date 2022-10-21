@@ -18,6 +18,13 @@ class UsersController extends Controller
 {
     public function index()
     {
+        /*$admin_permissions = \App\Models\Permission::all();
+
+        $user_permissions = $admin_permissions->filter(function ($permission) {
+            return substr($permission->title, 0, 5) != 'user_';
+        });
+        dd($admin_permissions->pluck('id'), $user_permissions);*/
+
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $users = User::with('roles')->with('positions')->get();
