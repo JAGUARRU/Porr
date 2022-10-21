@@ -104,32 +104,46 @@
                         <tbody class="bg-white text-center divide-y dark:divide-gray-700 dark:bg-gray-800">
 
 
-                            <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
-                                <td colspan="4" class="px-4 py-3">
-                                    ไม่พบข้อมูล...
-                                </td>
-                            </tr>
+                            @php
+                                $count = 0;
+                            @endphp
     
-    
-                                <!-- <tr class="text-gray-700 dark:text-gray-400 { { (!isset($currentOrder) || $currentOrder != $order->id) ? ('') : ('border-none')}}" id="{ { $product['product_id'] }}">
-                                        <td class="px-4 py-3">
-                                            @ php
-                                            if (!isset($currentOrder) || $currentOrder != $order->id)
-                                            {
-                                                $currentOrder = $order->id;
-                                                echo $order->id;
-                                            }
-                                            @ endphp
-                                        </td>
-                                        <td class="px-4 py-3 text-left">
-                                            { { $product['product_id'] }}: { { $product['product_name'] }}
-                                        </td>
-                                        <td class="px-4 py-3">
-                                            { { $product['qty'] }}
-                                        </td>
-                                    </tr> -->
+                            @foreach($truck->routes()->where('route_status', '!=', 2)->get() as $routes)
+                                @foreach($routes->lists()->get() as $route)
+                                    @foreach($route->order()->get() as $order)
+                                        @foreach($order->products()->get()->toArray() as $product)
+                                        <tr class="text-gray-700 dark:text-gray-400 {{ (!isset($currentOrder) || $currentOrder != $order->id) ? ('') : ('border-none')}}" id="{{ $product['product_id'] }}">
+                                            <td class="px-4 py-3">
+                                                @php
+                                                if (!isset($currentOrder) || $currentOrder != $order->id)
+                                                {
+                                                    $currentOrder = $order->id;
+                                                    echo $order->id;
+                                                }
+                                                @endphp
+                                            </td>
+                                            <td class="px-4 py-3 text-left truncate max-w-md">
+                                                {{ $product['product_id'] }}: {{ $product['product_name'] }}
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                {{ $product['qty'] }}
+                                            </td>
+                                        </tr>
+                                        @php
+                                            $count++;
+                                        @endphp
+                                        @endforeach
+                                    @endforeach
+                                @endforeach
+                        @endforeach
 
-
+                        @if ($count == 0)
+                        <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
+                            <td colspan="4" class="px-4 py-3">
+                                ไม่พบข้อมูล...
+                            </td>
+                        </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>

@@ -29,7 +29,8 @@
         }
 
         body {
-            font-family: "THSarabunNew"
+            font-family: "THSarabunNew";
+            font-size: 18px;
         }
 
         table {
@@ -70,6 +71,38 @@
         }
 
 
+        .flex-container {
+            display: flex;
+            width: 100%;
+            margin-top: 12px;
+            margin-bottom: 12px;
+        }
+
+        .flex-item {
+            width: 100%;
+
+        }
+
+        div label {
+            font-weight: bold;
+        }
+
+        .checkbox-inline {
+            display: block; 
+            padding-left: 15px;
+        }
+
+        .checkbox-inline input {
+            width: 13px;
+            height: 13px;
+            padding: 0;
+            margin-right:8px;
+            vertical-align: middle;
+            position: relative;
+            top: 1px;
+            *overflow: hidden;
+        }
+
     </style>
 </head>
 <body>
@@ -79,12 +112,28 @@
         <span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
     </div>
     <div style="text-align: center;">
-        <span style="font-weight: bolder; font-size: 18px;">รายการสินค้าที่บรรทุกไว้</span>
-    </div>
-    <div style="width: 100%;">
-        <span style="display: inline-block;">พิมพ์เมื่อวันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}}</span>
+        <div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>
+        <div><span style="font-weight: bolder; font-size: 24px;">รายการสินค้าที่บรรทุกไว้</span></div>
     </div>
 
+    <div class="flex-container" style="margin: auto; display:table; margin-bottom: 12px; border-spacing: 10px;">
+        
+        <div class="flex-item" style="padding: 12px; display: table-cell">
+            <div><label>รหัสรถ</label> {{ $truck->id }}</div> 
+        </div>         
+        <div class="flex-item" style="padding: 12px; display: table-cell">
+            <div><label>ป้ายทะเบียน</label> {{ $truck->plateNumber }}</div> 
+        </div>   
+        <div class="flex-item" style="padding: 12px; display: table-cell">
+            <div><label>คนขับ</label> {{ $truck->user ? $truck->user->name : '-' }}</div> 
+        </div>           
+    </div> 
+
+    <div style="width: 100%;">
+        <span style="display: inline-block;">พิมพ์วันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}} เวลา {{\Carbon\Carbon::now()->thaidate('H:i')}}</span>
+
+        <span style="display: inline-block; float: right;"></span>
+    </div>
     <div style="width: 100%; overflow-x: auto; margin-top: 12px;">
         <table style="width: 100%; white-space: nowrap;">
             <thead>
@@ -98,55 +147,56 @@
 
             <tbody style="text-align: center;">
 
-              @if (count($truck->routes()->where('truck_status', '=', 0)->get()) == 0)
-              <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
-                  <td colspan="4" class="px-4 py-3">
-                      ไม่พบข้อมูล...
-                  </td>
-              </tr>
-              @endif
+            @php
+                $count = 0;
+            @endphp
 
-              @foreach($truck->routes()->where('truck_status', '=', 0)->get() as $routes)
-                @foreach($routes->order()->get() as $order)
+              @foreach($truck->routes()->where('route_status', '!=', 2)->get() as $routes)
+                @foreach($routes->lists()->get() as $route)
+                  @foreach($route->order()->get() as $order)
+                      @foreach($order->products()->get()->toArray() as $key=>$product)
 
-                    @php
-                        $products = $order->products()->get()->toArray();
-                    @endphp
+                            <tr class="text-gray-700 dark:text-gray-400" id="{{ $product['product_id'] }}">
+                                <td style="{{ ($key == 0 && $key +1 != count($order->products()->get()->toArray())) ? ('border-bottom: none !important;') : ('')}}">
+                                    @php
+                                    if (!isset($currentOrder) || $currentOrder != $order->id)
+                                    {
+                                        echo $order->id;
+                                    }
+                                    @endphp
+                                </td>
 
-                    @foreach($products as $key=>$product)
+                                <td style="text-align: left; max-width: 24rem; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;">
+                                    {{ $product['product_id'] }}: {{ $product['product_name'] }}
+                                </td>
 
-                    <tr class="text-gray-700 dark:text-gray-400" id="{{ $product['product_id'] }}">
-                        <td style="{{ ($key == 0 && $key +1 != count($products)) ? ('border-bottom: none !important;') : ('')}}">
-                            @php
-                            if (!isset($currentOrder) || $currentOrder != $order->id)
-                            {
-                                echo $order->id;
-                            }
-                            @endphp
-                        </td>
+                                <td style="text-align: right;">
+                                    {{ $product['qty'] }}
+                                </td>
 
-                        <td>
-                            {{ $product['product_id'] }}: {{ $product['product_name'] }}
-                        </td>
+                                <td style="min-width: 32px;">
 
-                        <td style="text-align: right;">
-                            {{ $product['qty'] }}
-                        </td>
+                                </td>
 
-                        <td style="min-width: 32px;">
-
-                        </td>
-
-                    </tr>
+                            </tr>
             
 
-                    @php
-                        $currentOrder = $order->id;
-                    @endphp
+                        @php
+                            $currentOrder = $order->id;
+                        @endphp
 
+                        @endforeach
                     @endforeach
                 @endforeach
             @endforeach
+
+            @if ($count == 0)
+            <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
+                <td colspan="4" class="px-4 py-3">
+                    ไม่พบข้อมูล...
+                </td>
+            </tr>
+            @endif
 
             </tbody>
 
