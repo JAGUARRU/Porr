@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class StoreProductCategoryRequest extends FormRequest
+class UpdateProductCategoryRequest extends FormRequest
 {
     public function rules()
     {
@@ -29,6 +29,6 @@ class StoreProductCategoryRequest extends FormRequest
 
     public function authorize()
     {
-        return Gate::allows('employee_product_category_add_access');
+        return Gate::allows('employee_product_category_edit_access');
     }
 }

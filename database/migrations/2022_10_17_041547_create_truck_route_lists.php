@@ -17,10 +17,10 @@ class CreateTruckRouteLists extends Migration
             $table->id();
 
             $table->bigInteger('truck_route_id')->unsigned()->index();
-            $table->foreign('truck_route_id')->references('id')->on('truck_routes')->cascadeOnDelete();
+            $table->foreign('truck_route_id')->references('id')->on('truck_routes')->onDelete('cascade')->onUpdate('cascade');;
             
             $table->string('order_id')->unique()->index();
-            $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');;
             $table->unique(['order_id', 'truck_route_id']);
 
             $table->timestamp('completedDate')->nullable()->default(null);

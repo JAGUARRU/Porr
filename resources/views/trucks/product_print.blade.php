@@ -189,6 +189,7 @@
 
                         @php
                             $currentOrder = $order->id;
+                            $count++;
                         @endphp
 
                         @endforeach

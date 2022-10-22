@@ -19,6 +19,7 @@ class Order extends Model
     public $incrementing = false;
     protected $table = 'orders';
     protected $fillable = [
+        'id',
         'retail_id',
         'retail_name',
         'retail_province',

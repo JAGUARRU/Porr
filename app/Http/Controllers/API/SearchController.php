@@ -21,7 +21,7 @@ class SearchController extends Controller
     {
         $res = array();
 
-        if (!in_array("2", Auth::user()->roles->pluck('id')->toArray()))
+        if (Gate::check('employee_view_access'))
         {
             $resultArray = User::query()
             ->select('users.id', 'users.empId', 'users.name')
@@ -35,11 +35,12 @@ class SearchController extends Controller
         }
 
         $resultArray = Product::query()
-        ->where("prod_name","LIKE","%{$request->term}%")->get();
+        ->where(fn($query) => $query->where("prod_name","LIKE","%{$request->term}%")->orWhere("prod_type_name","LIKE","%{$request->term}%"))
+        ->get();
 
         foreach($resultArray as $product)
         {
-            array_push($res, array("title"=> $product['id']. ": " . $product['prod_name'], "url"=>"products/".$product['id'], "category"=>"สินค้า"));
+            array_push($res, array("title"=> $product['id']. ": " . $product['prod_name'] . ' ประเภท: ' . $product['prod_type_name'], "url"=>"products/".$product['id'], "category"=>"สินค้า"));
         }
 
         $resultArray = Retail::query()

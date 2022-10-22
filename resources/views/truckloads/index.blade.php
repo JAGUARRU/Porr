@@ -4,6 +4,7 @@
             เลือกรถ
         </h2>
         
+        @if (Gate::check('employee_truck_load_access'))
         <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
 
             <h2 class="m-5 text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -145,8 +146,8 @@
                 </span>
             </div>
         </div>
-
-            <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
+        @endif
+        <div class="w-full overflow-hidden rounded-lg shadow-xs mt-4 ">
 
                 <h2 class="m-5 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                     รายการรถที่พร้อมใช้งาน
@@ -208,7 +209,7 @@
                                             <button
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="View">
-                                                จัดการ
+                                                เรียกดู
                                             </button>
                                         </a>
 
@@ -293,7 +294,7 @@
                         </nav>
                     </span>
                 </div>
-            </div>
         </div>
+    </div>
 
 </x-app-layout>

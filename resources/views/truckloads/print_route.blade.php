@@ -228,10 +228,11 @@
                     </label>
                 </div>
                 
-                <div>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">โอนผ่าน e-Banking
+                <div class="">
+                    <label class="checkbox-inline" style="display: inline-block;">
+                        <input type="checkbox" value="">อื่น ๆ
                     </label>
+                    <div style="display: inline-block;"> .....................................................</div>
                 </div>
             </div>
 

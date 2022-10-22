@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 use Redirect;
 use PDF;
 
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\StoreTruckRequest;
+use App\Http\Requests\UpdateTruckRequest;
+
+use Illuminate\Validation\Rule;
+
 class TrucksController extends Controller
 {
     public function index()
@@ -34,29 +41,8 @@ class TrucksController extends Controller
         return view('trucks.create', compact('id','provinces','amphoes','tambons'));
     }
 
-    public function store(Request $request)
+    public function store(StoreTruckRequest $request)
     {
-
-        $this->validate(
-            $request, 
-            [   
-                'plateNumber'             => 'required|unique:trucks,plateNumber',
-                'truck_province'          => 'required|string',
-                'truck_district'          => 'required|string',
-                'truck_sub_district'      => 'required|string',
-                'truck_postcode'          => 'required|numeric'
-            ],
-            [   
-                'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
-                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว',
-                'truck_province.required'    => 'โปรดระบุจังหวัด',
-                'truck_district.required'    => 'โปรดระบุอำเภอ',
-                'truck_sub_district.required'    => 'โปรดระบุตำบล',
-                'truck_postcode.required'    => 'โปรดระบุรหัสไปรษณี',
-                'truck_postcode.numeric'    => 'รหัสไปรษณีต้องเป็นตัวเลขเท่านั้น'
-            ]
-        );
-
         $truck = new Truck;
         $truck->fill($request->all());
         $truck->save();
@@ -84,27 +70,29 @@ class TrucksController extends Controller
         return view('trucks.show', compact('truck'));
     }
 
-    public function update(Request $request, Truck $truck)
+    public function update(UpdateTruckRequest $request, Truck $truck)
     {
-        $this->validate(
-            $request, 
-            [   
-                'plateNumber'             => 'required|unique:trucks,plateNumber',
-                'truck_province'          => 'required|string',
-                'truck_district'          => 'required|string',
-                'truck_sub_district'      => 'required|string',
-                'truck_postcode'          => 'required|numeric'
+
+        $validatedData = $request->validate([
+            'id' => [
+                'required',
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('id', $request->id);
+                })->ignore($truck->id)
             ],
-            [   
-                'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
-                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว',
-                'truck_province.required'    => 'โปรดระบุจังหวัด',
-                'truck_district.required'    => 'โปรดระบุอำเภอ',
-                'truck_sub_district.required'    => 'โปรดระบุตำบล',
-                'truck_postcode.required'    => 'โปรดระบุรหัสไปรษณี',
-                'truck_postcode.numeric'    => 'รหัสไปรษณีต้องเป็นตัวเลขเท่านั้น'
+            'plateNumber' => [
+                'required',
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('plateNumber', $request->plateNumber);
+                })->ignore($truck->plateNumber, 'plateNumber')
             ]
-        );
+        ], [
+            'id.required'    => 'โปรดระบุรหัสรถ',
+            'id.unique'    => 'รหัสรถได้ถูกใช้แล้ว', 
+            'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
+            'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
+        ]);
+
 
         $truck->fill($request->all());
         $truck->update();

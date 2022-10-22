@@ -16,6 +16,6 @@ return [
     'previous' => '&laquo; ก่อนหน้า',
     'next' => 'ถัดไป &raquo;',
     'showing' => 'แสดง',
-    'of' => 'จาก'
+    'of' => 'จากทั้งหมด'
 
 ];

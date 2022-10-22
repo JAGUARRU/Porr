@@ -42,7 +42,7 @@
                 <div class="col-span-1">
                     <div class="">
                         <label for="text-gray-700 dark:text-gray-400">รหัสออเดอร์</label>
-                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $id }}" name="order_id" placeholder="ระบุรหัสออเดอร์" value="{{ old('order_id') }}" />
+                        <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="id" placeholder="ระบุรหัสออเดอร์" value="{{ old('id', $id) }}" />
                     </div>
 
                     <div class="mt-4">

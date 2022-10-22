@@ -23,7 +23,7 @@ class CreateRoutesTable extends Migration
             $table->foreign('truck_id')->references('id')->on('trucks')->onDelete('set null');
 
             $table->string('order_id')->index();
-            $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');;
 
             $table->integer('status');
 

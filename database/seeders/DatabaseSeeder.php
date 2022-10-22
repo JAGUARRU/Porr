@@ -21,11 +21,8 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             PermissionRoleTableSeeder::class,
 
-            PositionsTableSeeder::class,
-
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
-            PositionUserTableSeeder::class,
             ProductCategorySeeder::class,
             ProductSeeder::class,
 

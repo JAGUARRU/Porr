@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->text('prod_detail')->nullable();
             $table->timestamps();
 
+            $table->integer('prod_status')->default(1);
+
             $table->unique(['prod_name', 'prod_type_name']);
         });
     }

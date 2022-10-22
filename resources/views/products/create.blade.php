@@ -45,22 +45,6 @@
                         </div>
                     </div>
 
-                    <!--<div class="mt-4">
-                        <label class="text-gray-700 dark:text-gray-400 col-span-2">
-                            ประเภทสินค้า
-                        </label>
-                    </div>
-                    <div class="mt-1">
-                        <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                            <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="accountType" value="แท่ง" />
-                            <span class="ml-2">แท่ง</span>
-                        </label>
-                        <label class="inline-flex items-center text-gray-600 dark:text-gray-400 ml-9">
-                            <input type="radio" class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="accountType" value="แท่ง" />
-                            <span class="ml-2">ถ้วย</span>
-                        </label>
-                    </div>-->
-
                     <div class="mt-4">
                         <div class="block mb-4">
                             <label for="text-gray-700 dark:text-gray-400 inline-block">ประเภทสินค้า</label>
@@ -197,6 +181,7 @@
                                     <input class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="{{ $category->id }}" name="editItem" value="{{ $category->name }}"/>
                                 </td>
                                 <td class="px-4 py-3">
+                                    @if(Gate::check('employee_product_category_edit_access'))
                                     <div class="flex items-center space-x-4 text-sm">
                                         
                                         <button
@@ -209,6 +194,7 @@
                                         </button>
   
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                           

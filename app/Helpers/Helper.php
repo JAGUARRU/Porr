@@ -24,6 +24,16 @@ class Helper
         return $routeStatus[$value];
     }
 
+    public static function GetProductStatus($value)
+    {
+        static $status = array(
+            '0' => 'ถูกยกเลิก',
+            '1' => 'ปกติ'
+        );
+
+        return $status[$value];
+    }
+
     public static function DateTimeStringToEndOfDay($dateTime)
     {
         return (explode(' ', $dateTime)[0] . ' 23:59:59');

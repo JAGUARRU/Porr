@@ -81,6 +81,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', \App\Http\Controllers\UsersController::class);
 
     Route::resource('retails', \App\Http\Controllers\RetailsController::class);
+
+    Route::patch('products/{id}', [\App\Http\Controllers\ProductsController::class, 'patch'])->name('products.patch');
     Route::resource('products', \App\Http\Controllers\ProductsController::class);
 
     Route::get('/trucks/product/pdf', [\App\Http\Controllers\TrucksController::class, 'product_print'])->name('trucks.product_print');

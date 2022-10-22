@@ -12,16 +12,18 @@
         รายละเอียดสินค้า
     </h2>
 
-  
+
     <div class="max-w-6xl mx-auto py-10 sm:px-6 lg:px-8">
             <div class="flex">
                 <a href="{{ route('products.index') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2 transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
                     <span class="text-base">กลับหน้าแรก</span>
                 </a>
 
+                @if (Gate::check('user_product_edit_access'))
                 <a href="{{ url('products/'.$product->id.'/edit') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
                     <span class="text-base">แก้ไข</span>
                 </a>
+                @endif
             </div>
            
             <div class="flex flex-col mt-6">
@@ -67,6 +69,14 @@
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
                                         {{ $product->prod_detail != "" ? $product->prod_detail : "-" }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
+                                        สถานะ
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
+                                        {{ $product->prod_status }}
                                     </td>
                                 </tr>
                                 <tr>
