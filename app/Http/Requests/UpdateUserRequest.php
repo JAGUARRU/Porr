@@ -37,13 +37,13 @@ class UpdateUserRequest extends FormRequest
                 'integer'
             ],
             'phoneNumber' => [
-                'string'
+                'sometimes'
             ],
             'address' => [
-                'string'
+                'sometimes'
             ],
             'positions' => [
-                'string'
+                'sometimes'
             ],
             'IDCardNumber' => new ThaiIdCardRule
         ];
