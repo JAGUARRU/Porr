@@ -14,7 +14,7 @@
                 </h4>
             </div>
 
-            <form method="post" action="{{ route('users.store') }}" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+            <form method="post" action="{{ route('users.store') }}" autocomplete="off" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
                 @csrf
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">

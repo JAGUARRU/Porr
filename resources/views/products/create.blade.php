@@ -8,7 +8,7 @@
 
     <div class="container">
 
-        <form action="{{ route('products.store') }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+        <form action="{{ route('products.store') }}" autocomplete="off" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
             @csrf
 
             @if($errors->any())

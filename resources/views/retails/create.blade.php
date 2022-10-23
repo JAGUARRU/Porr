@@ -34,7 +34,7 @@
                 </div>
             @endif
             
-            <form action="{{ route('retails.store') }}" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
+            <form action="{{ route('retails.store') }}" autocomplete="off" method="POST" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
                 @csrf
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">

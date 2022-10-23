@@ -4,7 +4,7 @@
             เพิ่มรายการข้อมูลรถ
         </h2>
 
-    <form action="{{ route('trucks.store') }}" method="POST">
+    <form action="{{ route('trucks.store') }}" autocomplete="off" method="POST">
         @csrf
         
     <div class="container">

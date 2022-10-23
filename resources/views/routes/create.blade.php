@@ -6,7 +6,7 @@
 
     <div class="container">
 
-        <form action="{{ route('routes.store') }}" method="POST">
+        <form action="{{ route('routes.store') }}" autocomplete="off" method="POST">
             @csrf
 
             @if($errors->any())
