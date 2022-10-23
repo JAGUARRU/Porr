@@ -23,7 +23,8 @@ class CreateTruckTable extends Migration
             $table->string('truck_sub_district');
             $table->string('truck_postcode');
 
-            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreignId('user_id')->nullable()->unique()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
 
             $table->timestamps();
         });
