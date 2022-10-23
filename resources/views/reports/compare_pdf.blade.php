@@ -76,20 +76,18 @@
 <body>
 
 <div>
-    <div style="text-align: right;">
-        <span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+    <span style="display: inline-block; float: right;">หน้า 1/1</span>
+    <div style="text-align: left;">
+        <div><span>ร้าน ป้อฮ์ไอติมกะทิสด</span></div>
+        <div><span>162 หมู่ 13 ตำบลหนองกะท้าว อำเภอนครไทย จังหวัดพิษณุโลก 65120</span></div>
+        <div><span>โทร: 093-873-3956</span></div>        
     </div>
     <div style="text-align: center;">
-        <div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>
-        <div><span style="font-weight: bolder; font-size: 24px;">รายงานสรุปเปรียบเทียบยอดการขาย</span></div>
-        <div>
-            <span style="font-weight: bold; font-size: 24px;">{{\Carbon\Carbon::parse($input['startDate'])->thaidate('j F Y')}} และ {{\Carbon\Carbon::parse($input['endDate'])->thaidate('j F Y')}}</span>
-        </div>
+        <div><span style="font-weight: bolder; font-size: 28px;">รายงานสรุปเปรียบเทียบยอดการขาย</span></div>
     </div>
-    <div style="width: 100%;">
-        <span style="display: inline-block;">พิมพ์วันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}} เวลา {{\Carbon\Carbon::now()->thaidate('H:i')}}</span>
-
-        <span style="display: inline-block; float: right;">1/1</span>
+    <div style="width: 100%; text-align: right;">
+        <div><span>ผู้พิมพ์:  {{ \Illuminate\Support\Facades\Auth::user()->name }} </span></div>
+        <span style="display: inline-block;">วันที่พิมพ์: {{\Carbon\Carbon::now()->thaidate('j F Y')}} </span>
     </div>
 
     <div style="width: 100%; overflow-x: auto; margin-top: 12px;">

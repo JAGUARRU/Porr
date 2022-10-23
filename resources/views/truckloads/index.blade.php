@@ -26,6 +26,7 @@
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         @foreach ($orders as $order)
+
                         <tr class="text-gray-700 dark:text-gray-400">
 
                             <td class="px-4 py-3">

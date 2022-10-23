@@ -76,35 +76,41 @@
 <body>
 
 <div>
-    <div style="text-align: right;">
-        <span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+    <span style="display: inline-block; float: right;">หน้า 1/1</span>
+    <div style="text-align: left;">
+        <!--<span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>-->
+        <div><span>ร้าน ป้อฮ์ไอติมกะทิสด</span></div>
+        <div><span>162 หมู่ 13 ตำบลหนองกะท้าว อำเภอนครไทย จังหวัดพิษณุโลก 65120</span></div>
+        <div><span>โทร: 093-873-3956</span></div>
     </div>
     <div style="text-align: center;">
-        <div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>
-        <div><span style="font-weight: bolder; font-size: 24px;">รายงานสรุปยอดขายรายเดือน</span></div>
+        <!--<div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>-->
+        <div><span style="font-weight: bolder; font-size: 28px;">รายงานสรุปยอดขายรายเดือน</span></div>
         <div>
             @if (isset($input['startDate']) && isset($input['endDate'])
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate']) !== false)
                 <span style="font-weight: bold; font-size: 24px;">{{\Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate'])->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate'])->thaidate('j F Y')}}</span>
             @else
-            <span style="font-weight: bold; font-size: 24px;">
-                <!--รายงานปี {{\Carbon\Carbon::parse($input['year'])->thaidate('Y')}} -->
+            <!--<span style="font-weight: bold; font-size: 24px;">
+                //รายงานปี {{\Carbon\Carbon::parse($input['year'])->thaidate('Y')}}
                 {{\Carbon\Carbon::now()->startOfYear()->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::now()->thaidate('j F Y')}}
-            </span>
+            </span>-->
             @endif
         </div>
     </div>
-    <div style="width: 100%;">
-        <span style="display: inline-block;">พิมพ์วันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}} เวลา {{\Carbon\Carbon::now()->thaidate('H:i')}}</span>
+    <div style="width: 100%; text-align: right;">
+        <div><span>ผู้พิมพ์:  {{ \Illuminate\Support\Facades\Auth::user()->name }} </span></div>
+        <span style="display: inline-block;">วันที่พิมพ์: {{\Carbon\Carbon::now()->thaidate('j F Y')}} </span>
 
-        <span style="display: inline-block; float: right;">1/1</span>
+        <!--<span style="display: inline-block; float: right;">1/1</span>-->
     </div>
 
     <div style="width: 100%; overflow-x: auto; margin-top: 12px;">
         <table style="width: 100%; white-space: nowrap;">
             <thead>
                 <tr style="font-weight: bold; text-align: center;">
+                    
                     <th>ปี</th>
                     <th>เดือน</th>
                     <th>จำนวน (บาท)</th>
@@ -129,8 +135,8 @@
               @foreach ($reports as $report)
 
               <tr class="text-gray-700 dark:text-gray-400">
-                  <td>
-                      @php
+                <td>
+                    @php
                           if (isset($report['year']) && $input['currentYear'] != $report['year'])
                           {
                               $input['currentYear'] = $report['year'];
@@ -157,7 +163,7 @@
 
               @if (count($reports) != 0)
               <tr style="text-align: right;">
-                  <td colspan="2">
+                  <td colspan="3">
                     รวมทั้งสิ้น
                   </td>
                   <td>

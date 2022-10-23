@@ -17,7 +17,7 @@ class OrderTableSeeder extends Seeder
         $id = IdGenerator::generate(['table' => 'orders', 'length' => 10, 'prefix' =>'ORDER-']);
         DB::table('orders')->insert([
             'id' => $id,
-            'retail_id' => $order->retail_id,
+            'retail_id' => $order->id,
             'retail_name' => $order->retail_name,
             'retail_province' => $order->retail_province,
             'retail_district' => $order->retail_district,
@@ -32,7 +32,7 @@ class OrderTableSeeder extends Seeder
         $id = IdGenerator::generate(['table' => 'orders', 'length' => 10, 'prefix' =>'ORDER-']);
         DB::table('orders')->insert([
             'id' => $id,
-            'retail_id' => $order->retail_id,
+            'retail_id' => $order->id,
             'retail_name' => $order->retail_name,
             'retail_province' => $order->retail_province,
             'retail_district' => $order->retail_district,
@@ -47,7 +47,7 @@ class OrderTableSeeder extends Seeder
         $id = IdGenerator::generate(['table' => 'orders', 'length' => 10, 'prefix' =>'ORDER-']);
         DB::table('orders')->insert([
             'id' => $id,
-            'retail_id' => $order->retail_id,
+            'retail_id' => $order->id,
             'retail_name' => $order->retail_name,
             'retail_province' => $order->retail_province,
             'retail_district' => $order->retail_district,
