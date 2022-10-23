@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration
             $table->timestamp('order_date')->useCurrent();
             $table->timestamp('order_transportDate')->nullable()->default(null);
             
-            $table->string('order_status');
+            $table->string('order_status')->default('รอดำเนินการ');
             $table->boolean('order_cancelled')->default(false);
             $table->dateTime('order_cancelDateTime', $precision = 0)->nullable()->default(null);
 

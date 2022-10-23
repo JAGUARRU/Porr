@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,
 
             RetailsTableSeeder::class,
+            OrderTableSeeder::class,
             TrucksTableSeeder::class
         ]);
         
