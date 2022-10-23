@@ -50,7 +50,7 @@ class OrdersController extends Controller
      */
     public function create(Request $request)
     {
-
+        
         abort_if(Gate::denies('employee_order_add_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if (!empty($request->term) && !empty($request->type)) 

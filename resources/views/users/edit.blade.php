@@ -1,12 +1,12 @@
 <x-app-layout title="แก้ไขผู้ใช้งาน">
     <div class="container grid px-6 mx-auto ">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            แก้ไขผู้ใช้งาน
+            จัดการข้อมูลพนักงาน
         </h2>
 
         <div class="container">
             <div class="flex flex-row">
-                <svg class="w-6 h-6 dark:text-white" aria-hidden="true" fill="currentColor"
+                <svg class="w-6 h-6 text-blue-500" aria-hidden="true" fill="currentColor"
                     viewBox="0 0 20 20">
                     <path
                         d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
@@ -143,6 +143,11 @@
                                 <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     แก้ไข
                                 </button>
+                            </div>
+                            <div class="pr-4 mt-2">
+                                <a href="{{ route('users.index') }}" class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded">
+                                    <span>ยกเลิก</span>
+                                </a>
                             </div>
                         </div>
                     </div>
