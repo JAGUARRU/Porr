@@ -25,6 +25,7 @@ class StoreTruckRequest extends FormRequest
         return [
             'id.required'    => 'โปรดระบุรหัสรถ',
             'id.unique'    => 'รหัสรถได้ถูกใช้แล้ว', 
+            'user_id.unique'    => 'คนขับรถนี้ได้ถูกใช้แล้ว',
             'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
             'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว',
             'truck_province.required'    => 'โปรดระบุจังหวัด',

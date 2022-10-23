@@ -43,6 +43,32 @@ class TrucksController extends Controller
 
     public function store(StoreTruckRequest $request)
     {
+        $validatedData = $request->validate([
+            'id' => [
+                'required',
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('id', $request->id);
+                })->ignore($truck->id)
+            ],
+            'plateNumber' => [
+                'required',
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('plateNumber', $request->plateNumber);
+                })->ignore($truck->plateNumber, 'plateNumber')
+            ],
+            'user_id' => [
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('user_id', $request->user_id);
+                })->ignore($truck->user_id, 'user_id')
+            ]
+        ], [
+            'id.required'    => 'โปรดระบุรหัสรถ',
+            'id.unique'    => 'รหัสรถได้ถูกใช้แล้ว', 
+            'user_id.unique'    => 'คนขับรถนี้ได้ถูกใช้แล้ว',
+            'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
+            'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
+        ]);
+        
         $truck = new Truck;
         $truck->fill($request->all());
         $truck->save();
@@ -85,10 +111,16 @@ class TrucksController extends Controller
                 Rule::unique('trucks')->where(function ($query) use($request, $truck) {
                     return $query->where('plateNumber', $request->plateNumber);
                 })->ignore($truck->plateNumber, 'plateNumber')
+            ],
+            'user_id' => [
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('user_id', $request->user_id);
+                })->ignore($truck->user_id, 'user_id')
             ]
         ], [
             'id.required'    => 'โปรดระบุรหัสรถ',
             'id.unique'    => 'รหัสรถได้ถูกใช้แล้ว', 
+            'user_id.unique'    => 'คนขับรถนี้ได้ถูกใช้แล้ว',
             'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
             'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
         ]);
