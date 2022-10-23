@@ -77,6 +77,10 @@ class PermissionsTableSeeder extends Seeder
             [
                 'id'    => 17,
                 'title' => 'user_report_print_access',
+            ],
+            [
+                'id'    => 18,
+                'title' => 'employee_product_category_edit_access'
             ]
         ];
 
