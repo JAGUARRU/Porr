@@ -36,6 +36,15 @@ class UpdateUserRequest extends FormRequest
             'inactive' => [
                 'integer'
             ],
+            'phoneNumber' => [
+                'string'
+            ],
+            'address' => [
+                'string'
+            ],
+            'positions' => [
+                'string'
+            ],
             'IDCardNumber' => new ThaiIdCardRule
         ];
     }
