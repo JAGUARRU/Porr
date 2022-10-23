@@ -87,7 +87,7 @@
                                         เบอร์ติดต่อ
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
-                                        {{ $user->phoneNumber ? $user->address : '-' }}
+                                        {{ $user->phoneNumber ? $user->phoneNumber : '-' }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
