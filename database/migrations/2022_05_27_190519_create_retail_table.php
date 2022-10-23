@@ -21,8 +21,8 @@ class CreateRetailTable extends Migration
             $table->string('retail_district');
             $table->string('retail_sub_district');
             $table->string('retail_postcode');
-            $table->string('retail_phone');
-            $table->string('retail_contact');
+            $table->string('retail_phone')->nullable();
+            $table->string('retail_contact')->nullable();
             $table->timestamps();
         });
     }

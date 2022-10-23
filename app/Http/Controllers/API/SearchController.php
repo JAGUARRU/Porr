@@ -21,7 +21,7 @@ class SearchController extends Controller
     {
         $res = array();
 
-        if (Gate::check('employee_view_access'))
+        if (Gate::check('user_view_access'))
         {
             $resultArray = User::query()
             ->select('users.id', 'users.empId', 'users.name')

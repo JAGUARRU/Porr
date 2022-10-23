@@ -16,7 +16,7 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 2,
-                'title' => 'employee_view_access',
+                'title' => 'user_view_access',
             ],
             [
                 'id'    => 3,
