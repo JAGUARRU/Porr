@@ -9,14 +9,19 @@ use App\Models\Truck;
 use App\Models\Tambon;
 use App\Models\OrderList;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\TruckRouteList;
 
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\Validator;
-use Response;
+use Illuminate\Validation\Rule;
+
 use Redirect;
 use DB;
+
+use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 
 class OrdersController extends Controller
 {
@@ -45,6 +50,9 @@ class OrdersController extends Controller
      */
     public function create(Request $request)
     {
+
+        abort_if(Gate::denies('employee_order_add_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         if (!empty($request->term) && !empty($request->type)) 
         {
             if ($request->type == "retails")
@@ -94,19 +102,8 @@ class OrdersController extends Controller
         return view('orders.create', compact('id', 'provinces', 'amphoes', 'tambons'));
     }
 
-    public function store(Request $request)
+    public function store(StoreOrderRequest $request)
     {
-
-        $this->validate(
-            $request, 
-            [   
-                'retail_id'             => 'required'
-            ],
-            [   
-                'retail_id.required'    => 'โปรดเลือกร้านค้าจากระบบ'
-            ]
-        );
-        
         $order = new Order;
         $order->fill($request->all());
         $order->save();
@@ -130,6 +127,9 @@ class OrdersController extends Controller
      */
     public function edit(Order $order, Request $request)
     {
+
+        abort_if(Gate::denies('user_order_edit_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $products = Product::query();
         $searchInput = "";
 
@@ -140,7 +140,7 @@ class OrdersController extends Controller
                 return response()->json([
                     'statusCode' => 200,
                     'error' => [
-                        'msg' => "ไม่สามารถแก้ไขรายการสินค้าที่กำลังดำเนินการหรือทำรายการสำเร็จไปแล้วได้"
+                        'msg' => "ไม่สามารถแก้ไขรายการสินค้าในออเดอร์นี้ได้"
                     ]
                 ]);
             }
@@ -258,8 +258,21 @@ class OrdersController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
+
+        $validatedData = $request->validate([
+            'id' => [
+                'required',
+                Rule::unique('products')->where(function ($query) use($request, $order) {
+                    return $query->where('id', $order->id);
+                })->ignore($order->id)
+            ]
+        ],
+        [
+         'id.unique'=> 'รหัสสินค้าซ้ำกัน'
+        ]);
+
         if ($request->order_cancelled)
         {
             $order->order_cancelDateTime = now();

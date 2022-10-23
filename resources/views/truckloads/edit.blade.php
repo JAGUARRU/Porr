@@ -73,11 +73,6 @@
                                     บันทึก
                                 </button>
                             </div>
-                            <div class="pr-4">
-                                <button class="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    กลับ
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>  
@@ -156,22 +151,26 @@
                                     <div class="flex space-x-2 text-sm w-full">
    
 
-                                            @if ($route->route_status == Helper::GetRouteStatus(1))
-                                            <form method="post" action="{{ route('truckloads.update_order', ["id"=>$route->id, "order_id" => $list->order->id, "type"=>"toggle"]) }}" class="flex justify-between">
-                                                    @csrf
-                                                    @method('put')
-                                                <button
-                                                    type="submit"
-                                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
-                                                    @if ($list->route_list_status == "รอส่ง")
-                                                    ตั้งเป็นส่งสำเร็จแล้ว
-                                                    @else
-                                                    ตั้งเป็นรอส่ง
-                                                    @endif
-                                                </button>
-                                            </form>
-                                            @endif
+                                        
+                                        @if($route->route_status == Helper::GetRouteStatus(1))
+                                        <form method="post" action="{{ route('truckloads.update_order', ["id"=>$route->id, "order_id" => $list->order->id, "type"=>"toggle"]) }}" class="flex justify-between">
+                                                @csrf
+                                                @method('put')
+                                            <button
+                                                type="submit"
+                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                {{ ($route->route_status == Helper::GetRouteStatus(1)) ? '' : 'disabled'}}
+                                                >
+                                                @if ($list->route_list_status == "รอส่ง")
+                                                ตั้งเป็นส่งสำเร็จแล้ว
+                                                @else
+                                                ตั้งเป็นรอส่ง
+                                                @endif
+                                            </button>
+                                        </form>
+                                        @endif
 
+                                        @if(Gate::check('employee_transport_cancel_access'))
                                             <form method="post" action="{{ route('truckloads.update_order', ["id"=>$route->id, "order_id" => $list->order->id, "type"=>"cancel"]) }}" class="flex justify-between">
                                                 @csrf
                                                 @method('put')
@@ -182,6 +181,9 @@
                                                     ยกเลิก
                                                 </button>
                                             </form>
+
+                                        @endif
+
                                             
                                     </div>
                                 </td>

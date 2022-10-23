@@ -199,7 +199,7 @@
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center space-x-4 text-sm">
-                                        
+                                        @if(Gate::check('employee_product_category_edit_access'))
                                         <button
                                             id="updateCategory"
                                             data-categoryId="{{ $category->id }}"
@@ -208,6 +208,7 @@
                                             aria-label="Edit">
                                             อัปเดตข้อมูล
                                         </button>
+                                        @endif
   
                                     </div>
                                 </td>

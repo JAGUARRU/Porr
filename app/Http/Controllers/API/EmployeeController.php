@@ -14,11 +14,8 @@ class EmployeeController extends Controller
         $users = User::query();
 
         $res = $users
-            ->select('users.id', 'users.empId', 'users.name', 'positions.title')
-            ->leftJoin('position_user', 'position_user.user_id', '=', 'users.id')
-            ->leftJoin('positions', 'positions.id', '=', 'position_user.position_id')
-            ->where(fn($query) => $query->where("empId","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%"))
-            ->where('positions.title', 'LIKE', 'Driver')->orWhere("positions.title","LIKE","คนขับรถ")
+            ->select('users.id', 'users.empId', 'users.name', 'users.positions')
+            ->where(fn($query) => $query->where("empId","LIKE","%{$request->term}%")->orWhere("name","LIKE","%{$request->term}%")->orWhere("positions","LIKE","%{$request->term}%"))
             ->get();
 
         return response()->json($res);

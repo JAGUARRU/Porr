@@ -1,28 +1,35 @@
 <x-app-layout title="รายการออเดอร์">
     <div class="container grid px-6 mx-auto">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            รายการออเดอร์
-        </h2>
+
+        <div class="flex flex-row">
+            <div class="flex w-full">
+                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    รายการออเดอร์
+                </h2>
+            </div>
+
+            @if (Gate::check('employee_order_add_access'))
+            <div class="flex w-full place-content-end place-items-end">
+                <a href="{{route('orders.create')}}">
+                    <button class="flex items-center justify-between px-6 py-3 text-sm leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-full">   
+                        <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
+                            <path stroke="none" d="M0 0h24v24H0z"/>  
+                                <circle cx="12" cy="12" r="9" /> 
+                                <line x1="9" y1="12" x2="15" y2="12" />  
+                                <line x1="12" y1="9" x2="12" y2="15" />
+                        </svg>
+                        <span class="text-base">รายการใหม่</span>
+                    </button>
+                </a>
+            </div>
+            @endif
+        </div>
 
             @if (session('status'))
                 <div class="mb-4 text-sm font-medium text-green-600">
                     {{ session('status') }}
                 </div>
             @endif
-            
-            <div class="flex place-content-end">
-                <a href="{{route('orders.create')}}">
-                <button class="flex items-center justify-between px-6 py-3 text-sm font-medium leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 py-0 px-7 border border-blue-500 hover:border-transparent rounded-full">   
-                    <svg class="h-5 w-5 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  
-                        <path stroke="none" d="M0 0h24v24H0z"/>  
-                            <circle cx="12" cy="12" r="9" /> 
-                            <line x1="9" y1="12" x2="15" y2="12" />  
-                            <line x1="12" y1="9" x2="12" y2="15" />
-                    </svg>
-                    <span class="text-base">รายการใหม่</span>
-                </button>
-                </a>
-            </div>
 
             @if (session('success'))
                 <h6 class="alert alert-success">{{ session('success') }}</h6>
@@ -75,31 +82,53 @@
                                 <td class="px-4 py-3">
                                     {{ number_format((float)$order->order_total, 2, '.', '') }}
                                 </td>
+                                
                                 <td class="px-4 py-3">
+
                                     <div class="flex items-center space-x-4 text-sm">
-
+                                        
                                         <a href="{{ url('orders/'.$order->id) }}">
-                                            <button
-                                                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                                aria-label="View">
-                                                แสดง
-                                            </button>
-                                        </a>
+                                        <button
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            <svg class="w-5 h-5 mx-1" fill="none" viewBox="0 0 24 24" stroke-width="1.0" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                              </svg>
+                                              
+                                            แสดง
+                                        </button>
+                                        </a>    
 
+                                        @if (Gate::check('user_order_edit_access'))
                                         <a href="{{ url('orders/'.$order->id.'/edit') }}">
                                             <button
                                                 class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                 aria-label="Edit">
+                                                <svg class="w-5 h-5 mx-1" aria-hidden="true" fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                                    </path>
+                                                </svg>
                                                 แก้ไข
                                             </button>
-                                        </a>
+                                        </a>  
 
                                         @if (!$order->order_cancelled)
-                                        <button type="button" @click="openModal('cancel-confirm-model')" data-toggle="modal" data-id="{{ $order->id }}" data-target="{{ url('orders/'.$order->id) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray cancel-order-button">   
-                                            <span>ยกเลิก</span>
-                                        </button>
+                                            <button type="button" @click="openModal('cancel-confirm-model')" data-toggle="modal" data-id="{{ $order->id }}" data-target="{{ url('orders/'.$order->id) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray cancel-order-button">   
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-1">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                                                  </svg>
+                                                  
+                                                <span>ยกเลิก</span>
+                                            </button>
                                         @endif
+
+                                        @endif
+                                        
                                     </div>
+
                                 </td>
                             </tr>
                           

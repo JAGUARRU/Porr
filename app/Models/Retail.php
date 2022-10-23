@@ -14,6 +14,7 @@ class Retail extends Model
 
     protected $table = 'retails';
     protected $fillable = [
+        'id',
         'retail_name',
         'retail_address',
         'retail_province',

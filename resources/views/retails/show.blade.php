@@ -12,9 +12,11 @@
                     <span class="text-base">กลับหน้าแรก</span>
                 </a>
 
+                @if (Gate::check('user_retail_edit_access'))
                 <a href="{{ url('retails/'.$retail->id.'/edit') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
                     <span class="text-base">แก้ไข</span>
                 </a>
+                @endif
             </div>
            
             <div class="flex flex-col mt-6">
@@ -74,9 +76,12 @@
     <div class="max-w-6xl mx-auto py-4 sm:px-6 lg:px-8">
         
         <h2 class="my-6 text-xl font-semibold text-gray-700 dark:text-gray-200">
-            ออเดอร์ 3 รายการล่าสุด
+            ประวัติออเดอร์
         </h2>
 
+        @php
+            $orders = $retail->orders()->paginate(10);
+        @endphp
         <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap">
                 <thead>
@@ -90,7 +95,7 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                   
-                    @if (count($retail->orders) == 0)
+                    @if (count($orders) == 0)
                     <tr class="text-gray-700 dark:text-gray-400" id="no-data">
                         <td colspan="6" class="px-4 py-3">
                             ยังไม่มีข้อมูลรายการสั่งซื้อ...
@@ -98,7 +103,7 @@
                     </tr>
                     @endif
 
-                    @foreach ($retail->orders as $order)
+                    @foreach ($orders as $order)
                     
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
@@ -145,6 +150,79 @@
                 </tbody>
             </table>
         </div>
+        <div
+        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+        <span class="flex items-center col-span-3">
+            {{ __('pagination.showing') }} {{ $orders->firstItem() }}-{{ $orders->lastItem() }} {{ __('pagination.of') }} {{ $orders->total() }}
+        </span>
+        <span class="col-span-2"></span>
+        <!-- Pagination -->
+        <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <nav aria-label="Table navigation">
+                <ul class="inline-flex items-center">
+                    
+                    <li>
+                        <a href="{{ $orders->url( $orders->currentPage() - 1 ) }}">
+                            <button
+                                class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                                aria-label="Previous">
+                                <svg class="w-4 h-4 fill-current" aria-hidden="true"
+                                    viewBox="0 0 20 20">
+                                    <path
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" fill-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </a>
+                    </li>
+
+                    @php
+
+                    $curPage = $orders->currentPage();
+                    $totalPage = $orders->lastPage();
+
+                    $startPage = ($curPage < 5)? 1 : $curPage - 4;
+                    $endPage = 8 + $startPage;
+                    $endPage = ($totalPage < $endPage) ? $totalPage : $endPage;
+                    $diff = $startPage - $endPage + 8;
+                    $startPage -= ($startPage - $diff > 0) ? $diff : 0;
+
+                    @endphp
+
+                    @if($orders->total())
+                        
+                        @for ($i=$startPage; $i<=$endPage; $i++)
+                            <li>
+                                <a href="{{ $orders->url($i) }}">
+                                    @php
+                                        if ($curPage != $i) echo '<button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                        else echo '<button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">'.$i.'</button>';
+                                    @endphp
+                                </a>
+                            </li> 
+                        @endfor
+                
+                    @endif
+
+                    <li>
+                        <a href="{{ $orders->nextPageUrl() }}">
+                        <button
+                            class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                            aria-label="Next">
+                            <svg class="w-4 h-4 fill-current" aria-hidden="true"
+                                viewBox="0 0 20 20">
+                                <path
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd" fill-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </span>
+    </div>
     </div>
 
 </x-app-layout>

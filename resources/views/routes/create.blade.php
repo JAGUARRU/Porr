@@ -239,7 +239,7 @@
                         <div class="flex mt-12 sm:place-content-end pb-4">
                             <div class="pr-6">
                                 <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                    สร้างเส้นทางการเดินรถ
+                                    สร้างรอบส่งของ
                                 </button>
                             </div>
                             <div class="pr-4">

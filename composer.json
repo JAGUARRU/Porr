@@ -19,6 +19,7 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.0",
+        "phattarachai/thai-id-card-validation": "^1.0",
         "phattarachai/thaidate": "^12.1"
     },
     "require-dev": {

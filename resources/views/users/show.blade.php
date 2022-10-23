@@ -18,9 +18,11 @@
                     <span class="text-base">กลับหน้าแรก</span>
                 </a>
 
+                @if (Gate::check('user_access'))
                 <a href="{{ url('users/'.$user->id.'/edit') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
                     <span class="text-base">แก้ไข</span>
                 </a>
+                @endif
             </div>
 
             <div class="flex flex-col mt-6">
@@ -62,14 +64,38 @@
                                 </tr>
                                 <tr class="border-b">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
-                                        บทบาท
+                                        สิทธิ์
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
                                         @foreach ($user->roles as $role)
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {{ $role->title }}
-                                                </span>
+                                                {{ $role->title }}
+                                            </span>
                                         @endforeach
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
+                                        ที่อยู่
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
+                                        {{ $user->address ? $user->address : '-' }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
+                                        เบอร์ติดต่อ
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
+                                        {{ $user->phoneNumber ? $user->address : '-' }}
+                                    </td>
+                                </tr>
+                                <tr class="border-b">
+                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-gray-500 uppercase tracking-wider dark:text-gray-400 dark:bg-gray-800">
+                                        หมายเลขบัตรประชาชน
+                                    </th>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
+                                        {{ $user->IDCardNumber }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">
@@ -77,11 +103,7 @@
                                         ตำแหน่ง
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 bg-white divide-y divide-gray-200 dark:text-gray-400 dark:bg-gray-800">
-                                        @foreach ($user->positions as $position)
-                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                                    {{ $position->title }}
-                                                </span>
-                                        @endforeach
+                                        {{ $user->positions }}
                                     </td>
                                 </tr>
                                 <tr class="border-b">

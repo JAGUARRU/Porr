@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
+use Phattarachai\ThaiIdCardValidation\ThaiIdCardRule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -32,13 +33,10 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'array',
             ],
-            'positions'   => [
-                'required',
-                'array',
-            ],
             'inactive' => [
                 'integer'
-            ]
+            ],
+            'IDCardNumber' => new ThaiIdCardRule
         ];
     }
 
@@ -46,11 +44,10 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'email.required'    => 'โปรดระบุชื่อผู้ใช้งาน',
+            'username.required'    => 'โปรดระบุชื่อผู้ใช้',
             'name.required'    => 'โปรดระบุชื่อและนามสกุล',
             'email.required'    => 'โปรดระบุที่อยู่อีเมล',
-            'password.required'    => 'โปรดระบุรหัสผ่าน',
-            'roles.required'    => 'โปรดกำหนดบทบาท',
-            'positions.required'    => 'โปรดกำหนดตำแหน่ง',
+            'roles.required'    => 'โปรดกำหนดสิทธิ์'
         ];
     }
 

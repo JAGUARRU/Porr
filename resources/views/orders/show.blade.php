@@ -17,9 +17,11 @@
                     <span class="text-base">กลับหน้าแรก</span>
                 </a>
 
+                @if (Gate::check('user_order_edit_access'))
                 <a href="{{ url('orders/'.$order->id.'/edit') }}" class="flex items-center justify-between px-6 py-3 text-sm leading-5 mx-2  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-lg">
                     <span class="text-base">แก้ไข</span>
                 </a>
+                @endif
             </div>
 
             <div class="flex flex-col mt-6">
@@ -103,7 +105,7 @@
                     รายการสินค้า
                 </h2>
 
-                <table class="w-full whitespace-no-wrap" id="productOrder">
+                <table class="w-full whitespace-no-wrap">
                     <thead>
                         <tr
                             class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">

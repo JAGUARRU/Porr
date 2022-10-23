@@ -9,6 +9,8 @@ use App\Models\Truck;
 use App\Models\TruckRoute;
 use App\Models\TruckRouteList;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 use DB;
 use PDF;
 
@@ -47,7 +49,7 @@ class TruckLoadController extends Controller
     {
         
         $truckRoutes = Truck::query()
-        ->select('trucks.*','truck_routes.transportDate','truck_routes.confirmDate', 'truck_routes.route_status as route_status', DB::raw('COUNT(truck_routes.id) as routes_count'))
+        ->select('trucks.*', 'truck_routes.truck_id','truck_routes.transportDate','truck_routes.confirmDate', 'truck_routes.route_status as route_status', DB::raw('COUNT(truck_routes.id) as routes_count'))
         ->leftJoin("truck_routes", function ($join) {
             $join->on('trucks.id', '=', 'truck_routes.truck_id');
         })
@@ -255,6 +257,8 @@ class TruckLoadController extends Controller
     public function load_order($id)
     {
 
+        abort_if(Gate::denies('employee_truck_load_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $order = Order::find($id);
 
         if (!$order || $order->order_status != "รอดำเนินการ")
@@ -289,6 +293,7 @@ class TruckLoadController extends Controller
           
 
         return view('truckloads.load_order', compact('order', 'trucks'));
+        
     }
 
     public function view_route($id)

@@ -1,4 +1,26 @@
-@foreach ($orderRoute as $route)
+
+@php
+    $itemPerPage = 10;
+@endphp
+
+
+@foreach ($orderRoute as $key=>$route)
+
+@php
+    $currentPage = 1;
+    new_page:
+    
+@endphp
+
+@php
+    $products = $route->order->products;
+    $count = 0;
+    $itemCount = count($products);
+    $numPage = ceil($itemCount / $itemPerPage);
+    $skippedIndex = ($currentPage - 1) * $itemPerPage;
+    $skippedItem = $skippedIndex;
+
+@endphp
 
 <html>
 <head>
@@ -31,7 +53,8 @@
         }
 
         body {
-            font-family: "THSarabunNew"
+            font-family: "THSarabunNew";
+            font-size: 18px;
         }
 
         table {
@@ -109,11 +132,17 @@
 <body>
 
     <div style="text-align: center;">
-        <span style="font-weight: bolder; font-size: 32px;">ใบส่งของ</span>
+        <div style="font-weight: bolder; font-size: 24px;">ป้อฮ์ไอติมกะทิสด</div>
+        <div style="line-height: .75rem;">
+            <span style="font-size: 20px;">162 หมู่ 13 ต.หนองกะท้าว อ.นครไทย จ.พิษณุโลก 65120</span>
+        </div>
+        <div><span style="font-weight: bolder; font-size: 24px;">ใบส่งของ</span></div>
     </div>
 
-    <div style="width: 100%; margin-bottom: 12px;">
-        <div style="margin-right: 20px; text-align: right;">เลขที่ {{ $route->id }}</div>
+    <div style="width: 100%;">
+        <span style="display: inline-block;">พิมพ์วันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}} เวลา {{\Carbon\Carbon::now()->thaidate('H:i')}}</span>
+
+        <span style="display: inline-block; float: right;">หน้า {{$currentPage}}/{{$numPage}}</span>
     </div>
 
     <div class="flex-container" style="margin: auto; display:table; margin-bottom: 12px; border-spacing: 10px;">
@@ -149,16 +178,26 @@
                     $sumTotal = 0;
                 @endphp
 
-                @foreach($route->order->products as $product)
+                @foreach($products as $product)
+
+                @php
+                    if ($count >= $itemPerPage)
+                        break;
+
+                    if ($skippedItem-- > 0)
+                        continue;
+                @endphp
+
                 <tr>
                     <td>{{ $product->product_id }}</td>
-                    <td>{{ $product->product_name }}</td>
+                    <td style="max-width: 24rem; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;">{{ $product->product_name }}</td>
                     <td>{{ $product->qty }}</td>
                     <td style="text-align: right;">{{ number_format((float)$product->price, 2, '.', '') }}</td>
                     <td style="text-align: right;">{{ number_format((float)$product->total, 2, '.', '') }}</td>
                 </tr>
                 @php
                     $sumTotal += $product->total;
+                    $count++;
                 @endphp
                 @endforeach
 
@@ -189,10 +228,11 @@
                     </label>
                 </div>
                 
-                <div>
-                    <label class="checkbox-inline">
-                        <input type="checkbox" value="">โอนผ่าน e-Banking
+                <div class="">
+                    <label class="checkbox-inline" style="display: inline-block;">
+                        <input type="checkbox" value="">อื่น ๆ
                     </label>
+                    <div style="display: inline-block;"> .....................................................</div>
                 </div>
             </div>
 
@@ -226,5 +266,12 @@
 
 </body>
 </html>
+
+@php
+    if ($currentPage++ < $numPage)
+    {
+        goto new_page;
+    }
+@endphp
 
 @endforeach

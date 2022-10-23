@@ -31,7 +31,8 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456'),
             'empId' => $id,
             'api_token' => Helper::v4(),
-            'created_at' => now()
+            'created_at' => now(),
+            "positions" => "ผู้จัดการ"
         ]);
         
         $id = IdGenerator::generate(['table' => 'users', 'length' => 8, 'field' => 'empId', 'prefix' =>'EMP-']);
@@ -43,7 +44,8 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('123456'),
             'empId' => $id,
             'api_token' => Helper::v4(),
-            'created_at' => now()
+            'created_at' => now(),
+            "positions" => "ผู้ช่วยผู้จัดการ"
         ]);
         
         // generate test user

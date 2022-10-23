@@ -30,10 +30,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'empId',
         'username',
         'name',
         'email',
         'password',
+        'address',
+        'phoneNumber',
+        'IDCardNumber',
         'inactive'
     ];
 
@@ -75,10 +79,6 @@ class User extends Authenticatable
             if (!$user->roles()->get()->contains(2)) {
                 $user->roles()->attach(2);
             }
-
-            if (!$user->positions()->get()->contains(1)) {
-                $user->positions()->attach(1);
-            }
         });
     }
 
@@ -116,11 +116,6 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
-    }
-
-    public function positions()
-    {
-        return $this->belongsToMany(Position::class);
     }
 
     public function truck()

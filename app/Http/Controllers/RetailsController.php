@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Redirect;
 
+use App\Http\Requests\StoreRetailRequest;
+use App\Http\Requests\UpdateRetailRequest;
+use Illuminate\Validation\Rule;
+
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+
 class RetailsController extends Controller
 {
     public function index()
@@ -18,6 +25,8 @@ class RetailsController extends Controller
 
     public function create()
     {
+        abort_if(Gate::denies('employee_retail_add_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $provinces = Tambon::select('province')->distinct()->get();
         $amphoes = Tambon::select('amphoe')->distinct()->get();
         $tambons = Tambon::select('tambon')->distinct()->get();
@@ -26,24 +35,18 @@ class RetailsController extends Controller
         return view('retails.create')->with(compact('provinces','amphoes','tambons', 'id'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRetailRequest $request)
     {
         $retail = new Retail;
-        $retail->id = $request->input('id');
-        $retail->retail_name = $request->input('retail_name');
-        $retail->retail_address = $request->input('retail_address');
-        $retail->retail_province = $request->input('retail_province');
-        $retail->retail_district = $request->input('retail_district');
-        $retail->retail_sub_district = $request->input('retail_sub_district');
-        $retail->retail_postcode = $request->input('retail_postcode');
-        $retail->retail_phone = $request->input('retail_phone');
-        $retail->retail_contact = $request->input('retail_contact');
+        $retail->fill($request->all());
         $retail->save();
         return Redirect::route('retails.index')->with('status','Retail Added Successfully');
     }
 
     public function edit($id)
     {
+        abort_if(Gate::denies('user_retail_edit_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $retail = Retail::find($id);
 
         $provinces = Tambon::select('province')->distinct()->get();
@@ -62,17 +65,23 @@ class RetailsController extends Controller
         return view('retails.show', compact('retail'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRetailRequest $request, Retail $retail)
     {
-        $retail = Retail::find($id);
-        $retail->retail_name = $request->input('retail_name');
-        $retail->retail_address = $request->input('retail_address');
-        $retail->retail_province = $request->input('retail_province');
-        $retail->retail_district = $request->input('retail_district');
-        $retail->retail_sub_district = $request->input('retail_sub_district');
-        $retail->retail_postcode = $request->input('retail_postcode');
-        $retail->retail_phone = $request->input('retail_phone');
-        $retail->retail_contact = $request->input('retail_contact');
+
+        $validatedData = $request->validate([
+            'id' => [
+                'required',
+                Rule::unique('retails')->where(function ($query) use($request, $retail) {
+                    return $query->where('id', $request->id);
+                })->ignore($retail->id)
+            ]
+        ],
+        [
+         'id.unique'=> 'รหัสร้านค้าซ้ำกัน'
+        ]);
+        
+
+        $retail->fill($request->all());
         $retail->update();
         return Redirect::route('retails.index')->with('status','Retail Updated Successfully');
     }

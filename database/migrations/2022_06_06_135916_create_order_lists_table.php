@@ -25,7 +25,7 @@ class CreateOrderListsTable extends Migration
             $table->timestamps();
 
             $table->string('order_id')->index();
-            $table->foreign('order_id')->references('id')->on('orders')->cascadeOnDelete();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');;
             $table->unique(['order_id', 'product_id']);
         });
     }

@@ -17,7 +17,7 @@ class CreateRouteListsTable extends Migration
             $table->id();
 
             $table->bigInteger('order_route_id')->unsigned()->index();
-            $table->foreign('order_route_id')->references('id')->on('order_routes')->cascadeOnDelete();
+            $table->foreign('order_route_id')->references('id')->on('order_routes')->onDelete('cascade')->onUpdate('cascade');;
 
             $table->string('product_id')->index();
             $table->integer('qty');

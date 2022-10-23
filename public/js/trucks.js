@@ -23,8 +23,9 @@ $(document).ready(function() {
                     dataType: "json",
                     success: function(data)
                     {
-                        var resp = $.map(data,function(obj){
-                            return { label: "รหัสพนักงาน: " + obj.empId + " ชื่อ: " + obj.name, value: obj };
+                        var resp = $.map(data,function(obj) {
+                            console.log(obj);
+                            return { label: obj.empId + ": " + obj.name + " " + (obj.positions ? obj.positions : ("")), value: obj };
                         }); 
 
                         response(resp);

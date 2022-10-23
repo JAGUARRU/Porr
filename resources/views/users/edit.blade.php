@@ -23,8 +23,18 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                     <div class="col-span-1">
-                        <div>
-                            <label for="name text-gray-700 dark:text-gray-400">ชื่อ-สกุลพนักงาน</label>
+
+                        <div class="mb-4">
+                            <label for="empId" class="text-gray-700 dark:text-gray-400">รหัสพนักงาน <span class="text-red-600">*</span></label>
+                            <input type="text" name="empId" id="empId" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
+                                   value="{{ old('empId', $user->empId) }}" />
+                            @error('empId')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="name" class="text-gray-700 dark:text-gray-400">ชื่อ-สกุลพนักงาน <span class="text-red-600">*</span></label>
                             <input type="text" name="name" id="name" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" 
                                     value="{{ old('name', $user->name) }}" />
                             @error('name')
@@ -32,8 +42,8 @@
                             @enderror
                         </div>
 
-                        <div class="mt-4">
-                            <label for="username text-gray-700 dark:text-gray-400">ชื่อผู้ใช้</label>
+                        <div class="mb-4">
+                            <label for="username" class="text-gray-700 dark:text-gray-400">ชื่อผู้ใช้ <span class="text-red-600">*</span></label>
                             <input type="text" name="username" id="username" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                    value="{{ old('username', $user->username) }}" />
 
@@ -42,8 +52,8 @@
                             @enderror
                         </div>
 
-                        <div class="mt-4">
-                            <label for="email text-gray-700 dark:text-gray-400">อีเมล</label>
+                        <div class="mb-4">
+                            <label for="email" class="text-gray-700 dark:text-gray-400">อีเมล <span class="text-red-600">*</span></label>
                             <input type="email" name="email" id="email" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                                    value="{{ old('email', $user->email) }}" />
                             @error('email')
@@ -51,23 +61,18 @@
                             @enderror
                         </div>
 
-                        <div class="mt-4">
-                            <label for="password text-gray-700 dark:text-gray-400">รหัสผ่าน</label>
+                        <div class="mb-4">
+                            <label for="password" class="text-gray-700 dark:text-gray-400">รหัสผ่าน</label>
                             <input type="password" name="password" id="password" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="เว้นว่างไว้เมื่อไม่ต้องการที่จะเปลี่ยนรหัสผ่านใหม่" />
                             @error('password')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="mt-4">
-                            <label for="positions text-gray-700 dark:text-gray-400">ตำแหน่ง</label>
-                            <select name="positions[]" id="positions" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" multiple="multiple">
-                                @foreach($positions as $id => $position)
-                                    <option value="{{ $id }}"{{ in_array($id, old('positions', $user->positions->pluck('id')->toArray())) ? ' selected' : '' }}>
-                                        {{ $position }}
-                                    </option>
-                                @endforeach
-                            </select>
+                        <div class="mb-4">
+                            <label for="positions" class="text-gray-700 dark:text-gray-400">ชื่อตำแหน่ง</label>
+                            <input type="text" name="positions" id="positions" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                   value="{{ old('positions', $user->positions) }}" />
                             @error('positions')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -76,7 +81,7 @@
 
                     <div class="col-span-1">
                         <div class="">
-                            <label for="roles text-gray-700 dark:text-gray-400"></label></label>บทบาท</label>
+                            <label for="roles" class="text-gray-700 dark:text-gray-400"></label></label>สิทธิ์ <span class="text-red-600">*</span></label>
                             <select name="roles[]" id="roles" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" multiple="multiple">
                                 @foreach($roles as $id => $role)
                                     <option value="{{ $id }}"{{ in_array($id, old('roles', $user->roles->pluck('id')->toArray())) ? ' selected' : '' }}>
@@ -85,6 +90,36 @@
                                 @endforeach
                             </select>
                             @error('roles')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="address" class="text-gray-700 dark:text-gray-400">ที่อยู่</label>
+                            
+                            <textarea class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" rows="3" name="address" placeholder="รายละเอียดที่อยู่">{{ old('address', $user->address) }}</textarea>
+
+                            @error('address')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+
+                        <div class="mt-4">
+                            <label for="phoneNumber" class="text-gray-700 dark:text-gray-400">เบอร์ติดต่อ</label>
+                            <input type="text" name="phoneNumber" id="phoneNumber" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                   value="{{ old('phoneNumber', $user->phoneNumber) }}" />
+
+                            @error('phoneNumber')
+                                <p class="text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mt-4">
+                            <label for="IDCardNumber" class="text-gray-700 dark:text-gray-400">หมายเลขบัตรประชาชน <span class="text-red-600">*</span></label>
+                            <input type="text" name="IDCardNumber" id="IDCardNumber" class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                   value="{{ old('IDCardNumber', $user->IDCardNumber) }}" />
+                            @error('IDCardNumber')
                                 <p class="text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

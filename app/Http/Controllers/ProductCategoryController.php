@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductCategoryRequest;
+use App\Http\Requests\UpdateProductCategoryRequest;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -37,7 +38,7 @@ class ProductCategoryController extends Controller
 
     }
 
-    public function show(Request $request)
+    public function show(UpdateProductCategoryRequest $request)
     {
         $category = ProductCategory::find($request->id);
 

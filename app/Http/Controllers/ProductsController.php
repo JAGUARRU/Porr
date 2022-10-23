@@ -7,19 +7,26 @@ use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Redirect;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
+
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductsController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(5);
+        $products = Product::query()->orderBy('prod_status', 'DESC')->paginate(5);
         return view('products.index', ["products"=>$products]);
     }
 
     public function create()
     {
+        abort_if(Gate::denies('employee_product_add_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $config = [
             'table' => 'products',
             'length' => 10,
@@ -32,24 +39,17 @@ class ProductsController extends Controller
         return view('products.create')->with(compact('categories', 'id'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
 
         $validatedData = $request->validate([
-            'id' => ['required', 'string', 'unique:products'],
             'prod_name' => [
-                'required',
                 Rule::unique('products')->where(function ($query) use($request) {
                     return $query->where('prod_name', $request->input('prod_name'))->where('prod_type_name', $request->input('prod_type_name'));
                 })
             ]
         ],
         [
-         'id.required'=> 'โปรดระบุรหัสสินค้า',
-         'id.unique'=> 'รหัสสินค้าซ้ำ',
-         'prod_name.required'=> 'โปรดระบุชื่อสินค้า',
-         'prod_type_name.required'=> 'โปรดระบุประเภทสินค้า',
-         'prod_price.required'=> 'โปรดระบุราคาสินค้า',
          'prod_name.unique'=> 'รายการสินค้าซ้ำกัน (ชื่อสินค้าและประเภทสินค้านี้มีอยู่ในฐานข้อมูลแล้ว)'
         ]);
 
@@ -66,6 +66,8 @@ class ProductsController extends Controller
 
     public function edit($id)
     {
+        abort_if(Gate::denies('user_product_edit_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $product = Product::find($id);
         $categories = ProductCategory::orderBy('id','desc')->get();
         return view('products.edit', compact(['product', 'categories']));
@@ -76,9 +78,20 @@ class ProductsController extends Controller
         return view('products.show', compact(['product']));
     }
 
-    public function update(Request $request, $id)
+    public function patch(Request $request, $id)
     {
+        abort_if(Gate::denies('user_product_edit_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
+        $product = Product::find($id);
+        $product->fill($request->all());
+        $product->update();
+
+        return redirect()->back()->with('status', $id . ' update successfully');
+    }
+
+    public function update(UpdateProductRequest $request, $id)
+    {
+
         $validatedData = $request->validate([
             'prod_name' => [
                 'required',
@@ -99,9 +112,8 @@ class ProductsController extends Controller
         $product->prod_price = $request->input('prod_price');
         $product->prod_type_name = $request->input('prod_type_name');
         $product->prod_detail = $request->input('prod_detail');
-        //$product->stock = $request->input('stock');
         $product->update();
-        //return redirect()->back()->with('status','... Updated Successfully');
+
         return Redirect::route('products.index')->with('status','... Updated Successfully');
     }
 

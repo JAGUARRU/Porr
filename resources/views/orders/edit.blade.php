@@ -278,15 +278,15 @@
                     <div class="col-span-1">
                         <div class="">
                             <label for="text-gray-700 dark:text-gray-400">รหัสออเดอร์</label>
-                            <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ $order->id }}" name="order_id" placeholder="ระบุรหัสออเดอร์" />
+                            <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" value="{{ old('id', $order->id) }}" name="id" placeholder="ระบุรหัสออเดอร์" />
                         </div>
 
                         <div class="mt-4">
                             <form autocomplete="off">
                                 <div class="relative inline-block block w-full">
                                     <label for="text-gray-700 dark:text-gray-400">ร้านค้า</label>
-                                    <input class="block w-full mt-1 text-sm dark:border-gray-200 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="retail_name" id="auto-retails" placeholder="พิมพ์เพื่อค้นหาร้านค้าในระบบ" value="{{ $order->retail_name }}" />
-                                    <input type="hidden" class="hidden" name="retail_id" id="retail_id" value="{{ $order->retail_id }}" />
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-200 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" name="retail_name" id="auto-retails" placeholder="พิมพ์เพื่อค้นหาร้านค้าในระบบ" value="{{ old('retail_name', $order->retail_name) }}" />
+                                    <input type="hidden" class="hidden" name="retail_id" id="retail_id" value="{{ old('retail_id', $order->retail_id) }}" />
                                     <!--<div id="autocomplete-list" class="absolute border-l-2 border-r-2 border-gray-200 z-50 inset-x-0 top-full">
                                         <div class="autocomplete-items p-1 bg-white hover:bg-gray-200 cursor-pointer border-b border-gray-200"><strong>Sh</strong>op 1</div>
                                         <div class="autocomplete-items p-1 bg-white hover:bg-gray-200 cursor-pointer border-b border-gray-200">Shop 2</div>
@@ -298,7 +298,13 @@
                                     <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="input_province" name="retail_province">
                                         <option value="">จังหวัด</option>
                                         @foreach($provinces as $item)
-                                        <option value="{{ $item->province }}" {{ $order->retail_province == $item->province ? 'selected' : '' }}>{{ $item->province }}</option>
+
+                                            @if (old('retail_sub_district', $order->retail_province) == $item->province)
+                                                <option value="{{ $item->province }}" selected>{{ $item->province }}</option>
+                                            @else
+                                                <option value="{{ $item->province }}">{{ $item->province }}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                 </div>
@@ -307,7 +313,13 @@
                                     <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="input_amphoe" name="retail_district">
                                         <option value="">เขต/อำเภอ</option>
                                         @foreach($amphoes as $item)
-                                        <option value="{{ $item->amphoe }}" {{ $order->retail_district == $item->amphoe ? 'selected' : '' }}>{{ $item->amphoe }}</option>
+
+                                            @if (old('retail_sub_district', $order->retail_district) == $item->amphoe)
+                                                <option value="{{ $item->amphoe }}" selected>{{ $item->amphoe }}</option>
+                                            @else
+                                                <option value="{{ $item->amphoe }}">{{ $item->amphoe }}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
                                 </div>
@@ -315,14 +327,22 @@
                                     <label for="text-gray-700 dark:text-gray-400">ตำบล</label>
                                     <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" id="input_tambon" name="retail_sub_district">
                                         <option value="">แขวง/ตำบล</option>
+
                                         @foreach($tambons as $item)
-                                        <option value="{{ $item->tambon }}" {{ $order->retail_sub_district == $item->tambon ? 'selected' : '' }}>{{ $item->tambon }}</option>
+
+                                            @if (old('retail_sub_district', $order->retail_sub_district) == $item->tambon)
+                                                <option value="{{ $item->tambon }}" selected>{{ $item->tambon }}</option>
+                                            @else
+                                                <option value="{{ $item->tambon }}">{{ $item->tambon }}</option>
+                                            @endif
+                                        
                                         @endforeach
+                                    
                                     </select>
                                 </div>
                                 <div class="mt-4">
                                     <label for="text-gray-700 dark:text-gray-400">รหัสไปรษณีย์</label>
-                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="input_zipcode" name="retail_postcode" value="{{ $order->retail_postcode }}"/>
+                                    <input class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="input_zipcode" name="retail_postcode" value="{{ old('retail_postcode', $order->retail_postcode) }}"/>
                                 </div> 
                             </form>
 
@@ -334,10 +354,10 @@
 
                         <div class="mb-4">
                             <label for="text-gray-700 dark:text-gray-400">สถานะ</label>
-                            <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status" value="{{ $order->order_status }}">
-                                <option value="รอดำเนินการ" {{ ($order->order_status == "รอดำเนินการ") ? ("selected") : ("")}}>รอดำเนินการ</option>
-                                <option value="กำลังดำเนินการ" {{ ($order->order_status == "กำลังดำเนินการ") ? ("selected") : ("")}}>กำลังดำเนินการ</option>
-                                <option value="สำเร็จแล้ว" {{ ($order->order_status == "สำเร็จแล้ว") ? ("selected") : ("")}}>สำเร็จแล้ว</option>
+                            <select class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" name="order_status">
+                                <option value="รอดำเนินการ" {{ (old('order_status', $order->order_status) == "รอดำเนินการ") ? ("selected") : ("")}}>รอดำเนินการ</option>
+                                <option value="กำลังดำเนินการ" {{ (old('order_status', $order->order_status) == "กำลังดำเนินการ") ? ("selected") : ("")}}>กำลังดำเนินการ</option>
+                                <option value="สำเร็จแล้ว" {{ (old('order_status', $order->order_status) == "สำเร็จแล้ว") ? ("selected") : ("")}}>สำเร็จแล้ว</option>
                             </select>
                         </div>
 

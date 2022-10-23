@@ -12,12 +12,16 @@ class RolesTableSeeder extends Seeder
         $roles = [
             [
                 'id'    => 1,
-                'title' => 'Admin',
+                'title' => 'ผู้ดูแลระบบ',
             ],
             [
                 'id'    => 2,
-                'title' => 'User',
+                'title' => 'พนักงาน',
             ],
+            [
+                'id'    => 3,
+                'title' => 'พนักงานส่งสินค้า',
+            ]
         ];
 
         Role::insert($roles);

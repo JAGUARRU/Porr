@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 use Redirect;
 use PDF;
 
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\StoreTruckRequest;
+use App\Http\Requests\UpdateTruckRequest;
+
+use Illuminate\Validation\Rule;
+
 class TrucksController extends Controller
 {
     public function index()
@@ -34,20 +41,8 @@ class TrucksController extends Controller
         return view('trucks.create', compact('id','provinces','amphoes','tambons'));
     }
 
-    public function store(Request $request)
+    public function store(StoreTruckRequest $request)
     {
-        // plateNumber required
-        $this->validate(
-            $request, 
-            [   
-                'plateNumber'             => 'required|unique:trucks,plateNumber'
-            ],
-            [   
-                'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
-                'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
-            ]
-        );
-
         $truck = new Truck;
         $truck->fill($request->all());
         $truck->save();
@@ -75,16 +70,33 @@ class TrucksController extends Controller
         return view('trucks.show', compact('truck'));
     }
 
-    public function update(Request $request, Truck $truck)
+    public function update(UpdateTruckRequest $request, Truck $truck)
     {
-        // plateNumber required
+
+        $validatedData = $request->validate([
+            'id' => [
+                'required',
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('id', $request->id);
+                })->ignore($truck->id)
+            ],
+            'plateNumber' => [
+                'required',
+                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                    return $query->where('plateNumber', $request->plateNumber);
+                })->ignore($truck->plateNumber, 'plateNumber')
+            ]
+        ], [
+            'id.required'    => 'โปรดระบุรหัสรถ',
+            'id.unique'    => 'รหัสรถได้ถูกใช้แล้ว', 
+            'plateNumber.required'    => 'โปรดระบุหมายเลขป้ายทะเบียน',
+            'plateNumber.unique'    => 'ป้ายทะเบียนที่ระบุได้ถูกใช้แล้ว'
+        ]);
+
 
         $truck->fill($request->all());
         $truck->update();
         
-        //return Redirect::route('trucks')->with('status','... Updated Successfully');
-        //return view('trucks.index', ["trucks"=>$trucks]);
-
         return Redirect::route('trucks.index')->with('status', $truck->id . ' ได้รับการปรับปรุงเรียบร้อยแล้ว');
     }
 
