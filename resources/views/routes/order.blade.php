@@ -22,6 +22,7 @@
                             <tr
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
+                                <th class="px-4 py-3">ร้านค้า</th>
                                 <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3">สร้างเมื่อ</th>
                                 <th class="px-4 py-3">วันที่สั่งซื้อ</th>
@@ -42,6 +43,9 @@
                                         {{ $order->id }}
                                     @endif
             
+                                </td>
+                                <td class="px-4 py-3">
+                                    {{ $order->retail_name }}
                                 </td>
                                 <td class="px-4 py-3">
                                     {{ $order->order_status }}

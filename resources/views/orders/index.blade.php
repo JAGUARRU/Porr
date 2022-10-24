@@ -43,10 +43,10 @@
                             <tr
                                 class="font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
+                                <th class="px-4 py-3">ร้านค้า</th>
                                 <th class="px-4 py-3">สถานะ</th>
                                 <th class="px-4 py-3">วันที่สั่งซื้อ</th>
                                 <th class="px-4 py-3">กำหนดส่ง</th>
-                                <th class="px-4 py-3">จำนวนรายการสินค้า</th>
                                 <th class="px-4 py-3">ยอดชำระ (บาท)</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
@@ -66,6 +66,9 @@
             
                                 </td>
                                 <td class="px-4 py-3">
+                                    {{ $order->retail_name }}
+                                </td>
+                                <td class="px-4 py-3">
                                     {{ $order->order_status }}
                                 </td>
                                 <td class="px-4 py-3">
@@ -76,10 +79,7 @@
                                     <!-- \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_transportDate )->thaidate('j F Y') -->
                                     {{ $order->order_transportDate }}
                                 </td>
-                                <td class="px-4 py-3">
-                                    {{ $order->products_count }}
-                                </td>
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 text-right">
                                     {{ number_format((float)$order->order_total, 2, '.', '') }}
                                 </td>
                                 
@@ -215,9 +215,9 @@
 
         <div x-show="isModalOpen" x-cloak x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center" @click.away="closeModal" @keydown.escape="closeModal" role="dialog" id="cancel-confirm-model">
             
-            <form action="" method="POST" id="cancel-order-form" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl">
+            <form action="{{ route('orders.patch', $order->id) }}" method="POST" id="cancel-order-form" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl">
                 @csrf
-                @method('PUT')
+                @method('PATCH')
 
                 <header class="flex justify-end">
                     <button type="button" class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700" aria-label="close" @click="closeModal">

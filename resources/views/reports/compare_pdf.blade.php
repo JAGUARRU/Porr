@@ -171,7 +171,7 @@
                 </td>
             </tr>
             <tr style="text-align: right;">
-                <td colspan="2">
+                <td style="text-align: center;" colspan="2">
                   รวมทั้งสิ้น
                 </td>
                 <td>

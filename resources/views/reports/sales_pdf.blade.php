@@ -90,7 +90,7 @@
             @if (isset($input['startDate']) && isset($input['endDate'])
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate']) !== false)
-                <span style="font-weight: bold; font-size: 24px;">{{\Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate'])->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate'])->thaidate('j F Y')}}</span>
+               
             @else
             <!--<span style="font-weight: bold; font-size: 24px;">
                 //รายงานปี {{\Carbon\Carbon::parse($input['year'])->thaidate('Y')}}
@@ -162,11 +162,11 @@
               @endforeach
 
               @if (count($reports) != 0)
-              <tr style="text-align: right;">
-                  <td colspan="3">
+              <tr >
+                  <td  style="text-align: center;" colspan="2">
                     รวมทั้งสิ้น
                   </td>
-                  <td>
+                  <td style="text-align: right;">
                     @if(isset($input['sum_sale']))
                       {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
                     @endif

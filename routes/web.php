@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::put('update-product/{id}', [ProductController::class, 'update']);
     Route::delete('/delete-product/{id}', [ProductController::class, 'destroy'])->name('delete-product.destroy');*/
 
+    Route::get('categories/update/{id}', [\App\Http\Controllers\ProductCategoryController::class, 'update'])->name('categories.update');
     Route::resource('categories', ProductCategoryController::class);
 
     /*Route::get('retail', [RetailController::class, 'index'])->name('retail');
@@ -102,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
  
     Route::resource('truckloads', \App\Http\Controllers\TruckLoadController::class);
 
+    Route::patch('orders/{id}', [\App\Http\Controllers\OrdersController::class, 'patch'])->name('orders.patch');
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);
 
     Route::get('/reports/sales', [ReportController::class, 'monthly_sales'])->name('reports.sales');

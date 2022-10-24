@@ -251,6 +251,31 @@ class OrdersController extends Controller
         return view('orders.edit', compact('order', 'provinces', 'amphoes', 'tambons', 'data', 'products', 'searchInput'));
     }
 
+    public function patch(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        if ($request->order_cancelled)
+        {
+            $order->order_cancelDateTime = now();
+            $order->order_status = "ถูกยกเลิก";
+
+            // remove routes
+
+            $routes = TruckRouteList::where('order_id', '=', $order->id);
+            $routes->delete();
+        }
+        else
+        {
+            $order->order_cancelled = 0;
+        }
+
+        $order->fill($request->all());
+        $order->update();
+
+        return Redirect::route('orders.index')->with('status', $order->id . ' ได้รับการปรับปรุงเรียบร้อยแล้ว');
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -260,7 +285,6 @@ class OrdersController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-
         $validatedData = $request->validate([
             'id' => [
                 'required',

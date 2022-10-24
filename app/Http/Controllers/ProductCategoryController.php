@@ -38,6 +38,41 @@ class ProductCategoryController extends Controller
 
     }
 
+    public function update(Request $request)
+    {
+        $category = ProductCategory::find($request->id);
+
+        if ($request->name)
+        {
+
+            $validatedData = $request->validate([
+                'name' => [
+                    'required',
+                    Rule::unique('product_categories')->where(function ($query) use($request) {
+                        return $query->where('name', $request->input('name'));
+                    })->ignore($request->id)
+                ]
+            ],
+            [
+             'name.unique'=> 'ประเภทสินค้าซ้ำกัน (ประเภทสินค้านี้มีอยู่ในฐานข้อมูลแล้ว)'
+            ]);
+
+            $category->name = $request->name;
+            $category->update();
+        }
+        else
+        {
+            $category->delete();
+        }
+
+        return response()->json([
+            'statusCode' => 200,
+            'change' => $category->where("name","LIKE","%{$request->search}%")->orderBy('created_at', 'desc')->limit(5)->get(),
+            'current_data' => $category->get()
+        ]);
+    
+    }
+
     public function show(UpdateProductCategoryRequest $request)
     {
         $category = ProductCategory::find($request->id);

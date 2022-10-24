@@ -8,7 +8,7 @@
                 </h2>
             </div>
 
-            @if (Gate::check('user_access'))
+            @if (Gate::check('employee_product_add_access'))
             <div class="flex w-full place-content-end place-items-end">
                 <a href="{{ route('products.create') }}">
                     <button class="flex items-center justify-between px-6 py-3 text-sm leading-5  transition-colors duration-150 bg-blue-500 text-white font-semibold hover:text-gray-200 border border-blue-500 hover:border-transparent rounded-full">   
