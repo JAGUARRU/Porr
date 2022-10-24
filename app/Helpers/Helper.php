@@ -39,6 +39,11 @@ class Helper
         return (explode(' ', $dateTime)[0] . ' 23:59:59');
     }
 
+    public static function DateTimeStringToStartOfDay($dateTime)
+    {
+        return (explode(' ', $dateTime)[0] . ' 00:00:00');
+    }
+
     public static function IDGenerator($model, $trow, $length =  3, $prefix){
         $data = $model::orderBy('id' , 'desc')->first();
         if(!data){

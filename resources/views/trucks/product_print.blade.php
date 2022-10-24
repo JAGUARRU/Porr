@@ -139,6 +139,8 @@
             <thead>
                 <tr style="font-weight: bold; text-align: center;">
                     <th>รหัสออเดอร์</th>
+                    <th>ร้านค้า</th>
+                    <th>สถานะ</th>
                     <th>รายการสินค้า</th>
                     <th>จำนวน</th>
                     <th>หมายเหตุ</th>
@@ -172,6 +174,18 @@
                                     @endphp
                                 </td>
 
+                                <td style="{{ ($key == 0 && $key +1 != count($order->products()->get()->toArray())) ? ('border-bottom: none !important;') : ('')}}">
+                                    @if (!isset($currentOrder) || $currentOrder != $order->id)
+                                    {{ $order->retail->retail_name }}
+                                    @endif
+                                </td>
+
+                                <td style="{{ ($key == 0 && $key +1 != count($order->products()->get()->toArray())) ? ('border-bottom: none !important;') : ('')}}">
+                                    @if (!isset($currentOrder) || $currentOrder != $order->id)
+                                    {{ $route->route_list_status }}
+                                    @endif
+                                </td>
+                                
                                 <td style="text-align: left; max-width: 24rem; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;">
                                     {{ $product['product_id'] }}: {{ $product['product_name'] }}
                                 </td>

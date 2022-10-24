@@ -256,6 +256,8 @@
                     <tr
                         class="font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3">รหัสออเดอร์</th>
+                        <th class="px-4 py-3">ร้านค้า</th>
+                        <th class="px-4 py-3">สถานะ</th>
                         <th class="px-4 py-3">รายการสินค้า</th>
                         <th class="px-4 py-3">จำนวน</th>
                     </tr>
@@ -284,10 +286,19 @@
                                         @php
                                         if (!isset($currentOrder) || $currentOrder != $order->id)
                                         {
-                                            $currentOrder = $order->id;
                                             echo $order->id;
                                         }
                                         @endphp
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if (!isset($currentOrder) || $currentOrder != $order->id)
+                                        {{ $order->retail->retail_name }}
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if (!isset($currentOrder) || $currentOrder != $order->id)
+                                        {{ $route->route_list_status }}
+                                        @endif
                                     </td>
                                     <td class="px-4 py-3 text-left truncate max-w-md">
                                         {{ $product['product_id'] }}: {{ $product['product_name'] }}
@@ -297,6 +308,7 @@
                                     </td>
                                 </tr>
                                 @php
+                                    $currentOrder = $order->id;
                                     $count++;
                                 @endphp
                                 @endforeach

@@ -1,3 +1,47 @@
+
+@php
+$itemPerPage = 15;
+
+$dataArray = array();
+
+$start = array();
+$end = array();
+
+foreach ($reports as $report)
+{
+    $exists = false;
+    foreach ($dataArray as $key=>$value)
+    {
+        if ($value["id"] == $report->id)
+        {
+            $exists = true;
+        }
+    }
+
+    if (!$exists)
+    {
+        array_push($dataArray, array("id"=>$report->id, "prod_name"=>$report->prod_name, "prod_type_name"=>$report->prod_type_name, "sumQty" => 0, "sumAmount" => 0));
+    }
+}
+
+@endphp
+
+
+@php
+$currentPage = 1;
+new_page:
+
+@endphp
+
+@php
+$count = 0;
+$itemCount = count($dataArray);
+$numPage = ceil($itemCount / $itemPerPage);
+$skippedIndex = ($currentPage - 1) * $itemPerPage;
+$skippedItem = $skippedIndex;
+
+@endphp
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -76,7 +120,7 @@
 <body>
 
 <div>
-    <span style="display: inline-block; float: right;">หน้า 1/1</span>
+    <span style="display: inline-block; float: right;">หน้า {{ $currentPage }}/{{ $numPage}}</span>
     <div style="text-align: left;">
         <div><span>ร้าน ป้อฮ์ไอติมกะทิสด</span></div>
         <div><span>162 หมู่ 13 ตำบลหนองกะท้าว อำเภอนครไทย จังหวัดพิษณุโลก 65120</span></div>
@@ -93,10 +137,21 @@
     <div style="width: 100%; overflow-x: auto; margin-top: 12px;">
         <table style="width: 100%; white-space: nowrap;">
             <thead>
-                <tr style="font-weight: bold; text-align: center;">
-                    <th>ปี</th>
-                    <th>เดือน</th>
-                    <th>จำนวน (บาท)</th>
+
+                <tr class="font-weight: bold; text-align: center;">
+                    <th colspan="5"></th>
+                    <th colspan="2" scope="colgroup">เพิ่มขึ้น / ลดลง</th>
+                </tr>
+
+                <tr
+                    class="font-weight: bold; text-align: center;">
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">รหัสสินค้า</th>
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">ชื่อสินค้า</th>
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">ประเภทสินค้า</th>
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">{{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->thaidate('F') }}({{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->thaidate('Y') }})</th>
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem;">{{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->thaidate('F') }}({{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->thaidate('Y') }})</th>
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem; text-align: left;">จำนวนเงิน</th>
+                    <th style="padding-left: 1rem; padding-right: 1rem; padding-top: 0.75rem; padding-bottom: 0.75rem; text-align: right;">%</th>
                 </tr>
             </thead>
 
@@ -104,84 +159,86 @@
 
               @if (count($reports) == 0)
               <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
-                  <td colspan="4" class="px-4 py-3">
+                  <td colspan="7" class="px-4 py-3">
                       ไม่พบข้อมูล...
                   </td>
               </tr>
               @else
+
               @php
-                  $input['sum_sale'] = 0;
-                  $input['currentYear'] = 0;
-              @endphp
 
-              <tr class="text-gray-700 dark:text-gray-400">
+                foreach ($dataArray as $data)
+                {
+                    $startSalAmount = 0;
+                    $endSalAmount = 0;
+                    $startSalQty = 0;
+                    $endSalQty = 0;
 
-                  <td>
-                     {{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->format('Y') }}
-                  </td>
-                  <td>
-                    {{ \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->thaidate('F') }}
-                  </td>
-                  <td style="text-align: right;">
-                  
-                    @foreach ($reports as $report)
-                        @if ($report['month'] == \Carbon\Carbon::createFromFormat('Y-m', $input['startDate'])->format('m'))
+                    foreach ($reports as $report)
+                    {
+                        if ($report->id == $data["id"])
+                        {
+                            if($report->year == intval(\Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->format('Y')) && $report->month == intval(\Carbon\Carbon::createFromFormat('Y-m', $input['startDate'] )->format('m')))
+                            {
+                                $startSalAmount = $report->salAmount;
+                            }
+                            if($report->year == intval(\Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->format('Y')) && $report->month == intval(\Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->format('m')))
+                            {
+                                $endSalAmount = $report->salAmount;
+                            }
+                        }
+                    }
 
-                              {{ number_format((float)$report->sale, 2, '.', '') }}
+                    array_push($start, array("id"=>$data["id"], "salQty"=> $startSalQty, "salAmount"=> $startSalAmount));
+                    array_push($end, array("id"=>$data["id"], "salQty"=> $endSalQty, "salAmount"=> $endSalAmount));
+                }
 
-                            @php
-                              $hasStart = true;
-                              $input['sum_sale'] += $report->sale;
-                            @endphp
-                        @endif
-                    @endforeach
+                @endphp
+
+                @foreach ($dataArray as $key=>$data)
+
+                    @php
+                        if ($count >= $itemPerPage)
+                            break;
+
+                        if ($skippedItem-- > 0)
+                            continue;
+                    @endphp
                     
-                    @if (!isset($hasStart))
-                    0.00
-                    @endif
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td>
+                            {{ $data["id"] }}
+                        </td>
+                        <td>
+                            {{ $data["prod_name"] }}
+                        </td>
+                        <td>
+                            {{ $data["prod_name"] }}
+                        </td>
+                        <td style="text-align: center;">
+                            {{ number_format((float)$start[$key]["salAmount"], 2, '.', '') }}
+                        </td>
+                        <td style="text-align: center;">
+                            {{ number_format((float)$end[$key]["salAmount"], 2, '.', '') }}
+                        </td>
+                        <td>
+                           @php
+                            $dataArray[$key]["sumAmount"] = $end[$key]["salAmount"] - $start[$key]["salAmount"];
+                            echo number_format((float)$dataArray[$key]["sumAmount"], 2, '.', '');
+                           @endphp
+                        </td>
+                        <td style="text-align: right;">
+                            @php
+                            $endAmount = floatval($end[$key]["salAmount"]);
+                            $startAmount = floatval($start[$key]["salAmount"]);
+                            echo number_format((float)($endAmount - $startAmount) / ($startAmount ? $startAmount : 10) * 100.0, 2, '.', '');
 
-                  </td>
-              </tr>
-            
-              <tr class="text-gray-700 dark:text-gray-400">
-                <td>
-                   {{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->format('Y') }}
-                </td>
-                <td>
-                  {{ \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'] )->thaidate('F') }}
-                </td>
-                <td style="text-align: right;">
-                  
-                  @foreach ($reports as $report)
-                      @if ($report['month'] == \Carbon\Carbon::createFromFormat('Y-m', $input['endDate'])->format('m'))
+                            $count++;
+                           @endphp
+                        </td>
+                    </tr>
+                @endforeach
 
-                            {{ number_format((float)$report->sale, 2, '.', '') }}
-
-                          @php
-                            $hasEnd = true;
-                            $input['sum_sale'] += $report->sale;
-                          @endphp
-                      @endif
-                  @endforeach
-                  
-                  @if (!isset($hasEnd))
-                  0.00
-                  @endif
-
-                </td>
-            </tr>
-            <tr style="text-align: right;">
-                <td style="text-align: center;" colspan="2">
-                  รวมทั้งสิ้น
-                </td>
-                <td>
-                  @if(isset($input['sum_sale']))
-
-                  {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
-
-                  @endif
-                </td>
-            </tr>
               @endif
 
 
@@ -195,3 +252,10 @@
 </body>
 </html>
 
+
+@php
+    if ($currentPage++ < $numPage)
+    {
+        goto new_page;
+    }
+@endphp

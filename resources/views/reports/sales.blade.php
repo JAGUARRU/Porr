@@ -72,64 +72,77 @@
                 <thead class="text-center">
                     <tr
                         class="font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">ปี</th>
-                        <th class="px-4 py-3">เดือน</th>
-                        <th class="px-4 py-3 text-right">จำนวนเงิน (บาท)</th>
+                        <th class="px-4 py-3">รหัสสินค้า</th>
+                        <th class="px-4 py-3">ชื่อสินค้า</th>
+                        <th class="px-4 py-3">ประเภทสินค้า</th>
+                        <th class="px-4 py-3 text-right">จำนวน</th>
+                        <th class="px-4 py-3 text-right">รวมเงิน (บาท)</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 text-center">
                   
+                    
+                    @php
+                        $reports->sumQty = 0;
+                        $reports->sumAmount = 0;
+                        $reports->currentYear = 0;
+                        $reports->currentMonth = 0;
+                    @endphp
+
                     @if (count($reports) == 0)
-                    <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
-                        <td colspan="4" class="px-4 py-3">
+                    <tr class="text-gray-700 dark:text-gray-400 text-center">
+                        <td colspan="5" class="px-4 py-3">
                             ไม่พบข้อมูล...
                         </td>
                     </tr>
-                    @endif
-
-                    @php
-                        $reports->sum_sale = 0;
-                        $reports->currentYear = 0;
-                    @endphp
+                    @else
 
                     @foreach ($reports as $report)
-    
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            @php
-                                if ($reports->currentYear != $report->year)
-                                {
-                                    $reports->currentYear = $report->year;
-                                    echo $report->year;
-                                }
-                            @endphp
-                        </td>
-                        <td class="px-4 py-3">
-                            {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $report->datetime )->thaidate('F') }}
-                        </td>
-                        <td class="px-4 py-3 text-right">
-                            {{ number_format((float)$report->sale, 2, '.', '') }}
-                            @php
-                                $reports->sum_sale += $report->sale;
-                            @endphp
-                        </td>
-                    </tr>
-                  
+                        <tr class="text-gray-700 dark:text-gray-400">
+                            <td class="px-4 py-3">
+                                {{ $report->id }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ $report->prod_name }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ $report->prod_type_name }}
+                            </td>
+                            <td class="px-4 py-3 text-right">
+                                {{ $report->salQty }}
+
+                                @php
+                                    $reports->sumQty += $report->salQty;
+                                @endphp
+                            </td>
+                            <td class="px-4 py-3 text-right">
+
+                                {{ number_format((float)$report->salAmount, 2, '.', '') }}
+
+                                @php
+                                    $reports->sumAmount += $report->salAmount;
+                                @endphp
+                            </td>
+                        </tr>
                     @endforeach
 
-                    @if (count($reports) != 0)
                     <tr class="text-gray-100 dark:text-gray-700 bg-gray-600 dark:bg-gray-300">
-                        <td colspan="2" class="text-right">
+                        <td colspan="3" class="text-right">
                             รวม
                         </td>
                         <td class="px-4 py-3 text-right">
-                            {{ number_format((float)$reports->sum_sale, 2, '.', '') }}฿
+                            {{ number_format((float)$reports->sumQty, 2, '.', '') }}
+                        </td>
+                        <td class="px-4 py-3 text-right">
+                            {{ number_format((float)$reports->sumAmount, 2, '.', '') }}
                         </td>
                     </tr>
+
                     @endif
 
                 </tbody>
             </table>
+
         </div>
 
     </div>

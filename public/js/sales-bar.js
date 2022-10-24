@@ -62,6 +62,7 @@ $.ajax({
     success:function(response)
     {
 
+      console.log(response);
         let res = response.map(x => {
             return {labels: x.labels, sale: parseInt(x.sale), order: parseInt(x.order_count)};
         });

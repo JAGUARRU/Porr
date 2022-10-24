@@ -107,11 +107,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('orders', \App\Http\Controllers\OrdersController::class);
 
     Route::get('/reports/sales', [ReportController::class, 'monthly_sales'])->name('reports.sales');
-    Route::get('/reports/orders', [ReportController::class, 'monthly_orders'])->name('reports.orders');
     Route::get('/reports/compare', [ReportController::class, 'monthly_compare'])->name('reports.compare');
 
     Route::get('/reports/sales/pdf', [ReportController::class, 'sales_pdf'])->name('reports.sales_pdf');
-    Route::get('/reports/orders/pdf', [ReportController::class, 'orders_pdf'])->name('reports.orders_pdf');
     Route::get('/reports/compare/pdf', [ReportController::class, 'compare_pdf'])->name('reports.compare_pdf');
 
     Route::resource('reports', \App\Http\Controllers\ReportController::class);

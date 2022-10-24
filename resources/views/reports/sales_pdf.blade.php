@@ -1,3 +1,28 @@
+
+
+@php
+$itemPerPage = 15;
+
+$currentPage = 1;
+
+
+$reportCount = count($reports);
+$reports->sumQty = 0;
+$reports->sumAmount = 0;
+
+new_page:
+
+@endphp
+
+@php
+$count = 0;
+$itemCount = $reportCount;
+$numPage = ceil($itemCount / $itemPerPage);
+$skippedIndex = ($currentPage - 1) * $itemPerPage;
+$skippedItem = $skippedIndex;
+
+@endphp
+
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -76,7 +101,7 @@
 <body>
 
 <div>
-    <span style="display: inline-block; float: right;">หน้า 1/1</span>
+    <span style="display: inline-block; float: right;">หน้า {{ $currentPage }}/{{ $numPage }}</span>
     <div style="text-align: left;">
         <!--<span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>-->
         <div><span>ร้าน ป้อฮ์ไอติมกะทิสด</span></div>
@@ -110,66 +135,74 @@
         <table style="width: 100%; white-space: nowrap;">
             <thead>
                 <tr style="font-weight: bold; text-align: center;">
-                    
-                    <th>ปี</th>
-                    <th>เดือน</th>
-                    <th>จำนวน (บาท)</th>
+                    <th class="px-4 py-3">รหัสสินค้า</th>
+                    <th class="px-4 py-3">ชื่อสินค้า</th>
+                    <th class="px-4 py-3">ประเภทสินค้า</th>
+                    <th class="px-4 py-3 text-right">จำนวน</th>
+                    <th class="px-4 py-3 text-right">รวมเงิน (บาท)</th>
                 </tr>
             </thead>
 
             <tbody style="text-align: center;">
 
-              @if (count($reports) == 0)
+            @if (count($reports) == 0)
               <tr class="text-gray-700 dark:text-gray-400 text-center" id="no-data">
-                  <td colspan="4" class="px-4 py-3">
+                  <td colspan="5" class="px-4 py-3">
                       ไม่พบข้อมูล...
                   </td>
               </tr>
-              @endif
+            @endif
+
+            @foreach ($reports as $report)
 
               @php
-                  $input['sum_sale'] = 0;
-                  $input['currentYear'] = 0;
-              @endphp
+                if ($count >= $itemPerPage)
+                    break;
 
-              @foreach ($reports as $report)
-
+                if ($skippedItem-- > 0)
+                    continue;
+            @endphp
+            
               <tr class="text-gray-700 dark:text-gray-400">
                 <td>
-                    @php
-                          if (isset($report['year']) && $input['currentYear'] != $report['year'])
-                          {
-                              $input['currentYear'] = $report['year'];
-                              echo $report['year'];
-                          }
-                      @endphp
+                    {{ $report->id }}
                   </td>
                   <td>
-                    @if(isset($report['datetime']))
-                      {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $report['datetime'] )->thaidate('F') }}
-                    @endif
+                    {{ $report->prod_name }}
+                  </td>
+                  <td>
+                    {{ $report->prod_type_name }}
                   </td>
                   <td style="text-align: right;">
-                    @if(isset($report['sale']))
-                      {{ number_format((float)$report['sale'], 2, '.', '') }}
-                      @php
-                          $input['sum_sale'] += $report['sale'];
-                      @endphp
-                    @endif
+                    {{ number_format((float)$report->salQty, 2, '.', '') }}
+
+                    @php
+                        $reports->sumQty += $report->salQty;
+                    @endphp
+                  </td>
+                  <td style="text-align: right;">
+                    {{ number_format((float)$report->salAmount, 2, '.', '') }}
+
+                    @php
+                        $reports->sumAmount += $report->salAmount;
+
+                        $count++;
+                    @endphp
                   </td>
               </tr>
             
               @endforeach
 
-              @if (count($reports) != 0)
+              @if ($numPage == $currentPage)
               <tr >
-                  <td  style="text-align: center;" colspan="2">
+                  <td  style="text-align: center;" colspan="3">
                     รวมทั้งสิ้น
                   </td>
                   <td style="text-align: right;">
-                    @if(isset($input['sum_sale']))
-                      {{ number_format((float)$input['sum_sale'], 2, '.', '') }}
-                    @endif
+                    {{ number_format((float)$reports->sumQty, 2, '.', '') }}
+                  </td>
+                  <td style="text-align: right;">
+                    {{ number_format((float)$reports->sumAmount, 2, '.', '') }}
                   </td>
               </tr>
               @endif
@@ -183,3 +216,10 @@
 </body>
 </html>
 
+
+@php
+    if ($currentPage++ < $numPage)
+    {
+        goto new_page;
+    }
+@endphp

@@ -23,7 +23,7 @@ class CreateTruckRoutes extends Migration
 
             $table->integer('route_status')->default(0);
 
-            $table->timestamp('transportDate')->nullable()->default(null);
+            $table->timestamp('transportDate')->nullable()->default(\Carbon\Carbon::now()->add(1, 'day')->format('Y-m-d H:i:s'));
             $table->timestamp('confirmDate')->nullable()->default(null);
             
             $table->timestamps();
