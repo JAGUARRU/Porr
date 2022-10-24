@@ -46,20 +46,20 @@ class TrucksController extends Controller
         $validatedData = $request->validate([
             'id' => [
                 'required',
-                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                Rule::unique('trucks')->where(function ($query) use($request) {
                     return $query->where('id', $request->id);
-                })->ignore($truck->id)
+                })->ignore($request->id)
             ],
             'plateNumber' => [
                 'required',
-                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                Rule::unique('trucks')->where(function ($query) use($request) {
                     return $query->where('plateNumber', $request->plateNumber);
-                })->ignore($truck->plateNumber, 'plateNumber')
+                })->ignore($request->plateNumber, 'plateNumber')
             ],
             'user_id' => [
-                Rule::unique('trucks')->where(function ($query) use($request, $truck) {
+                Rule::unique('trucks')->where(function ($query) use($request) {
                     return $query->where('user_id', $request->user_id);
-                })->ignore($truck->user_id, 'user_id')
+                })->ignore($request->user_id, 'user_id')
             ]
         ], [
             'id.required'    => 'โปรดระบุรหัสรถ',
