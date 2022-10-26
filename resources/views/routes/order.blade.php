@@ -51,10 +51,14 @@
                                     {{ $order->order_status }}
                                 </td>
                                 <td class="px-4 py-3">
+                                    @if ($order->order_date)
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date )->thaidate('j F Y') }}
+                                    @endif
                                 </td>
                                 <td class="px-4 py-3">
+                                    @if ($order->order_transportDate)
                                     {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_transportDate )->thaidate('j F Y') }}
+                                    @endif
                                 </td>
                                 <td class="px-4 py-3">
                                     {{ number_format((float)$order->order_total, 2, '.', '') }}
