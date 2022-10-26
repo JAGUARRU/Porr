@@ -110,7 +110,7 @@ $skippedItem = $skippedIndex;
     </div>
     <div style="text-align: center;">
         <!--<div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>-->
-        <div><span style="font-weight: bolder; font-size: 28px;">รายงานสรุปยอดขายรายเดือน</span></div>
+        <div><span style="font-weight: bolder; font-size: 28px;">รายงานสรุปยอดขาย</span></div>
         <div>
             @if (isset($input['startDate']) && isset($input['endDate'])
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false

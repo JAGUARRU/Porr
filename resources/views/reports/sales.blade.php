@@ -1,7 +1,7 @@
-<x-app-layout title="รายงานสรุปยอดขายรายเดือน">
+<x-app-layout title="รายงานสรุปยอดขาย">
     <div class="container grid px-6 mx-auto">
         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            รายงานสรุปยอดขายรายเดือน
+            รายงานสรุปยอดขาย
         </h2>
 
         <form action="{{ route('reports.sales') }}" method="GET" class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 text-base font-semibold text-gray-600 dark:text-gray-400">
@@ -44,7 +44,7 @@
         <div class="w-full overflow-x-auto mb-12">
 
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                ตารางรายงานสรุปยอดขายรายเดือน
+                ตารางรายงานสรุปยอดขาย
             </h2>
 
             <div class="w-full mb-12">
