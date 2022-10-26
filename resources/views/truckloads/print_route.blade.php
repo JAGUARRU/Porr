@@ -142,7 +142,7 @@
     <div style="width: 100%;">
         <span style="display: inline-block;">พิมพ์วันที่: {{\Carbon\Carbon::now()->thaidate('j F Y')}} เวลา {{\Carbon\Carbon::now()->thaidate('H:i')}}</span>
 
-        <span style="display: inline-block; float: right;">หน้า {{$currentPage}}/{{$numPage}}</span>
+        <span style="display: inline-block; float: right;">หน้า {{$currentPage}}/{{ $numPage ? $numPage : 1 }}</span>
     </div>
 
     <div class="flex-container" style="margin: auto; display:table; margin-bottom: 12px; border-spacing: 10px;">

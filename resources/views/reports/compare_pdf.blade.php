@@ -120,7 +120,7 @@ $skippedItem = $skippedIndex;
 <body>
 
 <div>
-    <span style="display: inline-block; float: right;">หน้า {{ $currentPage }}/{{ $numPage}}</span>
+    <span style="display: inline-block; float: right;">หน้า {{ $currentPage }}/{{ $numPage ? $numPage : 1 }}</span>
     <div style="text-align: left;">
         <div><span>ร้าน ป้อฮ์ไอติมกะทิสด</span></div>
         <div><span>162 หมู่ 13 ตำบลหนองกะท้าว อำเภอนครไทย จังหวัดพิษณุโลก 65120</span></div>
@@ -128,6 +128,15 @@ $skippedItem = $skippedIndex;
     </div>
     <div style="text-align: center;">
         <div><span style="font-weight: bolder; font-size: 28px;">รายงานสรุปเปรียบเทียบยอดการขาย</span></div>
+        <div>
+            <span style="font-weight: bold; font-size: 24px;">
+                @if (isset($input['startDate']) && isset($input['endDate'])
+                && \Carbon\Carbon::createFromFormat('Y-m', $input['startDate']) !== false
+                && \Carbon\Carbon::createFromFormat('Y-m', $input['endDate']) !== false)
+                  ระหว่างเดือน {{\Carbon\Carbon::now()->startOfYear()->thaidate('F Y')}} และเดือน {{\Carbon\Carbon::now()->thaidate('F Y')}}
+                @endif
+            </span>
+        </div>
     </div>
     <div style="width: 100%; text-align: right;">
         <div><span>ผู้พิมพ์:  {{ \Illuminate\Support\Facades\Auth::user()->name }} </span></div>

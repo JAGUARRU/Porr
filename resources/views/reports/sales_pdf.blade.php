@@ -101,7 +101,7 @@ $skippedItem = $skippedIndex;
 <body>
 
 <div>
-    <span style="display: inline-block; float: right;">หน้า {{ $currentPage }}/{{ $numPage }}</span>
+    <span style="display: inline-block; float: right;">หน้า {{ $currentPage }}/{{ $numPage ? $numPage : 1 }}</span>
     <div style="text-align: left;">
         <!--<span>ผู้พิมพ์: {{ \Illuminate\Support\Facades\Auth::user()->name }}</span>-->
         <div><span>ร้าน ป้อฮ์ไอติมกะทิสด</span></div>
@@ -112,16 +112,19 @@ $skippedItem = $skippedIndex;
         <!--<div style="font-weight: bolder; font-size: 28px;">ป้อฮ์ไอติมกะทิสด</div>-->
         <div><span style="font-weight: bolder; font-size: 28px;">รายงานสรุปยอดขาย</span></div>
         <div>
+            <span style="font-weight: bold; font-size: 24px;">
             @if (isset($input['startDate']) && isset($input['endDate'])
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate']) !== false
             && \Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate']) !== false)
-               
+              @if(\Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate'])->diffInDays(Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate'])) > 0)
+                {{\Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate'])->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::createFromFormat('Y-m-d', $input['endDate'])->thaidate('j F Y')}}
+              @else
+                {{\Carbon\Carbon::createFromFormat('Y-m-d', $input['startDate'])->thaidate('j F Y')}}
+              @endif
             @else
-            <!--<span style="font-weight: bold; font-size: 24px;">
-                //รายงานปี {{\Carbon\Carbon::parse($input['year'])->thaidate('Y')}}
-                {{\Carbon\Carbon::now()->startOfYear()->thaidate('j F Y')}} ถึง {{\Carbon\Carbon::now()->thaidate('j F Y')}}
-            </span>-->
+            รายงานปี {{\Carbon\Carbon::parse($input['year'])->thaidate('Y')}} 
             @endif
+        </span>
         </div>
     </div>
     <div style="width: 100%; text-align: right;">
