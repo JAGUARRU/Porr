@@ -24,8 +24,8 @@
                                 <th class="px-4 py-3">รหัสออเดอร์</th>
                                 <th class="px-4 py-3">ร้านค้า</th>
                                 <th class="px-4 py-3">สถานะ</th>
-                                <th class="px-4 py-3">สร้างเมื่อ</th>
                                 <th class="px-4 py-3">วันที่สั่งซื้อ</th>
+                                <th class="px-4 py-3">กำหนดส่ง</th>
                                 <th class="px-4 py-3">ยอดชำระ (บาท)</th>
                                 <th class="px-4 py-3"></th>
                             </tr>
@@ -51,10 +51,10 @@
                                     {{ $order->order_status }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    {{ $order->created_at }}
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date )->thaidate('j F Y') }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_date )->thaidate('j F Y') }}
+                                    {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $order->order_transportDate )->thaidate('j F Y') }}
                                 </td>
                                 <td class="px-4 py-3">
                                     {{ number_format((float)$order->order_total, 2, '.', '') }}
