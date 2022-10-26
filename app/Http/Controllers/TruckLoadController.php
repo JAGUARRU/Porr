@@ -140,6 +140,14 @@ class TruckLoadController extends Controller
             {
                 $order->order_transportDate = $truckRoutes->transportDate;
             }
+            else
+            {
+                if ($order->order_transportDate)
+                {
+                    $truckRoutes->transportDate = $order->order_transportDate;
+                    $truckRoutes->update();
+                }
+            }
 
             $order->order_status = "กำลังดำเนินการ";
             $order->update();
